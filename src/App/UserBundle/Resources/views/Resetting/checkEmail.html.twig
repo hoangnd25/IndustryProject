@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-info">{{ 'resetting.check_email'|trans({'%email%': email}) }}</div>
+        </div>
+    </div>
+{% endblock content %}

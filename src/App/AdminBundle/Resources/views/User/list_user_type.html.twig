@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.type == "ROLE_ADMIN" %}
+        <span class="label label-warning">Admin</span>
+    {% endif %}
+    {% if object.type == "ROLE_STUDENT" %}
+        <span class="label label-info">Student</span>
+    {% endif %}
+    {% if object.type == "ROLE_GS1_MEMBER" %}
+        <span class="label label-success">GS1 Member</span>
+    {% endif %}
+{% endblock %}

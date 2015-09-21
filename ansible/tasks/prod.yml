@@ -1,0 +1,21 @@
+---
+- name: create dir for prod website
+  sudo: yes
+  file: path=/var/www state=directory owner={{project_user}}
+
+- name: install git
+  sudo: yes
+  apt: name=git
+
+- name: create project user
+  user: name={{project_user}}
+  sudo: yes
+
+- name: clone the project
+  sudo: yes
+  sudo_user: "{{project_user}}"
+  git: >-
+    repo=https://github.com/hoangnd25/IndustryProject.git
+    dest={{site_dir}}
+    accept_hostkey=yes
+    force=yes

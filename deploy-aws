@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+ansible-playbook -K -i ansible/hosts/aws ansible/main.yml

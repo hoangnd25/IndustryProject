@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="well">
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Full name
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.firstName | capitalize }} {{ user.studentProfile.lastName |capitalize }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Professional headline
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.headline |capitalize }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Contact email
+            </label>
+            <div class="col-sm-9">
+                {% set contactEmail = user.studentProfile.contactEmail %}
+                <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Contact number
+            </label>
+            <div class="col-sm-9">
+                {% if user.studentProfile.contactNumber is not null %}
+                    {% set phone = phone_number_format(user.studentProfile.contactNumber, 'NATIONAL') %}
+                    {% set phoneRaw = phone_number_format(user.studentProfile.contactNumber, 'E164') %}
+                    <a href="tel:{{ phoneRaw }}">{{ phone }}</a>
+                {% endif %}
+            </div>
+        </div>
+        {% if user.studentProfile.resume != null and user.studentProfile.resume.fileName != "" %}
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Resume
+            </label>
+            <div class="col-sm-9">
+                <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

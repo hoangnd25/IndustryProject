@@ -1,0 +1,186 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'VichUploaderBundle:Form:fields.html.twig'
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ MopaBootstrapBundle ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        less:
+            node: /usr/bin/node
+            node_paths: [/usr/lib/node_modules]
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        types:
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
+
+sonata_admin:
+    title:      GS1 CV
+    title_logo:  assets/images/logo.png
+    templates:
+        layout:              AppAdminBundle::standard_layout.html.twig
+        search:              SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+        user_block:          AppAdminBundle:Core:user_block.html.twig
+    dashboard:
+        groups:
+            Administration:
+                label:                ~
+                label_catalogue:      ~
+                icon:                 '<i class="fa fa-cogs"></i>'
+                items:
+                  - sonata.admin.user
+                  - sonata.admin.student_access_code
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\UserBundle\Entity\User
+    registration:
+        confirmation:
+            enabled:    true
+            template: 'AppUserBundle:EmailTemplate:registration.email.twig'
+        form:
+            type: app_user_registration
+    resetting:
+        email:
+            template: 'AppUserBundle:EmailTemplate:resetting.email.twig'
+    from_email:
+        sender_name:    GS1
+    service:
+        mailer: fos_user.mailer.twig_swift
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        student_resume:
+            namer:              vich_uploader.namer_uniqid
+            uri_prefix:         /uploads/resumes
+            upload_destination: %kernel.root_dir%/../web/uploads/resumes
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
+mopa_bootstrap:
+    menu: ~
+    initializr: ~
+    form: ~
+    icons:
+        icon_set: glyphicons
+        shortcut: icon
+
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: MopaBootstrapBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
+
+fos_elastica:
+    clients:
+        default:
+            host: trial-6534808945.ap-southeast-2.bonsai.io
+            port: 80
+            headers:
+                Authorization: "Basic MncxdXhqZGhlNTphMDJjZmJ2bnY1"
+    indexes:
+        app:
+            types:
+                student_profile:
+                    mappings:
+                        firstName: ~
+                        lastName: ~
+                        headline: ~
+                        resume:
+                            type: "nested"
+                            properties:
+                                encodedFile:
+                                    type: attachment
+                    persistence:
+                        driver: orm
+                        model: App\ResumeBundle\Entity\StudentProfile
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                    _source:
+                        excludes:
+                            [ resume ]

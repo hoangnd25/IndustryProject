@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app_user.handler.authentication" class="App\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="router" />
+            <tag name="monolog.logger" channel="security" />
+        </service>
+
+        <service id="fos_user.listener.resetting" class="App\UserBundle\EventListener\ResettingListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="app_user.form.registration" class="App\UserBundle\Form\Type\RegistrationType">
+            <tag name="form.type" alias="app_user_registration" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+</container>

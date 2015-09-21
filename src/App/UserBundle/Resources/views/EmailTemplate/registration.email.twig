@@ -1,0 +1,17 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+    {% autoescape false %}
+        {{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% endblock %}
+{% block body_html %}
+    <p>Hello <strong>{{ user.username }}</strong>!</p>
+
+    <p>To finish activating your account - please visit
+        <a href="{{ confirmationUrl }}"><strong>this link</strong></a>
+    </p>
+    <p>Alternatively, you can copy the url bellow to your browser </p>
+    <p>{{ confirmationUrl }}</p>
+{% endblock %}

@@ -1,0 +1,23 @@
+parameters:
+#    app.admin.example.class: App\AdminBundle\Example
+
+services:
+    sonata.admin.user:
+        class: App\AdminBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Users" }
+        arguments:
+            - ~
+            - App\UserBundle\Entity\User
+            - ~
+        calls:
+            - [setUserManager, ["@fos_user.user_manager"]]
+
+    sonata.admin.student_access_code:
+            class: App\AdminBundle\Admin\StudentAccessCodeAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: "Student Access Code" }
+            arguments:
+                - ~
+                - App\ResumeBundle\Entity\StudentAccessCode
+                - ~

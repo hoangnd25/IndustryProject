@@ -1,0 +1,2 @@
+---
+php5_fpm_log_dir: /var/log/php-fpm

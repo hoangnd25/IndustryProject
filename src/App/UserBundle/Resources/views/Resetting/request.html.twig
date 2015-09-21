@@ -1,0 +1,36 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block body_tag %}
+<body class="request-password-page">
+{% endblock body_tag %}
+
+{% block content %}
+    <div class="request-password-box">
+        <span class="request-password-box-msg">Request new password</span>
+        <div class="request-password-box-body">
+            <form action="{{ path("fos_user_resetting_send_email") }}" method="POST" role="form">
+                <div class="form-group has-feedback">
+                    <input class="form-control" placeholder="Username or email address" type="text" id="username" name="username" required="required" />
+                    {% if invalid_username is defined %}
+                        <div class="">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
+                    {% endif %}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

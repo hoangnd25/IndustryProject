@@ -1,0 +1,114 @@
+- hosts: all
+  tasks:
+    - include: tasks/initialize.yml
+    - group_by: key="env_{{ env }}"
+
+- hosts: env_prod
+  tasks:
+    - include: tasks/prod.yml
+
+- hosts: env_dev
+  tasks:
+    - include: tasks/mysql.yml
+    - include: tasks/zsh.yml
+
+# Initialize tasks
+- hosts: all
+  tasks:
+    - include: tasks/dir.yml
+    - include: tasks/nginx.yml
+#    - include: tasks/elasticsearch.yml
+
+
+# Main tasks
+- hosts: all
+  roles:
+    - fpm
+    - nodejs
+
+  tasks:
+    - name: install npm packages
+      sudo: yes
+      npm: name={{item}} global=yes
+      with_items:
+        - less
+      
+# Symfony Post Deployment
+- hosts: all
+  tasks:
+    - name: Copy parameters.yml
+      sudo: yes
+      sudo_user: "{{project_user}}"
+      template: >-
+        src=templates/parameters.yml
+        dest={{site_dir}}/app/config/parameters.yml
+
+    - name: Check if composer exists.
+      stat: path={{site_dir}}/composer.phar
+      register: composer_file
+
+    - name: Install composer.
+      sudo: yes
+      sudo_user: "{{project_user}}"
+      get_url: url=https://getcomposer.org/composer.phar dest={{site_dir}} mode=0755 validate_certs=no
+      when: composer_file.stat.exists == false
+
+    - name: Update composer if already exists.
+      sudo: yes
+      sudo_user: "{{project_user}}"
+      shell: "{{site_dir}}/composer.phar selfupdate"
+      when: composer_file.stat.exists == true
+
+    - name: remove cache folders
+      shell: 'rm -rf {{site_dir}}/app/cache/*'
+      sudo: yes
+      
+    - name: remove logs
+      shell: 'rm -rf {{site_dir}}/app/logs/*'
+      sudo: yes
+
+    - name: remove uploads
+      shell: 'rm -rf {{site_dir}}/web/uploads/*'
+      sudo: yes
+
+    - name: Run composer install.
+      sudo: yes
+      sudo_user: "{{project_user}}"
+      shell: 'cd {{site_dir}} && php {{site_dir}}/composer.phar install --no-interaction'
+
+    - name: sf generate assets
+      shell: 'php {{site_dir}}/app/console assetic:dump'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: sf install icon
+      shell: 'php app/console mopa:bootstrap:install:font'
+      args:
+        chdir: "{{site_dir}}"
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: sf update schema
+      shell: 'php {{site_dir}}/app/console doctrine:schema:update --force'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: generate dummy data
+      shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --no-interaction'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: repopulate search index
+      shell: 'php {{site_dir}}/app/console fos:elastica:populate'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: sf warm up cache
+      sudo: yes
+      sudo_user: "{{project_user}}"
+      shell: 'php {{site_dir}}/app/console cache:clear --env=prod --no-debug'
+
+    - name: fix permission
+      sudo: yes
+      file: path={{site_dir}}/app/cache state=directory owner=www-data group={{project_user}} mode=0775 recurse=yes
+      when: not vagrant_env

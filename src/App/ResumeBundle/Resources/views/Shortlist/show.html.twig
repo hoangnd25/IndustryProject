@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="">
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+                <ul class="nav nav-pills nav-stacked well">
+                    <li role="presentation"><a href="{{ path('student_profile_list') }}">Student Search</a></li>
+                    <li role="presentation" class="active"><a href="#">Shortlist</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-8 col-md-9">
+                <a class="pull-right btn btn-info" href="{{ path("shortlist_export") }}">{{ mopa_bootstrap_icon("download") }} Export</a>
+                <a class="pull-right btn btn-warning" href="{{ path("shortlist_clear") }}">{{ mopa_bootstrap_icon("trash") }} Clear</a>
+                <div class="clearfix"></div></br>
+
+                {% for profile in shortlist %}
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="media">
+                                <a class="media-left" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                    <img class="media-object" src="http://placehold.it/50x50" alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                </a>
+                                <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                    <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
+                                    <p class="list-group-item-text">{{ profile.headline }}</p>
+                                </a>
+                                {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                                <div class="media-right">
+                                    <a class="btn btn-warning"
+                                        href="{{ path('shortlist_remove', {'studentId': profile.user.id }) }}">
+                                        {{ mopa_bootstrap_icon('trash') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {#<div class="navigation">#}
+                    {#{{ knp_pagination_render(profiles) }}#}
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+---
+#=============================#
+# Oracle Java via WebUpd8
+#
+
+- name: Import WebUpd8 PGP key
+  apt_key: keyserver=keyserver.ubuntu.com id=0xEEA14886 state=present
+  sudo: yes
+
+- name: add the WebUpd8 Oracle Java PPA repository
+  apt_repository: repo=ppa:webupd8team/java state=present
+  sudo: yes
+
+- name: automatically accept the Oracle license
+  debconf: name="oracle-java{{ java_version }}-installer" question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+  sudo: yes
+
+- name: install JDK
+  apt: pkg="oracle-java{{ java_version }}-installer" state=present force=yes
+  sudo: yes
+
+- name: set this as default Java; also environment variables
+  apt: pkg="oracle-java{{ java_version }}-set-default" state=present force=yes
+  sudo: yes
+
+#=============================#
+# Install elastic search
+#
+
+- name: Import ElasticSearch apt key
+  apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+  sudo: yes
+
+- name: Add ElasticSearch source
+  apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main' state=present
+  sudo: yes
+
+- name: Install ElasticSearch
+  sudo: yes
+  apt: name=elasticsearch
+  sudo: yes
+
+- name: Remove ElasticSearch attachment plugin
+  shell: '/usr/share/elasticsearch/bin/plugin remove org.elasticsearch/elasticsearch-mapper-attachments/2.5.0'
+  sudo: yes
+
+- name: Install ElasticSearch attachment plugin
+  shell: '/usr/share/elasticsearch/bin/plugin install org.elasticsearch/elasticsearch-mapper-attachments/2.5.0'
+  sudo: yes
+
+- name: Restart ElasticSearch
+  sudo: yes
+  service: name=elasticsearch state=restarted sleep=5 enabled=true

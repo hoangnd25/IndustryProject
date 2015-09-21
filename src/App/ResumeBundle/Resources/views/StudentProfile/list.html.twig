@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="">
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+                <ul class="nav nav-pills nav-stacked well">
+                    <li role="presentation" class="active"><a href="#">Student Search</a></li>
+                    <li role="presentation"><a href="{{ path('shortlist') }}">Shortlist</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-8 col-md-9">
+                <div class="well">
+                    <form action="{{ path(app.request.get('_route')) }}" method="get">
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control" value="{{ filter.keyword }}" placeholder="Student name">
+                            <span class="input-group-btn">
+                                <input class="btn btn-default" value="Search" type="submit" />
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                {% for profile in profiles %}
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="media">
+                                <a class="media-left" href="{{ path('student_profile_show', {'id': profile.id}) }}">
+                                    <img class="media-object" src="http://placehold.it/50x50" alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                </a>
+                                <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.id}) }}">
+                                    <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
+                                    <p class="list-group-item-text">{{ profile.headline }}</p>
+                                </a>
+                                {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                                <div class="media-right">
+                                    <a class="btn btn-info"
+                                        href="{{ path('shortlist_add', {'studentId': profile.id, 'redirect': redirectUrl}) }}">
+                                        {{ mopa_bootstrap_icon('plus') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="navigation">
+                    {{ knp_pagination_render(profiles) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

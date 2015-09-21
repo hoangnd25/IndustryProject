@@ -1,0 +1,35 @@
+---
+- name: install php5-fpm packages
+  sudo: yes
+  apt: name={{item}}
+  with_items:
+    - php5
+    - php5-fpm
+
+- name: create php fpm log dir
+  sudo: yes
+  file: >-
+    path={{php5_fpm_log_dir}}
+    state=directory
+    mode=755
+  notify:
+    - restart php5-fpm
+
+- name: add php.ini config
+  sudo: yes
+  template: >-
+    src=php.ini
+    dest=/etc/php5/fpm/php.ini
+    mode=644
+  notify:
+    - restart php5-fpm
+
+- name: add fpm pool config
+  sudo: yes
+  template: >-
+    src=www.conf
+    dest=/etc/php5/fpm/pool.d/www.conf
+    mode=644
+  notify:
+    - restart php5-fpm
+
