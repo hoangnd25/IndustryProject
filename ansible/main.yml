@@ -11,13 +11,13 @@
   tasks:
     - include: tasks/mysql.yml
     - include: tasks/zsh.yml
+    - include: tasks/elasticsearch.yml
 
 # Initialize tasks
 - hosts: all
   tasks:
     - include: tasks/dir.yml
     - include: tasks/nginx.yml
-#    - include: tasks/elasticsearch.yml
 
 
 # Main tasks

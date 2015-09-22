@@ -4,7 +4,7 @@
 project_name: iproject
 project_user: "{{project_name}}"
 log_dir: "{{site_dir}}/app/logs"
-env: prod
+env: dev
 vagrant_env: false
 
 java_version: 8
