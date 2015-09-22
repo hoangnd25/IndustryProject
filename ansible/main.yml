@@ -93,20 +93,20 @@
       sudo: yes
       sudo_user: "{{project_user}}"
 
-    - name: generate dummy data
-      shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --no-interaction'
-      sudo: yes
-      sudo_user: "{{project_user}}"
-
-    - name: repopulate search index
-      shell: 'php {{site_dir}}/app/console fos:elastica:populate'
-      sudo: yes
-      sudo_user: "{{project_user}}"
-
     - name: sf warm up cache
       sudo: yes
       sudo_user: "{{project_user}}"
       shell: 'php {{site_dir}}/app/console cache:clear --env=prod --no-debug'
+
+    - name: generate dummy data
+      shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --env=prod  --no-interaction'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
+    - name: repopulate search index
+      shell: 'php {{site_dir}}/app/console fos:elastica:populate --env=prod'
+      sudo: yes
+      sudo_user: "{{project_user}}"
 
     - name: fix permission
       sudo: yes
