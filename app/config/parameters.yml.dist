@@ -16,3 +16,10 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     locale:            en
+
+    file_upload.resume_prefix: resume
+
+    amazon_s3.key: 'key'
+    amazon_s3.secret: 'secret'
+    amazon_s3.region: 'ap-southeast-2'
+    amazon_s3.bucket: 'gs1'

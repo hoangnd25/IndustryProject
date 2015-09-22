@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
 
             new App\WebBundle\AppWebBundle(),
             new App\UserBundle\AppUserBundle(),

@@ -5,3 +5,9 @@ parameters:
     database_password: {{mysql_password}}
     database_port: {{mysql_port}}
     secret: {{ secret_token }}
+{% if amazon_s3 is defined %}
+    amazon_s3.key: '{{amazon_s3.key}}'
+    amazon_s3.secret: '{{amazon_s3.secret}}'
+    amazon_s3.region: '{{amazon_s3.region}}'
+    amazon_s3.bucket: '{{amazon_s3.bucket}}'
+{% endif %}

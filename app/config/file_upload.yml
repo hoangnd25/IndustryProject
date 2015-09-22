@@ -1,0 +1,23 @@
+vich_uploader:
+    db_driver: orm
+    storage:   flysystem
+    mappings:
+        student_resume:
+            namer:              vich_uploader.namer_uniqid
+            uri_prefix:         https://s3-%amazon_s3.region%.amazonaws.com/%amazon_s3.bucket%/%file_upload.resume_prefix%
+            upload_destination: resume_fs
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
+oneup_flysystem:
+    adapters:
+        s3.resume:
+            awss3v3:
+                client: amazon_s3.client
+                bucket: %amazon_s3.bucket%
+                prefix: %file_upload.resume_prefix%
+    filesystems:
+        resume_fs:
+            adapter:    s3.resume
+            mount:      resume_fs

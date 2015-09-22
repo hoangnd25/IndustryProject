@@ -33,7 +33,9 @@
         "friendsofsymfony/elastica-bundle": "3.1.*",
         "stof/doctrine-extensions-bundle": "1.2.*",
         "liuggio/ExcelBundle": "^2.0",
-        "justinrainbow/json-schema": "^1.5"
+        "justinrainbow/json-schema": "^1.5",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "oneup/flysystem-bundle": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

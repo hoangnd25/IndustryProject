@@ -52,3 +52,17 @@ fos_elastica:
         default:
             host: localhost
             port: 9200
+
+vich_uploader:
+    mappings:
+        student_resume:
+            uri_prefix: /uploads/%file_upload.resume_prefix%
+
+oneup_flysystem:
+    adapters:
+        local.resume:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/%file_upload.resume_prefix%
+    filesystems:
+        resume_fs:
+            adapter:    local.resume

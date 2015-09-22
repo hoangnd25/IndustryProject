@@ -1,6 +1,5 @@
 site_dir: /var/www/IndustryProject
 server_name: gs1.hoangnd.me
-env: prod
 
 mysql_host: gs1cv.cuz8km0kfsjy.ap-southeast-2.rds.amazonaws.com
 mysql_user: gs1

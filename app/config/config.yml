@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: file_upload.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -124,17 +125,6 @@ fos_user:
         sender_name:    GS1
     service:
         mailer: fos_user.mailer.twig_swift
-
-vich_uploader:
-    db_driver: orm
-    mappings:
-        student_resume:
-            namer:              vich_uploader.namer_uniqid
-            uri_prefix:         /uploads/resumes
-            upload_destination: %kernel.root_dir%/../web/uploads/resumes
-            inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   true
 
 mopa_bootstrap:
     menu: ~

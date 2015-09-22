@@ -4,7 +4,6 @@
 project_name: iproject
 project_user: "{{project_name}}"
 log_dir: "{{site_dir}}/app/logs"
-env: dev
 vagrant_env: false
 
 java_version: 8
@@ -21,6 +20,8 @@ out_dirs:                       # var
   - "{{site_dir}}/app/cache/prod"
   - "{{site_dir}}/web/uploads"
 
+secret_token: ThisTokenIsNotSoSecretChangeIt
+
 mysql_host: 127.0.0.1
 mysql_user: ip_team6
 mysql_password: 123456
@@ -28,4 +29,8 @@ mysql_db: industry_project
 mysql_port: 3306
 mysql_root_db_pass: 654321
 
-secret_token: ThisTokenIsNotSoSecretChangeIt
+amazon_s3:
+    key: "AKIAJBC44HPN4VO26E2A"
+    secret: "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"
+    region: "ap-southeast-2"
+    bucket: "gs1cv"
