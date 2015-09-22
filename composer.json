@@ -26,13 +26,14 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "misd/phone-number-bundle": "~1.0",
         "vich/uploader-bundle": "0.14.*",
-        "mopa/bootstrap-bundle": "v3.0.0-rc1",
-        "twbs/bootstrap": "~3.3.0",
+        "mopa/bootstrap-bundle": "v3.0.0-rc2",
+        "twbs/bootstrap": "3.3.*",
         "fzaninotto/faker": "1.5.*",
-        "knplabs/knp-paginator-bundle": "^2.4",
-        "friendsofsymfony/elastica-bundle": "^3.1",
-        "stof/doctrine-extensions-bundle": "^1.2",
-        "liuggio/ExcelBundle": "^2.0"
+        "knplabs/knp-paginator-bundle": "2.5.*",
+        "friendsofsymfony/elastica-bundle": "3.1.*",
+        "stof/doctrine-extensions-bundle": "1.2.*",
+        "liuggio/ExcelBundle": "^2.0",
+        "justinrainbow/json-schema": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
