@@ -10,4 +10,4 @@ cd ..
 rm -rf markupsafe
 /usr/bin/easy_install pip
 pip install ansible
-echo '[ssh_connection]\ncontrol_path=/tmp' > ~/.ansible.cfg
+printf '[ssh_connection]\ncontrol_path=/tmp' > ~/.ansible.cfg

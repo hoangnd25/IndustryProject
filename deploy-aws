@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+if [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ];then
+    chgrp Users *.pem
+fi
+
 chmod 600 *.pem
 chmod -x ansible/hosts/*
 
