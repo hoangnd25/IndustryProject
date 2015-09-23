@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+pact install libxml2-devel libxslt-devel libyaml-devel
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+git clone https://github.com/mitsuhiko/markupsafe
+cd markupsafe
+git checkout cbac3a7
+python setup.py --without-speedups install
+cd ..
+rm -rf markupsafe
+/usr/bin/easy_install pip
+pip install ansible
+echo '[ssh_connection]\ncontrol_path=/tmp' > ~/.ansible.cfg
