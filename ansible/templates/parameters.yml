@@ -5,6 +5,9 @@ parameters:
     database_password: {{mysql_password}}
     database_port: {{mysql_port}}
     secret: {{ secret_token }}
+    elastic.host: {{elastic.host}}
+    elastic.port: {{elastic.port}}
+    elastic.authorization_header: {{elastic.authorization_header}}
 {% if amazon_s3 is defined %}
     amazon_s3.key: '{{amazon_s3.key}}'
     amazon_s3.secret: '{{amazon_s3.secret}}'

@@ -6,3 +6,8 @@ mysql_user: gs1
 mysql_password: 12345678
 mysql_db: gs1
 mysql_port: 3306
+
+elastic:
+    host: trial-6534808945.ap-southeast-2.bonsai.io
+    port: 80
+    authorization_header: 'Basic MncxdXhqZGhlNTphMDJjZmJ2bnY1'

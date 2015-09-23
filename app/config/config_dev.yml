@@ -47,12 +47,6 @@ assetic:
 #swiftmailer:
 #    delivery_address: me@example.com
 
-fos_elastica:
-    clients:
-        default:
-            host: localhost
-            port: 9200
-
 vich_uploader:
     mappings:
         student_resume:

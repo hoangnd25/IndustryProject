@@ -148,10 +148,10 @@ knp_paginator:
 fos_elastica:
     clients:
         default:
-            host: trial-6534808945.ap-southeast-2.bonsai.io
-            port: 80
+            host: %elastic.host%
+            port: %elastic.port%
             headers:
-                Authorization: "Basic MncxdXhqZGhlNTphMDJjZmJ2bnY1"
+                Authorization: %elastic.authorization_header%
     indexes:
         app:
             types:
