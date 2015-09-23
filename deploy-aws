@@ -1,10 +1,20 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-if [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ];then
-    chgrp Users *.pem
+SCRIPT_PATH=$(dirname `which $0`)
+PEM_FILE="aws.pem"
+PEM_PATH="$SCRIPT_PATH/$PEM_FILE"
+
+if [ "$(uname)" == "Darwin" ]; then
+    echo ""
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo ""
+elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
+    cp *.pem ~/
+    chgrp Users ~/*.pem
+    PEM_PATH=~"~/$(PEM_FILE)"
 fi
 
-chmod 600 *.pem
-chmod -x ansible/hosts/*
+chmod 600 $PEM_PATH
+chmod -x $SCRIPT_PATH/ansible/hosts/*
 
-ansible-playbook -K -i ansible/hosts/aws ansible/main.yml  --extra-vars "env=prod"
+ansible-playbook -K -i $SCRIPT_PATH/ansible/hosts/aws $SCRIPT_PATH/ansible/main.yml --private-key $PEM_PATH --extra-vars "env=prod"
