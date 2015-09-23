@@ -7,4 +7,4 @@ fi
 chmod 600 *.pem
 chmod -x ansible/hosts/*
 
-ansible-playbook -K -i ansible/hosts/aws ansible/main.yml
+ansible-playbook -K -i ansible/hosts/aws ansible/main.yml  --extra-vars "env=prod"
