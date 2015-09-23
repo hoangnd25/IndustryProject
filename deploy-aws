@@ -9,9 +9,9 @@ if [ "$(uname)" == "Darwin" ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo ""
 elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
-    cp *.pem ~/
-    chgrp Users ~/*.pem
-    PEM_PATH=~"~/$(PEM_FILE)"
+    cp $SCRIPT_PATH/*.pem $HOME/
+    chgrp Users $HOME/*.pem
+    PEM_PATH="$HOME/$PEM_FILE"
 fi
 
 chmod 600 $PEM_PATH
