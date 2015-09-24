@@ -52,8 +52,6 @@ Vagrant.configure(2) do |config|
       project_user: project_user,
       server_name: 'localhost',
       site_dir: site_dir,
-      log_dir: log_dir,
-      nginx_log_dir: log_dir,
       env: "dev",
       vagrant_env: true
     }
