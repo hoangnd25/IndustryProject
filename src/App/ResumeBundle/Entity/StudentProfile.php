@@ -2,9 +2,11 @@
 
 namespace App\ResumeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -21,12 +23,16 @@ class StudentProfile
     protected $id;
 
     /**
-     * @ORM\Column(length=120, nullable=true)
+     * @ORM\Column(length=100, nullable=true)
+     * @Assert\Length(max="100")
+     * @Assert\NotBlank()
      */
     protected $firstName;
 
     /**
-     * @ORM\Column(length=120, nullable=true)
+     * @ORM\Column(length=100, nullable=true)
+     * @Assert\Length(max="100")
+     * @Assert\NotBlank()
      */
     protected $lastName;
 
@@ -37,9 +43,17 @@ class StudentProfile
     protected $user;
 
     /**
-     * @ORM\Column(length=255, nullable=true)
+     * @ORM\Column(length=120, nullable=true)
+     * @Assert\Length(max="120")
+     * @Assert\NotBlank()
      */
     protected $headline;
+
+    /**
+     * @ORM\Column(length=250, nullable=true)
+     * @Assert\Length(max="250")
+     */
+    protected $about;
 
     /**
      * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentResume", mappedBy="studentProfile", cascade={"persist"})
@@ -48,14 +62,49 @@ class StudentProfile
 
     /**
      * @ORM\Column(type="phone_number", nullable=true)
-     * @AssertPhoneNumber(defaultRegion="AU")
+     * @AssertPhoneNumber()
+     * @Assert\NotBlank()
      */
     protected $contactNumber;
 
     /**
      * @ORM\Column(length=120, nullable=true)
+     * @Assert\Length(max="120")
+     * @Assert\Email()
+     * @Assert\NotBlank()
      */
     protected $contactEmail;
+
+    /**
+     * @ORM\Column(length=4, nullable=true)
+     * @Assert\Country()
+     * @Assert\NotBlank()
+     */
+    protected $country;
+
+    /**
+     * @ORM\Column(length=20, nullable=true)
+     * @Assert\Length(max="20")
+     * @Assert\NotBlank()
+     */
+    protected $state;
+
+    /**
+     * @ORM\Column(length=40, nullable=true)
+     * @Assert\Length(max="40")
+     * @Assert\NotBlank()
+     */
+    protected $city;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $workingRight;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentSocialNetwork", mappedBy="student", cascade={"persist"}, fetch="EXTRA_LAZY")
+     **/
+    protected $socialNetworks;
 
     /**
      * @var \DateTime $updated
@@ -68,6 +117,8 @@ class StudentProfile
     public function __construct()
     {
         $this->updated = new \DateTime();
+        $this->socialNetworks = new ArrayCollection();
+        $this->workingRight = false;
     }
 
     /**
@@ -92,6 +143,22 @@ class StudentProfile
     public function setHeadline($headline)
     {
         $this->headline = $headline;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * @param mixed $about
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
     }
 
     /**
@@ -199,6 +266,105 @@ class StudentProfile
     public function setContactEmail($contactEmail)
     {
         $this->contactEmail = $contactEmail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkingRight()
+    {
+        return $this->workingRight;
+    }
+
+    /**
+     * @param mixed $workingRight
+     */
+    public function setWorkingRight($workingRight)
+    {
+        $this->workingRight = $workingRight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSocialNetworks()
+    {
+        return $this->socialNetworks;
+    }
+
+    /**
+     * @param mixed $socialNetworks
+     */
+    public function setSocialNetworks($socialNetworks)
+    {
+        $this->socialNetworks = $socialNetworks;
+    }
+
+    /**
+     * @param mixed $socialNetworks
+     */
+    public function addSocialNetworks($socialNetworks)
+    {
+        if($socialNetworks != null && $socialNetworks instanceof StudentSocialNetwork){
+            $socialNetworks->setStudent($this);
+        }
+        $this->socialNetworks->add($socialNetworks);
+    }
+
+    /**
+     * @param mixed $socialNetworks
+     */
+    public function removeSocialNetworks($socialNetworks)
+    {
+        $this->socialNetworks->removeElement($socialNetworks);
     }
 
     /**

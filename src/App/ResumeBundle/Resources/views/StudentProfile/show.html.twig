@@ -7,7 +7,7 @@
                 Full name
             </label>
             <div class="col-sm-9">
-                {{ user.studentProfile.firstName | capitalize }} {{ user.studentProfile.lastName |capitalize }}
+                {{ user.studentProfile.firstName | title }} {{ user.studentProfile.lastName |title }}
             </div>
         </div>
         <div class="row">
@@ -15,7 +15,15 @@
                 Professional headline
             </label>
             <div class="col-sm-9">
-                {{ user.studentProfile.headline |capitalize }}
+                {{ user.studentProfile.headline }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                About me
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.about }}
             </div>
         </div>
         <div class="row">
@@ -39,6 +47,45 @@
                 {% endif %}
             </div>
         </div>
+
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Country (residence)
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.country | countryName }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                State (residence)
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.state |title }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                City (residence)
+            </label>
+            <div class="col-sm-9">
+                {{ user.studentProfile.city |title }}
+            </div>
+        </div>
+
+        {% if user.studentProfile.socialNetworks | length > 0 %}
+        <div class="row">
+            <label class="control-label col-sm-3">
+                Social network
+            </label>
+            <div class="col-sm-9 row">
+                {% for link in user.studentProfile.socialNetworks %}
+                <a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         {% if user.studentProfile.resume != null and user.studentProfile.resume.fileName != "" %}
         <div class="row">
             <label class="control-label col-sm-3">

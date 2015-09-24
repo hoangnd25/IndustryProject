@@ -129,7 +129,14 @@ fos_user:
 mopa_bootstrap:
     menu: ~
     initializr: ~
-    form: ~
+    form:
+        collection:
+            widget_remove_btn:
+                icon: trash
+                label: ~
+            widget_add_btn:
+                icon: plus-sign
+                label: ~
     icons:
         icon_set: glyphicons
         shortcut: icon

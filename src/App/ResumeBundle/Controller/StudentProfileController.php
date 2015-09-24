@@ -3,13 +3,11 @@
 namespace App\ResumeBundle\Controller;
 
 use App\ResumeBundle\Entity\StudentProfile;
-use App\ResumeBundle\Entity\StudentResume;
-use App\ResumeBundle\Form\Type\ResumeType;
 use App\UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query;
 use Elastica\QueryBuilder;
-use libphonenumber\PhoneNumberFormat;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,16 +35,13 @@ class StudentProfileController extends Controller
         if($user->getStudentProfile()->getContactEmail() == null)
             $user->getStudentProfile()->setContactEmail($user->getEmail());
 
-        $form = $this->createFormBuilder($user->getStudentProfile(), array('label'=>$user->getUsername()))
-            ->add('firstName')
-            ->add('lastName')
-            ->add('contactEmail')
-            ->add('contactNumber', 'tel', array('default_region' => 'AU', 'format' => PhoneNumberFormat::NATIONAL))
-            ->add('resume', new ResumeType())
-            ->add('save', 'submit', array(
-                'attr' => array('class' => 'save btn-info'),
-            ))
-            ->getForm();
+        $form = $this->createForm('student_profile', $user->getStudentProfile(), array('label'=>$user->getUsername()));
+
+        $originalSocialLinks = new ArrayCollection();
+        // Create an ArrayCollection of the current social links in the database
+        foreach ($user->getStudentProfile()->getSocialNetworks() as $link) {
+            $originalSocialLinks->add($link);
+        }
 
         $form->handleRequest($request);
 
@@ -58,6 +53,17 @@ class StudentProfileController extends Controller
             $resume = $profile->getResume();
             if($resume->getFile() == null && $resume->getId() == null){
                 $profile->setResume(null);
+            }
+
+            // remove links deleted by the user
+            foreach ($originalSocialLinks as $link) {
+                if (false === $profile->getSocialNetworks()->contains($link)) {
+                    $em->remove($link);
+                }
+            }
+            // save the rest
+            foreach($profile->getSocialNetworks() as $social){
+                $social->setStudent($profile);
             }
 
             $em->persist($profile);
