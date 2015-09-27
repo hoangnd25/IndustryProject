@@ -11,3 +11,7 @@ rm -rf markupsafe
 /usr/bin/easy_install pip
 pip install ansible
 printf '[ssh_connection]\ncontrol_path=/tmp' > ~/.ansible.cfg
+
+SCRIPT_PATH="$(dirname `which $0`)"
+ANSIBLE_FILE="$SCRIPT_PATH/ansible-playbook.bat"
+cp $ANSIBLE_FILE $BABUN_HOME
