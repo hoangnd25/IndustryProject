@@ -10,49 +10,61 @@
 {% endblock body_tag %}
 
 {% block content %}
-    <div class="login-box">
-        <span class="login-box-msg">Authentication</span>
-        <div class="login-box-body">
-            <div class="login-logo">
-                <a href="{{ path('fos_user_security_login') }}">
-                    <img src="{{ asset('assets/images/logo.png') }}">
-                </a>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="content-module-wrapper top-border-lime"></div>
+            <div class="content-module content-module-padding">
+                <h3>Welcome to GS1 Australia Savings Calculator</h3>
+                <p class="small">
+                    The GS1 Australia Savings Calculator is a fast and efficient way to independently analyse your business data so you can build a business case for implementing the GS1 system or services.
+                    <br>
+                </p>
+                <hr>
+                <h4>Getting started</h4>
+                <p class="small">
+                    Once you’ve registered to use the calculator log in and get started.
+                    <br>
+                    Step 1 – Downoad the data checklist for <a href="" target="_blank">buyer</a> or <a href="" target="_blank">supplier</a> and get your data ready.<br>
+                    Step 2 – Input your data into the buyer or supplier calculator.<br>
+                    Step 3 – Calculate your savings for each step of the order-to-cash cycle.<br>
+                    Step 4 – Generate a savings report.<br>
+                </p>
             </div>
+        </div>
+        <div class="col-md-5">
+            <div class="content-module-wrapper top-border-orange">
+                <div class="content-module content-module-padding">
+                    <h4>Login</h4>
+                    <div class="container-fluid">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <div class="form-group">
+                                <label for="username">Email address</label>
+                                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input class="form-control" type="password" id="password" name="_password" required="required" placeholder="Password" />
 
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
-                <div class="form-group has-feedback">
-                    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username"/>
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-
-                <div class="form-group has-feedback">
-                    <input class="form-control" type="password" id="password" name="_password" required="required" placeholder="Password" />
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                                Remember me
-                            </label>
-                        </div>
+                                <br>
+                                <label>
+                                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                                    Remember me
+                                </label>
+                                <br>
+                                <input class="btn btn-primary btn-margin btn-sm" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                            </div>
+                            <div class="form-group">
+                                <a href="{{ path('fos_user_registration_register') }}" class="label-sm">Need an account?</a>
+                                <br>
+                                <a href="{{ path('fos_user_resetting_request') }}" class="">Forgotten password?</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-xs-4">
-                        <input class="btn btn-primary btn-block btn-flat" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-                    </div>
                 </div>
-            </form>
-
-            <div class="clearfix">
-                <a href="{{ path('fos_user_registration_register') }}" class="pull-left">Need an account?</a>
-                <a href="{{ path('fos_user_resetting_request') }}" class="pull-right">Forgotten password?</a>
             </div>
         </div>
     </div>
