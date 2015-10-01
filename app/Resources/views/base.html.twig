@@ -18,18 +18,69 @@
 {% endblock head_style %}
 
 {% block navbar %}
-    {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: false, inverse: true, id: 'navbar' } %}
-        {% block brand %}
-            <a class="navbar-brand" href="">GS1: Post Your CV</a>
-        {% endblock %}
+    <div class="toolkit brand-home header-short">
 
-        {% block menu %}
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('fos_user_security_logout') }}">Logout</a></li>
-            </ul>
-        {% endblock %}
-    {% endembed %}
+        <header class="headroom headroom--pinned headroom--top">
+            <div class="header-top">
+                <div class="container">
+                    <div class="logo">
+                        <div class="logo1">
+                            <a href="/index.html">
+                                <img src="/assets/images/logo.png" alt="GS1 Australia" height="72" width="127" border="0">
+                            </a>
+                            <p class="large hidden-xs hidden-sm"><span style="padding-bottom: 25px; color: rgb(0, 44, 108); font-size: 25px; font-weight: bold;">Savings Calculator</span></p>
+                        </div>
+                    </div>
+                    <div class="secondary-nav">
+                        <ul class="list-inline">
+                            <li><a href="http://www.gs1au.org/" target="_blank">GS1 Australia Home</a></li>
+                            <li><a href="http://www.gs1express.com.au/barcodes/" target="_blank">Get a barcode</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="container">
+                    <nav class="navbar yamm navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <div class="logo1 visible-xs">
+                                <a href="/index.html">
+                                    <img src="/Assets/logo.png" alt="GS1 Australia" height="72" width="127" border="0">
+                                </a>
+                            </div>
+                            <button id="ui-collapse-144" aria-expanded="false" aria-selected="false" role="tab" type="button" data-toggle="collapse" data-target="#navbar-collapse-example" class="navbar-toggle collapsed"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+
+                        </div>
+                        <div id="navbar-collapse-example" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="">
+                                    <a class="" href="http://www.gs1au.org/membership/">Membership</a>
+                                </li>
+                                <li class="">
+                                    <a class="" href="http://www.gs1au.org/products/index.asp">Standards</a>
+                                </li>
+                                <li class="">
+                                    <a class="" href="http://www.gs1au.org/services/">Services</a>
+                                </li>
+                                <li class="">
+                                    <a class="" href="http://www.gs1au.org/industry/">Industry</a>
+                                </li>
+                                <li class="">
+                                    <a class="" href="http://www.gs1express.com.au/barcodes/">Join GS1</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+
+    </div>
+
 {% endblock navbar %}
+
+
 
 {% block container %}
     <div class="{% block container_class %}container{% endblock container_class %} toolkit">
