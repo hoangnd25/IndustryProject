@@ -51,12 +51,19 @@ vich_uploader:
     mappings:
         student_resume:
             uri_prefix: /uploads/%file_upload.resume_prefix%
+        student_avatar:
+            uri_prefix: /uploads/%file_upload.avatar_prefix%
 
 oneup_flysystem:
     adapters:
         local.resume:
             local:
                 directory: %kernel.root_dir%/../web/uploads/%file_upload.resume_prefix%
+        local.avatar:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/%file_upload.avatar_prefix%
     filesystems:
         resume_fs:
             adapter:    local.resume
+        avatar_fs:
+            adapter:    local.avatar

@@ -76,6 +76,7 @@ class StudentProfileType extends AbstractType
                 ),
                 'label' => 'Do you have full working right in Australia?'
             ))
+            ->add('avatar', 'student_avatar')
             ->add('resume', 'student_resume')
             ->add('save', 'submit', array(
                 'attr' => array('class' => 'save btn-info'),

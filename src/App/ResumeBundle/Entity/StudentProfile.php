@@ -61,6 +61,11 @@ class StudentProfile
     protected $resume;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentAvatar", mappedBy="studentProfile", cascade={"persist"})
+     **/
+    protected $avatar;
+
+    /**
      * @ORM\Column(type="phone_number", nullable=true)
      * @AssertPhoneNumber()
      * @Assert\NotBlank()
@@ -233,6 +238,26 @@ class StudentProfile
         $this->setUpdated(new \DateTime());
         if($this->resume != null && $this->resume instanceof StudentResume){
             $this->resume->setStudentProfile($this);
+        }
+    }
+
+    /**
+     * @return StudentAvatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+        $this->setUpdated(new \DateTime());
+        if($this->avatar != null && $this->avatar instanceof StudentAvatar){
+            $this->avatar->setStudentProfile($this);
         }
     }
 

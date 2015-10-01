@@ -10,6 +10,14 @@ vich_uploader:
             delete_on_update:   true
             delete_on_remove:   true
 
+        student_avatar:
+            namer:              vich_uploader.namer_uniqid
+            uri_prefix:         https://s3-%amazon_s3.region%.amazonaws.com/%amazon_s3.bucket%/%file_upload.avatar_prefix%
+            upload_destination: avatar_fs
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
 oneup_flysystem:
     adapters:
         s3.resume:
@@ -17,7 +25,15 @@ oneup_flysystem:
                 client: amazon_s3.client
                 bucket: %amazon_s3.bucket%
                 prefix: %file_upload.resume_prefix%
+        s3.avatar:
+            awss3v3:
+                client: amazon_s3.client
+                bucket: %amazon_s3.bucket%
+                prefix: %file_upload.avatar_prefix%
     filesystems:
         resume_fs:
             adapter:    s3.resume
             mount:      resume_fs
+        avatar_fs:
+            adapter:    s3.avatar
+            mount:      avatar_fs

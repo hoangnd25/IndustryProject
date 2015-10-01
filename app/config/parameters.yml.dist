@@ -18,6 +18,7 @@ parameters:
     locale:            en
 
     file_upload.resume_prefix: resume
+    file_upload.avatar_prefix: avatar
 
     amazon_s3.key: 'key'
     amazon_s3.secret: 'secret'

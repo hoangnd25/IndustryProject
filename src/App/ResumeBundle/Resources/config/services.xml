@@ -27,6 +27,10 @@
             <tag name="form.type" alias="student_resume" />
         </service>
 
+        <service id="app_resume.form.avatar" class="App\ResumeBundle\Form\Type\AvatarType">
+            <tag name="form.type" alias="student_avatar" />
+        </service>
+
         <service id="app_resume.form.student_social_network" class="App\ResumeBundle\Form\Type\SocialNetworkType">
             <tag name="form.type" alias="student_social_network" />
         </service>
