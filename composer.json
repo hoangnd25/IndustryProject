@@ -35,7 +35,8 @@
         "liuggio/ExcelBundle": "^2.0",
         "justinrainbow/json-schema": "^1.5",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "oneup/flysystem-bundle": "^1.1"
+        "oneup/flysystem-bundle": "^1.1",
+        "composer/semver": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
