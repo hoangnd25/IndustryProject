@@ -4,9 +4,9 @@
 {% block head_style %}
     {% stylesheets filter='cssrewrite,less' output='assets/css/main.css'
         '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-        '@AppWebBundle/Resources/public/css/bootstrap-theme.css'
-        '@AppWebBundle/Resources/public/css/bootstrap-accessibility.min.css'
-        '@AppWebBundle/Resources/public/less/main.less'
+        'bundles/appweb/css/bootstrap-theme.css'
+        'bundles/appweb/css/bootstrap-accessibility.min.css'
+        'bundles/appweb/less/main.less'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
@@ -138,8 +138,8 @@
                             <div class="col-xs-12">
                                 <h4>Get in touch</h4>
                                 <a href="tel:1300 227 263" class="footer-contact">1300 227 263</a>
-                                {#<a href="mailto:customer.service@gs1au.org" title="Email us" class="icon icon-envelope color-white email"></a>#}
-                                {#<a href="http://www.youtube.com/user/GS1Australia" title="GS1 Australia YouTube Channel" class="icon icon-youtube color-navy"></a>#}
+                                <a href="mailto:customer.service@gs1au.org" title="Email us" class="icon icon-envelope color-white email"></a>
+                                <a href="http://www.youtube.com/user/GS1Australia" title="GS1 Australia YouTube Channel" class="icon icon-youtube color-navy"></a>
                             </div>
                         </div>
                     </div>
