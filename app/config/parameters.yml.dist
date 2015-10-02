@@ -20,6 +20,7 @@ parameters:
     file_upload.resume_prefix: resume
     file_upload.avatar_prefix: avatar
     file_upload.gs1_cert_prefix: gs1cert
+    file_upload.cert_prefix: cert
 
     amazon_s3.key: 'key'
     amazon_s3.secret: 'secret'

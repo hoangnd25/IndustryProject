@@ -75,6 +75,11 @@ class StudentProfile
     protected $gs1Certifications;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentCertification", mappedBy="student", cascade={"persist"})
+     **/
+    protected $certifications;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $hasGs1Certification;
@@ -149,6 +154,7 @@ class StudentProfile
         $this->socialNetworks = new ArrayCollection();
         $this->educations = new ArrayCollection();
         $this->gs1Certifications = new ArrayCollection();
+        $this->certifications = new ArrayCollection();
         $this->industryPreference = new ArrayCollection();
         $this->hasGs1Certification = false;
         $this->workingRight = false;
@@ -453,6 +459,41 @@ class StudentProfile
     public function removeEducations($education)
     {
         $this->educations->removeElement($education);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCertifications()
+    {
+        return $this->certifications;
+    }
+
+    /**
+     * @param mixed $certifications
+     */
+    public function setCertifications($certifications)
+    {
+        $this->certifications = $certifications;
+    }
+
+    /**
+     * @param mixed $cert
+     */
+    public function addCertifications($cert)
+    {
+        if($cert != null && $cert instanceof StudentCertification){
+            $cert->setStudent($this);
+        }
+        $this->certifications->add($cert);
+    }
+
+    /**
+     * @param mixed $cert
+     */
+    public function removeCertifications($cert)
+    {
+        $this->certifications->removeElement($cert);
     }
 
     /**

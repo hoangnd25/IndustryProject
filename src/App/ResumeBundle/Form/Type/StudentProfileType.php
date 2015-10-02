@@ -63,6 +63,26 @@ class StudentProfileType extends AbstractType
                     'horizontal_input_wrapper_class' => "col-sm-11",
                 )
             ))
+            ->add('certifications', 'collection', array(
+                'label' => 'Certifications',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'type'   => 'student_cert',
+                'prototype' => true,
+                'horizontal_wrap_children' => true,
+                'options' => array(
+                    'label_render' => false,
+                    'widget_remove_btn' => array(
+                        'horizontal_wrapper_div' => array(
+                            'class' => "col-sm-1"
+                        ),
+                        'wrapper_div' => false,
+                    ),
+                    'horizontal' => true,
+                    'horizontal_label_offset_class' => "",
+                    'horizontal_input_wrapper_class' => "col-sm-11",
+                )
+            ))
             ->add('educations', 'collection', array(
                 'allow_add' => true,
                 'allow_delete' => true,

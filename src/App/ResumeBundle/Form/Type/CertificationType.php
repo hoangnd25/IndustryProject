@@ -5,16 +5,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GS1CertificationType extends AbstractType
+class CertificationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'entity', array(
-                'class' => 'App\ResumeBundle\Entity\GS1Certification',
+            ->add('name', null, array(
                 'label' => false,
                 'widget_form_group' => false,
                 'horizontal_input_wrapper_class' => "col-sm-5",
+                'attr' => array(
+                    'placeholder' => 'Certification'
+                )
             ))
             ->add('file', 'file_upload', array(
                 'label' => false,
@@ -33,7 +35,7 @@ class GS1CertificationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' =>'App\ResumeBundle\Entity\StudentGS1Certification'
+            'data_class' =>'App\ResumeBundle\Entity\StudentCertification'
         ));
     }
 
@@ -44,6 +46,6 @@ class GS1CertificationType extends AbstractType
      * @return string The name of this type
      */
     public function getName() {
-        return 'student_gs1_cert';
+        return 'student_cert';
     }
 }

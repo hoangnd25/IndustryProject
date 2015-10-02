@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Entity\StudentCertification;
 use App\ResumeBundle\Entity\StudentGS1Certification;
 use App\ResumeBundle\Entity\StudentProfile;
 use App\UserBundle\Entity\User;
@@ -54,6 +55,12 @@ class StudentProfileController extends Controller
         // Create an ArrayCollection of the current gs1 certs in the database
         foreach ($user->getStudentProfile()->getGs1Certifications() as $cert) {
             $originalGs1Certs->add($cert);
+        }
+
+        $originalCerts = new ArrayCollection();
+        // Create an ArrayCollection of the current certs in the database
+        foreach ($user->getStudentProfile()->getCertifications() as $cert) {
+            $originalCerts->add($cert);
         }
 
         $form->handleRequest($request);
@@ -110,6 +117,26 @@ class StudentProfileController extends Controller
                 }
             }
             $profile->setHasGs1Certification($hasGs1Cert);
+
+            /*
+             * Handle Certification
+             * ------------------------------
+             */
+            // remove certs deleted by the user
+            foreach ($originalCerts as $cert) {
+                if (false === $profile->getCertifications()->contains($cert)) {
+                    $em->remove($cert);
+                }
+            }
+            // save the rest
+            /** @var StudentCertification $cert */
+            foreach($profile->getCertifications() as $cert){
+                if($cert->getFile() == null){
+                    $profile->removeCertifications($cert);
+                }else{
+                    $cert->setStudent($profile);
+                }
+            }
 
             /*
              * Handle Social Network
