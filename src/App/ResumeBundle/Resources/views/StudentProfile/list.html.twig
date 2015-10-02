@@ -26,8 +26,17 @@
                         <div class="list-group-item">
                             <div class="media">
                                 <a class="media-left" href="{{ path('student_profile_show', {'id': profile.id}) }}">
-                                    <img class="media-object" src="http://placehold.it/50x50" alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                {% if profile.avatar != null and profile.avatar.fileName != "" %}
+                                    <img class="media-object student-avatar"
+                                         src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
+                                         alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                {% else %}
+                                    <img class="media-object student-avatar"
+                                         src="{{ asset('assets/images/blank-avatar.gif') }}"
+                                         alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                {% endif %}
                                 </a>
+
                                 <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.id}) }}">
                                     <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
                                     <p class="list-group-item-text">{{ profile.headline }}</p>

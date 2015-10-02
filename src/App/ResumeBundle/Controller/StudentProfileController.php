@@ -126,10 +126,10 @@ class StudentProfileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder();
-        $qb->select('p.firstName, p.lastName, p.headline, u.id')
+        $qb->select('partial p.{id, firstName, lastName, headline}, partial u.{id}, partial a.{id, fileName}')
             ->from('AppResumeBundle:StudentProfile','p')
             ->leftJoin('p.user','u')
-            ->leftJoin('p.resume', 'r')
+            ->leftJoin('p.avatar','a')
             ->where($qb->expr()->eq('u.studentProfileVisibility', User::VISIBILITY_VISIBLE))
             ->orderBy('u.id', 'desc')
         ;
