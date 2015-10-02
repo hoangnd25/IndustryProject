@@ -45,13 +45,12 @@
     <script>
         $(document).ready(function(){
             // init select2
-            $('select').select2();
+            $('select').width('98%').select2();
 
             // apply select 2 for newly added collection item
             $(window).on('add.mopa-collection-item', function(event, collection, row) {
                 $(row).find('select').each(function(index, item){
-                    console.debug($(item));
-                    $(item).select2();
+                    $(item).width('98%').select2();
                 });
             })
         });

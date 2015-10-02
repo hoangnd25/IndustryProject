@@ -136,13 +136,18 @@ mopa_bootstrap:
     menu: ~
     initializr: ~
     form:
+        show_legend: false
         collection:
             widget_remove_btn:
                 icon: trash
                 label: ~
+                attr:
+                    class: 'btn btn-danger btn-form-item'
             widget_add_btn:
                 icon: plus-sign
                 label: ~
+                attr:
+                    class: 'btn btn-info btn-form-item'
     icons:
         icon_set: glyphicons
         shortcut: icon

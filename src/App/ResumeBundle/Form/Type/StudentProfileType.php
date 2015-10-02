@@ -44,7 +44,6 @@ class StudentProfileType extends AbstractType
                 'allow_delete' => true,
                 'type'   => 'student_education',
                 'prototype' => true,
-                'show_legend' => false,
                 'horizontal_wrap_children' => true,
                 'options' => array(
                     'label_render' => false,
@@ -56,7 +55,7 @@ class StudentProfileType extends AbstractType
                     ),
                     'horizontal' => true,
                     'horizontal_label_offset_class' => "",
-                    'horizontal_input_wrapper_class' => "col-sm-10",
+                    'horizontal_input_wrapper_class' => "col-sm-11",
                 )
             ))
             ->add('socialNetworks', 'collection', array(
@@ -64,7 +63,6 @@ class StudentProfileType extends AbstractType
                 'allow_delete' => true,
                 'type'   => 'student_social_network',
                 'prototype' => true,
-                'show_legend' => false,
                 'horizontal_wrap_children' => true,
                 'options' => array(
                     'label_render' => false,
@@ -76,7 +74,7 @@ class StudentProfileType extends AbstractType
                     ),
                     'horizontal' => true,
                     'horizontal_label_offset_class' => "",
-                    'horizontal_input_wrapper_class' => "col-sm-10",
+                    'horizontal_input_wrapper_class' => "col-sm-11",
                 )
             ))
             ->add('country', 'country', array(
@@ -99,7 +97,7 @@ class StudentProfileType extends AbstractType
             ->add('avatar', 'student_avatar')
             ->add('resume', 'student_resume')
             ->add('save', 'submit', array(
-                'attr' => array('class' => 'save btn-info'),
+                'attr' => array('class' => 'save btn-sm btn-info'),
             ));
     }
 
