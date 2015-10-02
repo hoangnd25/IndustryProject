@@ -114,6 +114,7 @@ sonata_admin:
                 items:
                   - sonata.admin.institution
                   - sonata.admin.industry
+                  - sonata.admin.gs1_cert
 
 fos_user:
     db_driver: orm

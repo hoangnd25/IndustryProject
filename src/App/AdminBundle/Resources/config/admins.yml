@@ -39,3 +39,12 @@ services:
             - ~
             - App\ResumeBundle\Entity\Industry
             - ~
+
+    sonata.admin.gs1_cert:
+        class: App\AdminBundle\Admin\GS1CertificationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "GS1 certifications" }
+        arguments:
+            - ~
+            - App\ResumeBundle\Entity\GS1Certification
+            - ~

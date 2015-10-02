@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Entity\StudentGS1Certification;
 use App\ResumeBundle\Entity\StudentProfile;
 use App\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -44,9 +45,15 @@ class StudentProfileController extends Controller
         }
 
         $originalEducations = new ArrayCollection();
-        // Create an ArrayCollection of the current social links in the database
+        // Create an ArrayCollection of the current education records in the database
         foreach ($user->getStudentProfile()->getEducations() as $edu) {
             $originalEducations->add($edu);
+        }
+
+        $originalGs1Certs = new ArrayCollection();
+        // Create an ArrayCollection of the current gs1 certs in the database
+        foreach ($user->getStudentProfile()->getGs1Certifications() as $cert) {
+            $originalGs1Certs->add($cert);
         }
 
         $form->handleRequest($request);
@@ -80,6 +87,29 @@ class StudentProfileController extends Controller
             foreach($profile->getEducations() as $edu){
                 $edu->setStudentProfile($profile);
             }
+
+            /*
+             * Handle Gs1 Cert
+             * ------------------------------
+             */
+            // remove certs deleted by the user
+            foreach ($originalGs1Certs as $cert) {
+                if (false === $profile->getGs1Certifications()->contains($cert)) {
+                    $em->remove($cert);
+                }
+            }
+            // save the rest
+            $hasGs1Cert = false;
+            /** @var StudentGS1Certification $cert */
+            foreach($profile->getGs1Certifications() as $cert){
+                if($cert->getFile() == null){
+                    $profile->removeGs1Certifications($cert);
+                }else{
+                    $cert->setStudent($profile);
+                    $hasGs1Cert = true;
+                }
+            }
+            $profile->setHasGs1Certification($hasGs1Cert);
 
             /*
              * Handle Social Network

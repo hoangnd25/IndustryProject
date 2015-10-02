@@ -70,6 +70,16 @@ class StudentProfile
     protected $educations;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentGS1Certification", mappedBy="student", cascade={"persist"})
+     **/
+    protected $gs1Certifications;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $hasGs1Certification;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentResume", mappedBy="studentProfile", cascade={"persist"})
      **/
     protected $resume;
@@ -138,7 +148,9 @@ class StudentProfile
         $this->updated = new \DateTime();
         $this->socialNetworks = new ArrayCollection();
         $this->educations = new ArrayCollection();
+        $this->gs1Certifications = new ArrayCollection();
         $this->industryPreference = new ArrayCollection();
+        $this->hasGs1Certification = false;
         $this->workingRight = false;
     }
 
@@ -441,6 +453,57 @@ class StudentProfile
     public function removeEducations($education)
     {
         $this->educations->removeElement($education);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGs1Certifications()
+    {
+        return $this->gs1Certifications;
+    }
+
+    /**
+     * @param mixed $certs
+     */
+    public function setGs1Certifications($certs)
+    {
+        $this->gs1Certifications = $certs;
+    }
+
+    /**
+     * @param mixed $cert
+     */
+    public function addGs1Certifications($cert)
+    {
+        if($cert != null && $cert instanceof StudentGS1Certification){
+            $cert->setStudent($this);
+        }
+        $this->gs1Certifications->add($cert);
+    }
+
+    /**
+     * @param mixed $cert
+     */
+    public function removeGs1Certifications($cert)
+    {
+        $this->gs1Certifications->removeElement($cert);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasGs1Certification()
+    {
+        return $this->hasGs1Certification;
+    }
+
+    /**
+     * @param mixed $hasGs1Certification
+     */
+    public function setHasGs1Certification($hasGs1Certification)
+    {
+        $this->hasGs1Certification = $hasGs1Certification;
     }
 
     /**

@@ -53,6 +53,8 @@ vich_uploader:
             uri_prefix: /uploads/%file_upload.resume_prefix%
         student_avatar:
             uri_prefix: /uploads/%file_upload.avatar_prefix%
+        student_gs1_cert:
+            uri_prefix: /uploads/%file_upload.gs1_cert_prefix%
 
 oneup_flysystem:
     adapters:
@@ -62,8 +64,13 @@ oneup_flysystem:
         local.avatar:
             local:
                 directory: %kernel.root_dir%/../web/uploads/%file_upload.avatar_prefix%
+        local.gs1_cert:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/%file_upload.gs1_cert_prefix%
     filesystems:
         resume_fs:
             adapter:    local.resume
         avatar_fs:
             adapter:    local.avatar
+        gs1_cert_fs:
+            adapter:    local.gs1_cert

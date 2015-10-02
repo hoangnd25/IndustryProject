@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class IndustryAdmin extends Admin
+class GS1CertificationAdmin extends Admin
 {
 
     // Fields to be shown on create/edit forms

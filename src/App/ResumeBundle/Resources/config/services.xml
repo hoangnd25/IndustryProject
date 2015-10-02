@@ -39,6 +39,10 @@
             <tag name="form.type" alias="student_education" />
         </service>
 
+        <service id="app_resume.form.student_gs1_cert" class="App\ResumeBundle\Form\Type\GS1CertificationType">
+            <tag name="form.type" alias="student_gs1_cert" />
+        </service>
+
         <service id="app_resume.form.type.file_upload" class="App\ResumeBundle\Form\Type\FileUploadType">
             <argument type="service" id="vich_uploader.storage" />
             <argument type="service" id="vich_uploader.upload_handler" />
