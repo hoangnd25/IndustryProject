@@ -168,9 +168,9 @@
   border-color: transparent transparent #888 transparent;
   border-width: 0 4px 5px 4px; }
 .select2-container--default .select2-selection--multiple {
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #aaa;
-  border-radius: 4px;
+  border-radius: 0px;
   cursor: text; }
   .select2-container--default .select2-selection--multiple .select2-selection__rendered {
     box-sizing: border-box;
@@ -196,7 +196,8 @@
     float: left;
     margin-right: 5px;
     margin-top: 5px;
-    padding: 0 5px; }
+    padding: 0 5px;
+    font-size: 14px}
   .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     color: #999;
     cursor: pointer;
@@ -232,7 +233,9 @@
 .select2-container--default .select2-search--inline .select2-search__field {
   background: transparent;
   border: none;
-  outline: 0; }
+  outline: 0;
+  font-size: 14px;
+  line-height: 20px; }
 .select2-container--default .select2-results > .select2-results__options {
   max-height: 200px;
   overflow-y: auto; }
