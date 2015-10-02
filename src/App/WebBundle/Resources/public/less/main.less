@@ -36,6 +36,40 @@ a, a:hover, a:active {
     border-color: #d2d6de;
 }
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.btn-checkbox.active::before {
+    content: "\e067";
+}
+.btn-checkbox::before {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    content: "\e157";
+    font-size: 14px;
+    line-height: 14px;
+}
+
 .toolkit .content-module h5, .toolkit .content-module h4 {
     border-bottom: none !important;
 }

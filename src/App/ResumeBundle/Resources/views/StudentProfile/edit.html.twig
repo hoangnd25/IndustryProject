@@ -53,6 +53,66 @@
                     $(item).css('width', '100%').select2();
                 });
             })
+
+            $('.btn-delete-file-upload').click(function(e){
+                e.preventDefault();
+                var input = "#dummy_input_" + $(this).data('file-id');
+                var downloadBtn = "#down_btn_" + $(this).data('file-id');
+                var deleteCheck = "#" + $(this).data('delete-id');
+                var img = "#img_" + $(this).data('file-id');
+                $(input).val('');
+                $(downloadBtn).remove();
+                $(img).remove();
+                $(this).remove();
+                $(deleteCheck).val(true);
+            });
+        });
+
+        $(document).on('change', '.btn-file :file', function() {
+            var uploadInput = $(this);
+            var input = "#dummy_input_" + uploadInput.attr('id');
+            var downloadBtn = "#down_btn_" + uploadInput.attr('id');
+            var deleteBtn = "#delete_btn_" + uploadInput.attr('id');
+            var img = "#img_" + $(this).data('file-id');
+            var label = uploadInput.val().replace(/\\/g, '/').replace(/.*\//, '');
+            $(input).val(label);
+            $(img).remove();
+            $(downloadBtn).remove();
+            $(deleteBtn).remove();
         });
     </script>
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block file_upload_widget %}
+    {% spaceless %}
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-form-item btn-file">
+                    Select {{ form_widget(form.file) }}
+                </span>
+            </span>
+            <input id="dummy_input_{{ form.file.vars.id }}" type="text" class="form-control" readonly=""
+                value="{% if form.vars.object is not null %}{{ form.vars.object.fileName }}{% endif %}"
+                />
+            <span class="input-group-btn">
+                {% if form.delete is defined %}
+                    <a class="btn btn-danger btn-form-item btn-delete-file-upload"
+                       id="delete_btn_{{ form.file.vars.id }}"
+                        data-delete-id="{{ form.delete.vars.id }}" data-file-id="{{ form.file.vars.id }}" href="#"
+                    >
+                        {{ icon('trash') }}
+                    </a>
+                    {{ form_widget(form.delete) }}
+                {% endif %}
+                {% if download_uri is defined and download_uri and not is_image %}
+                    <a id="down_btn_{{ form.file.vars.id }}" class="btn btn-info btn-form-item" href="{{ download_uri }}">{{ icon('download') }}</a>
+                {% endif %}
+            </span>
+        </div>
+        {% if download_uri is defined and download_uri and  is_image %}
+            <img id="img_{{ form.file.vars.id }}" src="{{ download_uri }}" style="max-width: 80px; max-height: 80px; margin-top: 15px;">
+        {% endif %}
+    {% endspaceless %}
 {% endblock %}

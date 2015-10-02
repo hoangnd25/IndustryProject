@@ -9,11 +9,9 @@ class ResumeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', 'vich_file', array(
+        $builder->add('file', 'file_upload', array(
             'label' => false,
             'required'      => false,
-            'allow_delete'  => true, // not mandatory, default is true
-            'download_link' => true, // not mandatory, default is true
         ));
     }
 
