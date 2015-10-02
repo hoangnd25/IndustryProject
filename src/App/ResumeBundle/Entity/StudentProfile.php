@@ -56,6 +56,11 @@ class StudentProfile
     protected $about;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist"})
+     **/
+    protected $educations;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentResume", mappedBy="studentProfile", cascade={"persist"})
      **/
     protected $resume;
@@ -390,6 +395,41 @@ class StudentProfile
     public function removeSocialNetworks($socialNetworks)
     {
         $this->socialNetworks->removeElement($socialNetworks);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEducations()
+    {
+        return $this->educations;
+    }
+
+    /**
+     * @param mixed $educations
+     */
+    public function setEducations($educations)
+    {
+        $this->educations = $educations;
+    }
+
+    /**
+    * @param mixed $education
+    */
+    public function addEducations($education)
+    {
+        if($education != null && $education instanceof StudentEducation){
+            $education->setStudentProfile($this);
+        }
+        $this->educations->add($education);
+    }
+
+    /**
+     * @param mixed $education
+     */
+    public function removeEducations($education)
+    {
+        $this->educations->removeElement($education);
     }
 
     /**

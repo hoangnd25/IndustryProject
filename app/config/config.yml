@@ -107,6 +107,12 @@ sonata_admin:
                 items:
                   - sonata.admin.user
                   - sonata.admin.student_access_code
+            "Configuration":
+                label:                'Portal configuration'
+                label_catalogue:      ~
+                icon:                 '<i class="fa fa-cogs"></i>'
+                items:
+                  - sonata.admin.institution
 
 fos_user:
     db_driver: orm

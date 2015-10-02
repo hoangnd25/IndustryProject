@@ -34,5 +34,9 @@
         <service id="app_resume.form.student_social_network" class="App\ResumeBundle\Form\Type\SocialNetworkType">
             <tag name="form.type" alias="student_social_network" />
         </service>
+
+        <service id="app_resume.form.student_education" class="App\ResumeBundle\Form\Type\EducationType">
+            <tag name="form.type" alias="student_education" />
+        </service>
     </services>
 </container>

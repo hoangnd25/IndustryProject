@@ -43,6 +43,12 @@ class StudentProfileController extends Controller
             $originalSocialLinks->add($link);
         }
 
+        $originalEducations = new ArrayCollection();
+        // Create an ArrayCollection of the current social links in the database
+        foreach ($user->getStudentProfile()->getEducations() as $edu) {
+            $originalEducations->add($edu);
+        }
+
         $form->handleRequest($request);
 
         if($request->getMethod() == 'POST' && $form->isValid()){
@@ -55,6 +61,30 @@ class StudentProfileController extends Controller
                 $profile->setResume(null);
             }
 
+            $avatar = $profile->getAvatar();
+            if($avatar->getFile() == null && $avatar->getId() == null){
+                $profile->setAvatar(null);
+            }
+
+            /*
+             * Handle Education
+             * ------------------------------
+             */
+            // remove educations deleted by the user
+            foreach ($originalEducations as $edu) {
+                if (false === $profile->getEducations()->contains($edu)) {
+                    $em->remove($edu);
+                }
+            }
+            // save the rest
+            foreach($profile->getEducations() as $edu){
+                $edu->setStudentProfile($profile);
+            }
+
+            /*
+             * Handle Social Network
+             * ------------------------------
+             */
             // remove links deleted by the user
             foreach ($originalSocialLinks as $link) {
                 if (false === $profile->getSocialNetworks()->contains($link)) {

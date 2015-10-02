@@ -39,6 +39,26 @@ class StudentProfileType extends AbstractType
                     'placeholder' => 'International format'
                 )
             ))
+            ->add('educations', 'collection', array(
+                'allow_add' => true,
+                'allow_delete' => true,
+                'type'   => 'student_education',
+                'prototype' => true,
+                'show_legend' => false,
+                'horizontal_wrap_children' => true,
+                'options' => array(
+                    'label_render' => false,
+                    'widget_remove_btn' => array(
+                        'horizontal_wrapper_div' => array(
+                            'class' => "col-sm-1"
+                        ),
+                        'wrapper_div' => false,
+                    ),
+                    'horizontal' => true,
+                    'horizontal_label_offset_class' => "",
+                    'horizontal_input_wrapper_class' => "col-sm-10",
+                )
+            ))
             ->add('socialNetworks', 'collection', array(
                 'allow_add' => true,
                 'allow_delete' => true,
