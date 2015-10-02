@@ -56,6 +56,15 @@ class StudentProfile
     protected $about;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\ResumeBundle\Entity\Industry")
+     * @ORM\JoinTable(name="student_industry_preference",
+     *      joinColumns={@ORM\JoinColumn(name="student_profile_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="industry_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     **/
+    protected $industryPreference;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist"})
      **/
     protected $educations;
@@ -128,6 +137,8 @@ class StudentProfile
     {
         $this->updated = new \DateTime();
         $this->socialNetworks = new ArrayCollection();
+        $this->educations = new ArrayCollection();
+        $this->industryPreference = new ArrayCollection();
         $this->workingRight = false;
     }
 
@@ -430,6 +441,38 @@ class StudentProfile
     public function removeEducations($education)
     {
         $this->educations->removeElement($education);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIndustryPreference()
+    {
+        return $this->industryPreference;
+    }
+
+    /**
+     * @param mixed $industryPreference
+     */
+    public function setIndustryPreference($industryPreference)
+    {
+        $this->industryPreference = $industryPreference;
+    }
+
+    /**
+     * @param mixed $industry
+     */
+    public function addIndustryPreference($industry)
+    {
+        $this->industryPreference->add($industry);
+    }
+
+    /**
+     * @param mixed $industry
+     */
+    public function removeIndustryPreference($industry)
+    {
+        $this->industryPreference->removeElement($industry);
     }
 
     /**

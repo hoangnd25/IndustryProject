@@ -39,6 +39,10 @@ class StudentProfileType extends AbstractType
                     'placeholder' => 'International format'
                 )
             ))
+            ->add('industryPreference', 'entity', array(
+                'class' => 'App\ResumeBundle\Entity\Industry',
+                'multiple' => true
+            ))
             ->add('educations', 'collection', array(
                 'allow_add' => true,
                 'allow_delete' => true,

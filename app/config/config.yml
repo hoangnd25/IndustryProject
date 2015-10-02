@@ -113,6 +113,7 @@ sonata_admin:
                 icon:                 '<i class="fa fa-cogs"></i>'
                 items:
                   - sonata.admin.institution
+                  - sonata.admin.industry
 
 fos_user:
     db_driver: orm
