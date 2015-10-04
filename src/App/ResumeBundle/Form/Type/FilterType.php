@@ -11,16 +11,16 @@ class FilterType extends AbstractType
     {
         $builder
             ->add('keyword', null, array(
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('industry', 'entity', array(
                 'label' => 'Industry preference',
                 'class' => 'App\ResumeBundle\Entity\Industry',
                 'multiple' => true,
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('gs1Certification', 'entity', array(
@@ -29,8 +29,8 @@ class FilterType extends AbstractType
                 'multiple' => true,
                 'empty_value' => 'All',
                 'empty_data' => null,
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('employmentStatus', 'entity', array(
@@ -39,23 +39,23 @@ class FilterType extends AbstractType
                 'multiple' => true,
                 'empty_value' => 'All',
                 'empty_data' => null,
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('country', 'country', array(
                 'label' => 'Country',
                 'multiple' => true,
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('institution', 'entity', array(
                 'label' => 'Institution',
                 'class' => 'App\ResumeBundle\Entity\Institution',
                 'multiple' => true,
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
             ->add('workingRight', 'choice', array(
@@ -64,8 +64,8 @@ class FilterType extends AbstractType
                     0 => 'No'
                 ),
                 'empty_value' => 'Any',
-                'horizontal_label_class' => 'col-sm-12',
-                'horizontal_input_wrapper_class' => 'col-sm-12',
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
         ;

@@ -7,6 +7,11 @@ a, a:hover, a:active {
     cursor: auto;
 }
 
+.btn:focus, .btn:active:focus, .btn.active:focus{
+    outline-color: transparent;
+    outline-style: none;
+}
+
 .bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
     background-color: #dd4b39 !important;
 }
@@ -164,6 +169,10 @@ a, a:hover, a:active {
 
     .media{
         background: #f4f4f4;
+    }
+
+    .media:hover{
+        background: #e2e2e2;
     }
 
     .media-left, .media-right, .media-body{
