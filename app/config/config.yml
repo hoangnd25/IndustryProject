@@ -115,6 +115,7 @@ sonata_admin:
                   - sonata.admin.institution
                   - sonata.admin.industry
                   - sonata.admin.gs1_cert
+                  - sonata.admin.employment_status
 
 fos_user:
     db_driver: orm

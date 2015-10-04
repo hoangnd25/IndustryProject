@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gs1_cert")
+ * @ORM\Table(name="config_gs1_cert")
  */
 class GS1Certification
 {

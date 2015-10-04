@@ -43,6 +43,12 @@ class StudentProfileType extends AbstractType
                 'class' => 'App\ResumeBundle\Entity\Industry',
                 'multiple' => true
             ))
+            ->add('employmentStatus', 'entity', array(
+                'class' => 'App\ResumeBundle\Entity\EmploymentStatus',
+                'empty_data' => '',
+                'empty_value' => 'N/A',
+                'required' => false
+            ))
             ->add('gs1Certifications', 'collection', array(
                 'label' => 'GS1 certifications',
                 'allow_add' => true,

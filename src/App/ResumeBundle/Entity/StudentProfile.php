@@ -65,6 +65,12 @@ class StudentProfile
     protected $industryPreference;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\ResumeBundle\Entity\EmploymentStatus")
+     * @ORM\JoinColumn(name="employment_status_id", referencedColumnName="id", onDelete="SET NULL")
+     **/
+    protected $employmentStatus;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist"})
      **/
     protected $educations;
@@ -577,6 +583,22 @@ class StudentProfile
     public function removeIndustryPreference($industry)
     {
         $this->industryPreference->removeElement($industry);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmploymentStatus()
+    {
+        return $this->employmentStatus;
+    }
+
+    /**
+     * @param mixed $employmentStatus
+     */
+    public function setEmploymentStatus($employmentStatus)
+    {
+        $this->employmentStatus = $employmentStatus;
     }
 
     /**

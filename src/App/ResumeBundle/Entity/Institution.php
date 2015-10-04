@@ -7,7 +7,7 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="institution")
+ * @ORM\Table(name="config_institution")
  */
 class Institution
 {

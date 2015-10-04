@@ -48,3 +48,12 @@ services:
             - ~
             - App\ResumeBundle\Entity\GS1Certification
             - ~
+
+    sonata.admin.employment_status:
+        class: App\AdminBundle\Admin\EmploymentStatusAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Employment status" }
+        arguments:
+            - ~
+            - App\ResumeBundle\Entity\EmploymentStatus
+            - ~
