@@ -35,6 +35,8 @@ class RegistrationType extends AbstractType
                 )
             );
 
+        $builder->remove('username');
+
         $builder->get('activatedAccessCode')
             ->addModelTransformer(new StudentAccessCodeTransformer($this->entityManager));
     }

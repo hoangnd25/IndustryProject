@@ -27,7 +27,6 @@ class UserFixture implements FixtureInterface
 
         // Generate default admin
         $admin = new User();
-        $admin->setUsername('admin');
         $admin->setPlainPassword('123456');
         $admin->setEmail('admin@gs1au.org');
         $admin->setEnabled(true);
@@ -38,7 +37,6 @@ class UserFixture implements FixtureInterface
 
         // Generate default student
         $student = new User();
-        $student->setUsername('student');
         $student->setPlainPassword('123456');
         $student->setEmail('student@gs1au.org');
         $student->setEnabled(true);
@@ -57,7 +55,6 @@ class UserFixture implements FixtureInterface
 
         // Generate default member
         $member = new User();
-        $member->setUsername('member');
         $member->setPlainPassword('123456');
         $member->setEmail('member@gs1au.org');
         $member->setEnabled(true);
@@ -71,7 +68,6 @@ class UserFixture implements FixtureInterface
             $faker->seed(rand(($i+1)*10,($i+2)*10));
 
             $user = new User();
-            $user->setUsername($faker->userName);
             $user->setPlainPassword('123456');
             $user->setEmail($faker->email);
             $user->setEnabled(true);

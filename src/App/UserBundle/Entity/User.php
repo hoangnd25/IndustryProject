@@ -222,6 +222,14 @@ class User extends BaseUser
         $this->lastName = $lastName;
     }
 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        $this->setUsername($email);
+
+        return $this;
+    }
+
     public function __construct()
     {
         parent::__construct();

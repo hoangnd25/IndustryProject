@@ -39,7 +39,6 @@ class UserAdmin extends Admin
                 'label' => 'Account Type',
                 'choices' => User::getRolesArray()
             ))
-            ->add('username')
             ->add('email')
             ->add('firstName')
             ->add('lastName')
@@ -55,10 +54,9 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('username')
+            ->add('email')
             ->add('firstName')
             ->add('lastName')
-            ->add('email')
             ->add('enabled')
             ->add('roles', null, array('label'=>'Account Type'), 'choice', array(
                 'choices' => User::getRolesArray()
@@ -78,7 +76,7 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('username')
+            ->addIdentifier('email')
             ->add('firstName')
             ->add('lastName')
             ->add('enabled')

@@ -15,7 +15,7 @@
         <div class="request-password-box-body">
             <form action="{{ path("fos_user_resetting_send_email") }}" method="POST" role="form">
                 <div class="form-group has-feedback">
-                    <input class="form-control" placeholder="Username or email address" type="text" id="username" name="username" required="required" />
+                    <input class="form-control" placeholder="Email address" type="text" id="username" name="username" required="required" />
                     {% if invalid_username is defined %}
                         <div class="">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
                     {% endif %}
