@@ -2,66 +2,70 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block navbar %}
-{% endblock navbar %}
-
 {% block body_tag %}
 <body class="register-page">
 {% endblock body_tag %}
 
 {% block content %}
-    <div class="register-box">
-        <span class="register-box-msg">Registration</span>
-        <div class="register-box-body">
-            <div class="register-logo">
-                <a href="{{ path('fos_user_registration_register') }}">
-                    <img src="{{ asset('assets/images/logo.png') }}">
-                </a>
+<div class="row toolkit">
+    <div class=" col-sm-8 col-sm-offset-2">
+        <div class="content-module-wrapper top-border-lime">
+            <div class="content-module content-module-padding">
+                <h3>Registration</h3>
+                <form class="form-horizontal" action="{{ path("fos_user_registration_register") }}" {{ form_enctype(form) }} method="POST" role="form">
+                    {{ form_errors(form.type) }}
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_row(form.plainPassword.second) }}
+
+                    <div id="dynamic_form">
+                        {% if form.memberProfile is defined %}
+                            {{ form_widget(form.memberProfile) }}
+                        {% endif %}
+                    </div>
+
+                    {{ form_rest(form) }}
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <a class="btn btn-sm btn-info" href="{{ path('fos_user_security_login') }}">Already have an account?</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <input class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'registration.submit'|trans }}" />
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <form action="{{ path("fos_user_registration_register") }}" {{ form_enctype(form) }} method="POST" role="form">
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.firstName, {'attr': {'placeholder':'First name'}}) }}
-                    <div class="">{{ form_errors(form.firstName) }}</div>
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.lastName, {'attr': {'placeholder':'Last name'}}) }}
-                    <div class="">{{ form_errors(form.lastName) }}</div>
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.email, {'attr': {'placeholder':'Email'}}) }}
-                    <div class="">{{ form_errors(form.email) }}</div>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.plainPassword.first, {'attr': {'placeholder':'Password'}}) }}
-                    <div class="help-block">{{ form_errors(form.plainPassword.first) }}</div>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.plainPassword.second, {'attr': {'placeholder':'Repeat password'}}) }}
-                    <div class="">{{ form_errors(form.plainPassword.second) }}</div>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-
-                <div class="form-group has-feedback">
-                    {{ form_widget(form.activatedAccessCode, {'attr': {'placeholder':'Access code (optional)'}}) }}
-                    <div class="">{{ form_errors(form.activatedAccessCode) }}</div>
-                    <span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
-                </div>
-                {{ form_rest(form) }}
-
-                <div class="row">
-                    <div class="col-xs-8">
-                        <a class="btn btn-info" href="{{ path('fos_user_security_login') }}">Already have an account?</a>
-                    </div>
-                    <div class="col-xs-4">
-                        <input class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'registration.submit'|trans }}" />
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
+</div>
 {% endblock content %}
+
+{% block foot_script %}
+{{ parent() }}
+<script>
+    var $type = $('.account_type');
+    $type.change(function() {
+        var $form = $(this).closest('form');
+        var data = {};
+        data[$type.attr('name')] = $type.val();
+        // Submit data via AJAX to the form's action path.
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+                var $dynamicForm = $(html).find('#dynamic_form');
+                $dynamicForm.children(".form-group").each(function (index, item){
+                    var $item = $(item)
+                    $item.removeClass('has-error');
+                    $item.find(".help-block").remove();
+                });
+                $('#dynamic_form').replaceWith($dynamicForm);
+            }
+        });
+    });
+</script>
+{% endblock %}

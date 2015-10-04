@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
+            new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
 
             new App\WebBundle\AppWebBundle(),
             new App\UserBundle\AppUserBundle(),

@@ -1,15 +1,13 @@
 {% extends "::base.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
-{% block navbar %}
-{% endblock navbar %}
 
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-success">
                 {{ 'registration.confirmed'|trans({'%username%': user.username}) }}
-                <a class="btn btn-default" href="{{ path('student_profile_edit') }}">Go to your profile</a>
+                {#<a class="btn btn-default" href="{{ path('student_profile_edit') }}">Go to your profile</a>#}
             </div>
         </div>
     </div>

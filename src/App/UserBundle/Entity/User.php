@@ -2,11 +2,14 @@
 
 namespace App\UserBundle\Entity;
 
+use App\ResumeBundle\Entity\MemberProfile;
 use App\ResumeBundle\Entity\StudentAccessCode;
 use App\ResumeBundle\Entity\StudentProfile;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
 
 /**
  * @ORM\Entity
@@ -58,14 +61,24 @@ class User extends BaseUser
     protected $studentProfile;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentAccessCode", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\MemberProfile", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      **/
-    protected $activatedAccessCode;
+    protected $memberProfile;
+
+//    /**
+//     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentAccessCode", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
+//     **/
+//    protected $activatedAccessCode;
 
     /**
      * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\Shortlist", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      **/
     protected $shortlist;
+
+    /**
+     * @RollerworksPassword\PasswordRequirements(minLength="8", requireLetters=true, requireNumbers=true, requireCaseDiff=true)
+     */
+    protected $plainPassword;
 
     /**
      * @ORM\Column(length=100, nullable=true)
@@ -111,7 +124,7 @@ class User extends BaseUser
         if($type !== User::ROLE_STUDENT){
             $this->setStudentProfileVisibility(User::VISIBILITY_NOT_AVAILABLE);
         }else{
-            $this->setStudentProfileVisibility(User::VISIBILITY_HIDDEN);
+            $this->setStudentProfileVisibility(User::VISIBILITY_VISIBLE);
         }
     }
 
@@ -169,26 +182,44 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getActivatedAccessCode()
+    public function getMemberProfile()
     {
-        return $this->activatedAccessCode;
+        return $this->memberProfile;
     }
 
     /**
-     * @param mixed $code
+     * @param mixed $memberProfile
      */
-    public function setActivatedAccessCode($code)
+    public function setMemberProfile($memberProfile)
     {
-        if($code !== null && $code instanceof StudentAccessCode){
-            $this->activatedAccessCode = $code;
-            $this->activatedAccessCode->setActivated(true);
-            $this->activatedAccessCode->setUser($this);
-
-            if($this->activatedAccessCode->getCode())
-                $this->setStudentProfileVisibility(true);
-        }
-        $this->activatedAccessCode = null;
+        $this->memberProfile = $memberProfile;
+        if($memberProfile != null && $memberProfile instanceof MemberProfile)
+            $this->memberProfile->setUser($this);
     }
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getActivatedAccessCode()
+//    {
+//        return $this->activatedAccessCode;
+//    }
+//
+//    /**
+//     * @param mixed $code
+//     */
+//    public function setActivatedAccessCode($code)
+//    {
+//        if($code !== null && $code instanceof StudentAccessCode){
+//            $this->activatedAccessCode = $code;
+//            $this->activatedAccessCode->setActivated(true);
+//            $this->activatedAccessCode->setUser($this);
+//
+//            if($this->activatedAccessCode->getCode())
+//                $this->setStudentProfileVisibility(true);
+//        }
+//        $this->activatedAccessCode = null;
+//    }
 
     /**
      * @return mixed
@@ -236,6 +267,6 @@ class User extends BaseUser
 
         // Set default user account type to student
         $this->setType(User::ROLE_STUDENT);
-        $this->setStudentProfileVisibility(User::VISIBILITY_HIDDEN);
+        $this->setStudentProfileVisibility(User::VISIBILITY_VISIBLE);
     }
 }
