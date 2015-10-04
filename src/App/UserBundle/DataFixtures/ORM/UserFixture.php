@@ -32,6 +32,8 @@ class UserFixture implements FixtureInterface
         $admin->setEmail('admin@gs1au.org');
         $admin->setEnabled(true);
         $admin->setType(User::ROLE_ADMIN);
+        $admin->setFirstName($faker->firstName);
+        $admin->setLastName($faker->lastName);
         $manager->persist($admin);
 
         // Generate default student
@@ -42,12 +44,12 @@ class UserFixture implements FixtureInterface
         $student->setEnabled(true);
         $student->setType(User::ROLE_STUDENT);
         $student->setStudentProfileVisibility(User::VISIBILITY_VISIBLE);
+        $student->setFirstName($faker->firstName);
+        $student->setLastName($faker->lastName);
 
         $faker->seed(rand(1,10));
         $studentProfile = new StudentProfile();
         $studentProfile->setContactEmail($student->getEmail());
-        $studentProfile->setFirstName($faker->firstName);
-        $studentProfile->setLastName($faker->lastName);
         $studentProfile->setHeadline($faker->sentence);
 
         $student->setStudentProfile($studentProfile);
@@ -60,6 +62,8 @@ class UserFixture implements FixtureInterface
         $member->setEmail('member@gs1au.org');
         $member->setEnabled(true);
         $member->setType(User::ROLE_GS1_MEMBER);
+        $member->setFirstName($faker->firstName);
+        $member->setLastName($faker->lastName);
         $manager->persist($member);
 
         // Generate 20 more accounts of students and members
@@ -71,6 +75,8 @@ class UserFixture implements FixtureInterface
             $user->setPlainPassword('123456');
             $user->setEmail($faker->email);
             $user->setEnabled(true);
+            $user->setFirstName($faker->firstName);
+            $user->setLastName($faker->lastName);
 
             $shouldBeAMember = $faker->numberBetween(0,2) == 0;
             if($shouldBeAMember){
@@ -84,8 +90,6 @@ class UserFixture implements FixtureInterface
 
                 $studentProfile =  new StudentProfile();
                 $studentProfile->setContactEmail($user->getEmail());
-                $studentProfile->setFirstName($faker->firstName);
-                $studentProfile->setLastName($faker->lastName);
                 $studentProfile->setHeadline($faker->sentence);
 
                 $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();

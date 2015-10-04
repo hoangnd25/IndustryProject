@@ -41,6 +41,8 @@ class UserAdmin extends Admin
             ))
             ->add('username')
             ->add('email')
+            ->add('firstName')
+            ->add('lastName')
             ->add('plainPassword', 'text', array(
                 'required' => false,
                 'label' => 'New Password'
@@ -54,6 +56,8 @@ class UserAdmin extends Admin
     {
         $datagridMapper
             ->add('username')
+            ->add('firstName')
+            ->add('lastName')
             ->add('email')
             ->add('enabled')
             ->add('roles', null, array('label'=>'Account Type'), 'choice', array(
@@ -75,6 +79,8 @@ class UserAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('username')
+            ->add('firstName')
+            ->add('lastName')
             ->add('enabled')
             ->add('studentProfileVisibility', 'boolean', array(
                 'label' => 'Student Visible',

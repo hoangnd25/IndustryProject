@@ -27,9 +27,13 @@ class RegistrationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('activatedAccessCode', 'text', array(
-            'required' => false
-        ));
+        $builder
+            ->add('firstName')
+            ->add('lastName')
+            ->add('activatedAccessCode', 'text', array(
+                    'required' => false
+                )
+            );
 
         $builder->get('activatedAccessCode')
             ->addModelTransformer(new StudentAccessCodeTransformer($this->entityManager));

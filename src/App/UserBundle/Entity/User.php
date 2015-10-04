@@ -6,6 +6,7 @@ use App\ResumeBundle\Entity\StudentAccessCode;
 use App\ResumeBundle\Entity\StudentProfile;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -65,6 +66,21 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\Shortlist", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      **/
     protected $shortlist;
+
+    /**
+     * @ORM\Column(length=100, nullable=true)
+     * @Assert\Length(max="100")
+     * @Assert\NotBlank()
+     */
+    protected $firstName;
+
+    /**
+     * @ORM\Column(length=100, nullable=true)
+     * @Assert\Length(max="100")
+     * @Assert\NotBlank()
+     */
+
+    protected $lastName;
 
     public function isStudent(){
         return $this->hasRole(User::ROLE_STUDENT);
@@ -172,6 +188,38 @@ class User extends BaseUser
                 $this->setStudentProfileVisibility(true);
         }
         $this->activatedAccessCode = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
     }
 
     public function __construct()

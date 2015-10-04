@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Entity;
 
+use App\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,20 +22,6 @@ class StudentProfile
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\Column(length=100, nullable=true)
-     * @Assert\Length(max="100")
-     * @Assert\NotBlank()
-     */
-    protected $firstName;
-
-    /**
-     * @ORM\Column(length=100, nullable=true)
-     * @Assert\Length(max="100")
-     * @Assert\NotBlank()
-     */
-    protected $lastName;
 
     /**
      * @ORM\OneToOne(targetEntity="App\UserBundle\Entity\User", inversedBy="studentProfile", fetch="EXTRA_LAZY")
@@ -207,11 +194,11 @@ class StudentProfile
     }
 
     /**
-     * @return string | null
+     * @return string
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->user ? $this->user->getFirstName() : "";
     }
 
     /**
@@ -219,15 +206,17 @@ class StudentProfile
      */
     public function setFirstName($firstName)
     {
-        $this->firstName = $firstName;
+        if($this->user){
+            $this->user->setFirstName($firstName);
+        }
     }
 
     /**
-     * @return string | null
+     * @return string
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->user ? $this->user->getLastName() : "";
     }
 
     /**
@@ -235,7 +224,9 @@ class StudentProfile
      */
     public function setLastName($lastName)
     {
-        $this->lastName = $lastName;
+        if($this->user){
+            $this->user->setLastName($lastName);
+        }
     }
 
     /**

@@ -213,7 +213,7 @@ class StudentProfileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder();
-        $qb->select('partial p.{id, firstName, lastName, headline}, partial u.{id}, partial a.{id, fileName}')
+        $qb->select('partial p.{id, headline}, partial u.{id, firstName, lastName}, partial a.{id, fileName}')
             ->from('AppResumeBundle:StudentProfile','p')
             ->leftJoin('p.user','u')
             ->leftJoin('p.avatar','a')

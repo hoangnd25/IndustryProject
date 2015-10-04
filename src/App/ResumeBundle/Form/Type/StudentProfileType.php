@@ -5,6 +5,8 @@ use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class StudentProfileType extends AbstractType
 {
@@ -16,6 +18,10 @@ class StudentProfileType extends AbstractType
                 'widget_form_group' => false,
                 'attr' => array(
                     'placeholder' => 'First name'
+                ),
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('max' => 100))
                 )
             ))
             ->add('lastName', null, array(
@@ -23,6 +29,10 @@ class StudentProfileType extends AbstractType
                 'widget_form_group' => false,
                 'attr' => array(
                     'placeholder' => 'Last name'
+                ),
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('max' => 100))
                 )
             ))
             ->add('headline', null, array(
