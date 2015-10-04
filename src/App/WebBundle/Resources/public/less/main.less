@@ -77,7 +77,7 @@ a, a:hover, a:active {
     line-height: 14px;
 }
 
-.btn-danger, .btn-info{
+.btn-danger, .btn-info, .btn-warning{
     color: white !important;
 }
 
@@ -154,6 +154,52 @@ a, a:hover, a:active {
     a {
         display: inline-block;
         font-size: 1em;
+    }
+
+    .well{
+        background-color: #eee;
+        border: 1px solid #e3e3e3;
+        border-radius: 0px;
+    }
+
+    .media{
+        background: #f4f4f4;
+    }
+
+    .media-left, .media-right, .media-body{
+        display: table-cell;
+
+        h4 {
+            margin: 15px 0 15px;
+        }
+
+        p{
+            font-weight: 300;
+        }
+    }
+
+    .media-right .btn{
+        margin-right: 15px;
+    }
+
+    .pagination {
+        li span{
+            background-color: #f4f4f4;
+            font-weight: 300;
+        }
+        a {
+            font-weight: 300;
+            border: 1px solid #ddd;
+        }
+        .active span {
+            background-color: #002c6c;
+            pointer-events: none;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        .disabled span {
+            background-color: #f4f4f4;
+        }
     }
 }
 

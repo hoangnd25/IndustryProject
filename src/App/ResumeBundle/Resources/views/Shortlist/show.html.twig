@@ -40,10 +40,6 @@
             </div>
 
             <div class="col-sm-8 col-md-9">
-                <a class="pull-right btn btn-info" href="{{ path("shortlist_export") }}">{{ mopa_bootstrap_icon("download") }} Export</a>
-                <a class="pull-right btn btn-warning" href="{{ path("shortlist_clear") }}">{{ mopa_bootstrap_icon("trash") }} Clear</a>
-                <div class="clearfix"></div></br>
-
                 <div class="well input-group">
                     {{ form_widget (filter.form.keyword) }}
                     <span class="input-group-btn">
@@ -51,11 +47,15 @@
                     </span>
                 </div>
 
+                <a class="pull-right btn-sm btn btn-info" href="{{ path("shortlist_export") }}">{{ mopa_bootstrap_icon("download") }} Export</a>
+                <a class="pull-right btn-sm  btn btn-warning" href="{{ path("shortlist_clear") }}">{{ mopa_bootstrap_icon("trash") }} Clear</a>
+                <div class="clearfix"></div></br>
+
                 {% for profile in shortlist %}
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="media">
-                                <a class="media-left" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                <a class="media-left media-middle" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
                                     {% if profile.avatar != null and profile.avatar.fileName != "" %}
                                         <img class="media-object student-avatar"
                                              src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
@@ -72,8 +72,8 @@
                                     <p class="list-group-item-text">{{ profile.headline }}</p>
                                 </a>
                                 {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-                                <div class="media-right">
-                                    <a class="btn btn-warning"
+                                <div class="media-right media-middle">
+                                    <a class="btn btn-sm btn-warning"
                                        href="{{ path('shortlist_remove', {'studentId': profile.user.id }) }}">
                                         {{ mopa_bootstrap_icon('trash') }}
                                     </a>
