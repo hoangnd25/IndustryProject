@@ -1,0 +1,126 @@
+<?php
+
+namespace App\ResumeBundle\Model;
+
+class StudentFilter
+{
+    protected $keyword;
+    protected $industry;
+    protected $gs1Certification;
+    protected $employmentStatus;
+    protected $country;
+    protected $institution;
+    protected $workingRight;
+
+    /**
+     * @return mixed
+     */
+    public function getIndustry()
+    {
+        return $this->industry;
+    }
+
+    /**
+     * @param mixed $industry
+     */
+    public function setIndustry($industry)
+    {
+        $this->industry = $industry;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGs1Certification()
+    {
+        return $this->gs1Certification;
+    }
+
+    /**
+     * @param mixed $gs1Certification
+     */
+    public function setGs1Certification($gs1Certification)
+    {
+        $this->gs1Certification = $gs1Certification;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmploymentStatus()
+    {
+        return $this->employmentStatus;
+    }
+
+    /**
+     * @param mixed $employmentStatus
+     */
+    public function setEmploymentStatus($employmentStatus)
+    {
+        $this->employmentStatus = $employmentStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     * @param mixed $institution
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function hasWorkingRight()
+    {
+        return $this->workingRight;
+    }
+
+    /**
+     * @param mixed $workingRight
+     */
+    public function setWorkingRight($workingRight)
+    {
+        $this->workingRight = $workingRight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKeyword()
+    {
+        return $this->keyword;
+    }
+
+    /**
+     * @param mixed $keyword
+     */
+    public function setKeyword($keyword)
+    {
+        $this->keyword = $keyword;
+    }
+}

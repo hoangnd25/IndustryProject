@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Model\StudentFilter;
 use App\UserBundle\Entity\User;
 use Doctrine\ORM\Query;
 use libphonenumber\PhoneNumberFormat;
@@ -24,13 +25,19 @@ class ShortlistController extends Controller
      */
     public function showAction(Request $request)
     {
+        $filterForm = $this->createForm('filter', new StudentFilter());
+        $filterForm->handleRequest($request);
+        /** @var StudentFilter $filterData */
+        $filter = $filterForm->getData();
+
         /** @var User $user */
         $user = $this->getUser();
 
         $results = $this->get('manager.shortlist')->getShortlist($user, Query::HYDRATE_ARRAY);
 
         return array(
-            'shortlist' => $results
+            'shortlist' => $results,
+            'filter' => $filterForm->createView()
         );
     }
 

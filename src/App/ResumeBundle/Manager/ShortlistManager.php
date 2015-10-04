@@ -51,9 +51,10 @@ class ShortlistManager
 
         if($idArray){
             $qb = $this->em->createQueryBuilder();
-            $qb->select('p,u')
+            $qb->select('partial p.{id, headline}, partial u.{id, firstName, lastName}, partial a.{id, fileName}')
                 ->from('AppResumeBundle:StudentProfile','p')
-                ->leftJoin('p.user', 'u')
+                ->leftJoin('p.user','u')
+                ->leftJoin('p.avatar','a')
                 ->where($qb->expr()->in('u.id', $idArray))
             ;
             $results = $qb->getQuery()->getResult($hydrate);

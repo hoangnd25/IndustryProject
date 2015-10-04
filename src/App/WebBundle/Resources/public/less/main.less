@@ -30,6 +30,12 @@ a, a:hover, a:active {
     border-color: #0C829E;
 }
 
+.filter{
+    .control-label{
+        text-align: left;
+    }
+}
+
 .form-control {
     border-radius: 0 !important;
     box-shadow: none;
@@ -81,6 +87,50 @@ a, a:hover, a:active {
 
 .toolkit .headroom .navigation {
     margin-bottom: 50px;
+}
+
+.toolkit .panel {
+    margin-bottom: 40px;
+}
+.toolkit .panel:nth-last-child(1) {
+    margin-bottom: 20px;
+}
+
+.nav-pills{
+    li{
+        padding: 0px !important;
+        margin: 0px !important;
+        a{
+            margin: 0px !important;
+            border: none;
+            padding: 10px 15px;
+        }
+    }
+    li.active{
+        padding: 0px;
+        border: none;
+    }
+}
+
+.panel #filters{
+    label{
+        color: #333;
+        font-weight: 300;
+        margin-top: 15px;
+    }
+    .form-group {
+    }
+}
+
+.toolkit .nav-tabs > li.active > a,
+.toolkit .nav-tabs > li.active > a:hover,
+.toolkit .nav-tabs > li.active > a:focus,
+.toolkit .nav-pills > li.active > a,
+.toolkit .nav-pills > li.active > a:hover,
+.toolkit .nav-pills > li.active > a:focus {
+    background: #eee;
+    border: none;
+    border-bottom: 1px solid #ccc;
 }
 
 .toolkit {

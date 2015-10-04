@@ -140,6 +140,7 @@ mopa_bootstrap:
     initializr: ~
     form:
         show_legend: false
+        render_optional_text: false
         collection:
             widget_remove_btn:
                 icon: trash

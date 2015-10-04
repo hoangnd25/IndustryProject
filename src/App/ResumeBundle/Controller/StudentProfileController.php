@@ -5,6 +5,7 @@ namespace App\ResumeBundle\Controller;
 use App\ResumeBundle\Entity\StudentCertification;
 use App\ResumeBundle\Entity\StudentGS1Certification;
 use App\ResumeBundle\Entity\StudentProfile;
+use App\ResumeBundle\Model\StudentFilter;
 use App\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
@@ -189,15 +190,18 @@ class StudentProfileController extends Controller
      * @Security("has_role('ROLE_GS1_MEMBER')")
      */
     public function listAction(Request $request){
-        $keyword = $request->get('keyword');
+        $filterForm = $this->createForm('filter', new StudentFilter());
+        $filterForm->handleRequest($request);
+        /** @var StudentFilter $filterData */
+        $filter = $filterForm->getData();
 
         $idArray = array();
-        if($keyword != null){
+        if($filter->getKeyword()!= null){
             $query = new Query();
             $query->setSize(1000);
 
             $fuzzyQuery = new Query\FuzzyLikeThis();
-            $fuzzyQuery->setLikeText($keyword);
+            $fuzzyQuery->setLikeText($filter->getKeyword());
             $fuzzyQuery->setMinSimilarity(0.7);
 
             $query->setQuery($fuzzyQuery);
@@ -221,7 +225,7 @@ class StudentProfileController extends Controller
             ->orderBy('u.id', 'desc')
         ;
 
-        if($keyword != null){
+        if($filter->getKeyword() != null){
             if(!empty($idArray)){
                 $qb->andWhere($qb->expr()->in('p.id', $idArray));
             }else{
@@ -238,9 +242,7 @@ class StudentProfileController extends Controller
 
         return array(
             'profiles' => $pagination,
-            'filter' => array(
-                'keyword' => $keyword
-            ),
+            'filter' => $filterForm->createView(),
             'total' => array(
                 'shortlist' => null
             )
