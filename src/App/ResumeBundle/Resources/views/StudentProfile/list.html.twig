@@ -2,86 +2,76 @@
 
 {% block content %}
     <div class="row">
-        <form class="col-sm-12" action="{{ path(app.request.get('_route')) }}" method="GET">
+        <form action="{{ path(app.request.get('_route')) }}" method="GET">
             <div class="col-sm-4 col-md-3">
-                <div class="row">
-                    <div class="content-module-wrapper top-border-lime">
-                        <div class="content-module content-module-padding">
-                            <div class="panel">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-target="#navigation">
-                                        Navigation
-                                    </a>
-                                </h4>
-                                <div id="navigation" class="panel-collapse collapse in">
-                                    <ul class="nav nav-pills nav-stacked">
-                                        <li role="presentation" class="active"><a href="#">Student Search</a></li>
-                                        <li role="presentation"><a href="{{ path('shortlist') }}">Shortlist</a></li>
-                                    </ul>
-                                </div>
+                <div class="content-module-wrapper top-border-lime">
+                    <div class="content-module content-module-padding">
+                        <div class="panel">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-target="#navigation">
+                                    Navigation
+                                </a>
+                            </h4>
+                            <div id="navigation" class="panel-collapse collapse in">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li role="presentation" class="active"><a href="#">Student Search</a></li>
+                                    <li role="presentation"><a href="{{ path('shortlist') }}">Shortlist</a></li>
+                                </ul>
                             </div>
-                            <div class="panel">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-target="#filters">
-                                        Filters
-                                    </a>
-                                </h4>
-                                <div id="filters" class="panel-collapse collapse">
-                                    {{ form_row(filter.industry) }}
-                                    {{ form_row(filter.gs1Certification) }}
-                                    {{ form_row(filter.employmentStatus) }}
-                                    {{ form_row(filter.country) }}
-                                    {{ form_row(filter.institution) }}
-                                    {{ form_row(filter.workingRight) }}
-                                </div>
-                                <div class="clearfix"></div>
+                        </div>
+                        <div class="panel">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-target="#filters">
+                                    Filters
+                                </a>
+                            </h4>
+                            <div id="filters" class="panel-collapse collapse">
+                                {{ form_row(filter.industry) }}
+                                {{ form_row(filter.gs1Certification) }}
+                                {{ form_row(filter.employmentStatus) }}
+                                {{ form_row(filter.country) }}
+                                {{ form_row(filter.institution) }}
+                                {{ form_row(filter.workingRight) }}
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-9">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="well input-group">
-                            {{ form_widget (filter.keyword) }}
-                            <span class="input-group-btn">
-                            <input class="btn btn-form-item btn-default" value="Search" type="submit" />
-                        </span>
-                        </div>
-                    </div>
+                <div class="well input-group">
+                    {{ form_widget (filter.keyword) }}
+                    <span class="input-group-btn">
+                        <input class="btn btn-form-item btn-default" value="Search" type="submit" />
+                    </span>
                 </div>
                 {% for profile in profiles %}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="list-group">
-                                <div class="list-group-item">
-                                    <div class="media">
-                                        <a class="media-left" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
-                                            {% if profile.avatar != null and profile.avatar.fileName != "" %}
-                                                <img class="media-object student-avatar"
-                                                     src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
-                                                     alt="{{ profile.firstName }} {{ profile.lastName }}">
-                                            {% else %}
-                                                <img class="media-object student-avatar"
-                                                     src="{{ asset('assets/images/blank-avatar.gif') }}"
-                                                     alt="{{ profile.firstName }} {{ profile.lastName }}">
-                                            {% endif %}
-                                        </a>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="media">
+                                <a class="media-left" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                    {% if profile.avatar != null and profile.avatar.fileName != "" %}
+                                        <img class="media-object student-avatar"
+                                             src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
+                                             alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                    {% else %}
+                                        <img class="media-object student-avatar"
+                                             src="{{ asset('assets/images/blank-avatar.gif') }}"
+                                             alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                    {% endif %}
+                                </a>
 
-                                        <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
-                                            <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
-                                            <p class="list-group-item-text">{{ profile.headline }}</p>
-                                        </a>
-                                        {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-                                        <div class="media-right">
-                                            <a class="btn btn-info"
-                                               href="{{ path('shortlist_add', {'studentId': profile.user.id, 'redirect': redirectUrl}) }}">
-                                                {{ mopa_bootstrap_icon('plus') }}
-                                            </a>
-                                        </div>
-                                    </div>
+                                <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                    <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
+                                    <p class="list-group-item-text">{{ profile.headline }}</p>
+                                </a>
+                                {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                                <div class="media-right">
+                                    <a class="btn btn-info"
+                                       href="{{ path('shortlist_add', {'studentId': profile.user.id, 'redirect': redirectUrl}) }}">
+                                        {{ mopa_bootstrap_icon('plus') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>
