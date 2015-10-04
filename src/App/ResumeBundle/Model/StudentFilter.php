@@ -2,6 +2,8 @@
 
 namespace App\ResumeBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class StudentFilter
 {
     protected $keyword;
@@ -105,7 +107,7 @@ class StudentFilter
      */
     public function setWorkingRight($workingRight)
     {
-        $this->workingRight = $workingRight;
+        $this->workingRight = filter_var($workingRight, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -122,5 +124,17 @@ class StudentFilter
     public function setKeyword($keyword)
     {
         $this->keyword = $keyword;
+    }
+
+    public function isEmpty(){
+        return
+            !(
+                count($this->industry) > 0 ||
+                count($this->country) > 0 ||
+                count($this->employmentStatus) > 0 ||
+                $this->workingRight !== null ||
+                count($this->gs1Certification) > 0 ||
+                count($this->institution) > 0
+            );
     }
 }

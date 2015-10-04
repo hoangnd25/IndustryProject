@@ -16,8 +16,15 @@
 
         <service id="app_resume.manager.shortlist" class="App\ResumeBundle\Manager\ShortlistManager">
             <argument type="service" id="doctrine" />
+            <argument type="service" id="manager.search" />
         </service>
         <service id="manager.shortlist" alias="app_resume.manager.shortlist" />
+
+        <service id="app_resume.manager.search" class="App\ResumeBundle\Manager\SearchManager">
+            <argument type="service" id="fos_elastica.index.app.student_profile" />
+        </service>
+        <service id="manager.search" alias="app_resume.manager.search" />
+
 
         <service id="app_resume.form.student_profile" class="App\ResumeBundle\Form\Type\StudentProfileType">
             <tag name="form.type" alias="student_profile" />

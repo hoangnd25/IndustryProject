@@ -21,17 +21,17 @@
                         </div>
                         <div class="panel">
                             <h4 class="panel-title">
-                                <a class="collapsed" data-toggle="collapse" data-target="#filters">
+                                <a class="{% if filter.data.empty %}collapsed{% endif %}" data-toggle="collapse" data-target="#filters">
                                     Filters
                                 </a>
                             </h4>
-                            <div id="filters" class="panel-collapse collapse">
-                                {{ form_row(filter.industry) }}
-                                {{ form_row(filter.gs1Certification) }}
-                                {{ form_row(filter.employmentStatus) }}
-                                {{ form_row(filter.country) }}
-                                {{ form_row(filter.institution) }}
-                                {{ form_row(filter.workingRight) }}
+                            <div id="filters" class="panel-collapse collapse {% if not filter.data.empty %}in{% endif %}">
+                                {{ form_row(filter.form.industry) }}
+                                {{ form_row(filter.form.gs1Certification) }}
+                                {{ form_row(filter.form.employmentStatus) }}
+                                {{ form_row(filter.form.country) }}
+                                {{ form_row(filter.form.institution) }}
+                                {{ form_row(filter.form.workingRight) }}
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -41,7 +41,7 @@
 
             <div class="col-sm-8 col-md-9">
                 <div class="well input-group">
-                    {{ form_widget (filter.keyword) }}
+                    {{ form_widget (filter.form.keyword) }}
                     <span class="input-group-btn">
                         <input class="btn btn-form-item btn-default" value="Search" type="submit" />
                     </span>
@@ -54,16 +54,16 @@
                                     {% if profile.avatar != null and profile.avatar.fileName != "" %}
                                         <img class="media-object student-avatar"
                                              src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
-                                             alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                             alt="{{ profile.user.firstName }} {{ profile.user.lastName }}">
                                     {% else %}
                                         <img class="media-object student-avatar"
                                              src="{{ asset('assets/images/blank-avatar.gif') }}"
-                                             alt="{{ profile.firstName }} {{ profile.lastName }}">
+                                             alt="{{ profile.user.firstName }} {{ profile.user.lastName }}">
                                     {% endif %}
                                 </a>
 
                                 <a class="media-body" style="color: #333" href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
-                                    <h4 class="list-group-item-heading">{{ profile.firstName }} {{ profile.lastName }}</h4>
+                                    <h4 class="list-group-item-heading">{{ profile.user.firstName }} {{ profile.user.lastName }}</h4>
                                     <p class="list-group-item-text">{{ profile.headline }}</p>
                                 </a>
                                 {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}

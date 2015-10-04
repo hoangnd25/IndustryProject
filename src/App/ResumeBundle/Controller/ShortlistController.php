@@ -33,11 +33,14 @@ class ShortlistController extends Controller
         /** @var User $user */
         $user = $this->getUser();
 
-        $results = $this->get('manager.shortlist')->getShortlist($user, Query::HYDRATE_ARRAY);
+        $results = $this->get('manager.shortlist')->getShortlist($user, Query::HYDRATE_ARRAY, $filter);
 
         return array(
             'shortlist' => $results,
-            'filter' => $filterForm->createView()
+            'filter' => array(
+                'form' => $filterForm->createView(),
+                'data' => $filter
+            )
         );
     }
 

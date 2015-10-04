@@ -110,7 +110,7 @@ class StudentProfileController extends Controller
             $hasGs1Cert = false;
             /** @var StudentGS1Certification $cert */
             foreach($profile->getGs1Certifications() as $cert){
-                if($cert->getFile() == null){
+                if($cert->getFile() == null & $cert->getId() == null){
                     $profile->removeGs1Certifications($cert);
                 }else{
                     $cert->setStudent($profile);
@@ -192,27 +192,17 @@ class StudentProfileController extends Controller
     public function listAction(Request $request){
         $filterForm = $this->createForm('filter', new StudentFilter());
         $filterForm->handleRequest($request);
-        /** @var StudentFilter $filterData */
+        /** @var StudentFilter $filter */
         $filter = $filterForm->getData();
 
         $idArray = array();
         if($filter->getKeyword()!= null){
-            $query = new Query();
-            $query->setSize(1000);
-
-            $fuzzyQuery = new Query\FuzzyLikeThis();
-            $fuzzyQuery->setLikeText($filter->getKeyword());
-            $fuzzyQuery->setMinSimilarity(0.7);
-
-            $query->setQuery($fuzzyQuery);
-
-            $results = $this->get('fos_elastica.index.app.student_profile')->search($query);
+            $results = $this->get('manager.search')->search($filter->getKeyword());
 
             foreach($results as $item){
                 $idArray[] = $item->getId();
             }
         }
-
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -221,9 +211,39 @@ class StudentProfileController extends Controller
             ->from('AppResumeBundle:StudentProfile','p')
             ->leftJoin('p.user','u')
             ->leftJoin('p.avatar','a')
+            ->leftJoin('p.industryPreference','ip')
+            ->leftJoin('p.gs1Certifications','gs1')
+            ->leftJoin('p.employmentStatus','es')
+            ->leftJoin('p.educations','edu')
+            ->leftJoin('p.resume','resume')
             ->where($qb->expr()->eq('u.studentProfileVisibility', User::VISIBILITY_VISIBLE))
-            ->orderBy('u.id', 'desc')
+            ->orderBy('p.hasGs1Certification', 'desc')
+            ->addOrderBy('u.id', 'desc')
         ;
+
+        if(null !== $industryIds = $this->getIdArray($filter->getIndustry())){
+            $qb->andWhere($qb->expr()->in('ip', $industryIds));
+        }
+
+        if(null !== $gs1CertArray = $this->getIdArray($filter->getGs1Certification())){
+            $qb->andWhere($qb->expr()->in('gs1.type', $gs1CertArray));
+        }
+
+        if(null !== $employmentStatusArray = $this->getIdArray($filter->getEmploymentStatus())){
+            $qb->andWhere($qb->expr()->in('es', $employmentStatusArray));
+        }
+
+        if(null !== $institutionArray = $this->getIdArray($filter->getInstitution())){
+            $qb->andWhere($qb->expr()->in('edu.institution', $institutionArray));
+        }
+
+        if($filter->getCountry() !== null && count($filter->getCountry()) > 0){
+            $qb->andWhere($qb->expr()->in('p.country', $filter->getCountry()));
+        }
+
+        if(null !== ($workingRight = $filter->hasWorkingRight())){
+            $qb->andWhere($qb->expr()->eq('p.workingRight', $workingRight ? "1" : "0"));
+        }
 
         if($filter->getKeyword() != null){
             if(!empty($idArray)){
@@ -235,17 +255,31 @@ class StudentProfileController extends Controller
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $qb->getQuery(),
+            $qb->getQuery()->setHydrationMode(\Doctrine\ORM\Query::HYDRATE_ARRAY),
             $request->query->getInt('page', 1)/*page number*/,
             6/*limit per page*/
         );
 
         return array(
             'profiles' => $pagination,
-            'filter' => $filterForm->createView(),
+            'filter' => array(
+                'form' => $filterForm->createView(),
+                'data' => $filter
+            ),
             'total' => array(
                 'shortlist' => null
             )
         );
+    }
+
+    protected function getIdArray($collection){
+        if(!$collection instanceof ArrayCollection)
+            return null;
+        if(count($collection) < 1)
+            return null;
+
+        return array_map(function($item){
+            return $item->getId();
+        }, $collection->toArray());
     }
 }

@@ -3,7 +3,9 @@
 namespace App\ResumeBundle\Manager;
 
 use App\ResumeBundle\Entity\Shortlist;
+use App\ResumeBundle\Model\StudentFilter;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 
@@ -12,14 +14,16 @@ class ShortlistManager
 
     /** @var $em EntityManager */
     protected $em;
+    protected $searchManager;
 
     /**
      * ShortlistManager constructor.
      * @param Registry $doctrine
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(Registry $doctrine, SearchManager $searchManager)
     {
         $this->em = $doctrine->getManager();
+        $this->searchManager = $searchManager;
     }
 
     /**
@@ -46,7 +50,7 @@ class ShortlistManager
      * @param int $hydrate
      * @return array
      */
-    public function getShortlist($user, $hydrate = Query::HYDRATE_ARRAY){
+    public function getShortlist($user, $hydrate = Query::HYDRATE_ARRAY, StudentFilter $filter = null){
         $idArray = $this->getShortlistIds($user);
 
         if($idArray){
@@ -55,8 +59,57 @@ class ShortlistManager
                 ->from('AppResumeBundle:StudentProfile','p')
                 ->leftJoin('p.user','u')
                 ->leftJoin('p.avatar','a')
+                ->leftJoin('p.industryPreference','ip')
+                ->leftJoin('p.gs1Certifications','gs1')
+                ->leftJoin('p.employmentStatus','es')
+                ->leftJoin('p.educations','edu')
                 ->where($qb->expr()->in('u.id', $idArray))
             ;
+
+            $idArray = array();
+            if($filter->getKeyword()!= null){
+                $results = $this->searchManager->search($filter->getKeyword());
+
+                foreach($results as $item){
+                    $idArray[] = $item->getId();
+                }
+            }
+
+            if($filter !== null){
+                if(null !== $industryIds = $this->getIdArray($filter->getIndustry())){
+                    $qb->andWhere($qb->expr()->in('ip', $industryIds));
+                }
+
+                if(null !== $gs1CertArray = $this->getIdArray($filter->getGs1Certification())){
+                    dump($this->getIdArray($filter->getGs1Certification()),$filter);
+                    $qb->andWhere($qb->expr()->in('gs1.type', $gs1CertArray));
+                }
+
+                if(null !== $employmentStatusArray = $this->getIdArray($filter->getEmploymentStatus())){
+                    $qb->andWhere($qb->expr()->in('es', $employmentStatusArray));
+                }
+
+                if(null !== $institutionArray = $this->getIdArray($filter->getInstitution())){
+                    $qb->andWhere($qb->expr()->in('edu.institution', $institutionArray));
+                }
+
+                if($filter->getCountry() !== null && count($filter->getCountry()) > 0){
+                    $qb->andWhere($qb->expr()->in('p.country', $filter->getCountry()));
+                }
+
+                if(null !== ($workingRight = $filter->hasWorkingRight())){
+                    $qb->andWhere($qb->expr()->eq('p.workingRight', $workingRight ? "1" : "0"));
+                }
+
+                if($filter->getKeyword() != null){
+                    if(!empty($idArray)){
+                        $qb->andWhere($qb->expr()->in('p.id', $idArray));
+                    }else{
+                        $qb->andWhere($qb->expr()->eq('u.id', -1));
+                    }
+                }
+            }
+
             $results = $qb->getQuery()->getResult($hydrate);
         }else{
             $results = array();
@@ -113,4 +166,14 @@ class ShortlistManager
         $result = $qb->getQuery()->execute();
     }
 
+    protected function getIdArray($collection){
+        if(!$collection instanceof ArrayCollection)
+            return null;
+        if(count($collection) < 1)
+            return null;
+
+        return array_map(function($item){
+            return $item->getId();
+        }, $collection->toArray());
+    }
 }

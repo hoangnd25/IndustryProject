@@ -63,7 +63,7 @@ class FilterType extends AbstractType
                     1 => 'Yes',
                     0 => 'No'
                 ),
-                'empty_value' => 'All',
+                'empty_value' => 'Any',
                 'horizontal_label_class' => 'col-sm-12',
                 'horizontal_input_wrapper_class' => 'col-sm-12',
                 'required' => false

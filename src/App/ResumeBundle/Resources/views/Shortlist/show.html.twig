@@ -21,17 +21,17 @@
                         </div>
                         <div class="panel">
                             <h4 class="panel-title">
-                                <a class="collapsed" data-toggle="collapse" data-target="#filters">
+                                <a class="{% if filter.data.empty %}collapsed{% endif %}" data-toggle="collapse" data-target="#filters">
                                     Filters
                                 </a>
                             </h4>
-                            <div id="filters" class="panel-collapse collapse">
-                                {{ form_row(filter.industry) }}
-                                {{ form_row(filter.gs1Certification) }}
-                                {{ form_row(filter.employmentStatus) }}
-                                {{ form_row(filter.country) }}
-                                {{ form_row(filter.institution) }}
-                                {{ form_row(filter.workingRight) }}
+                            <div id="filters" class="panel-collapse collapse {% if not filter.data.empty %}in{% endif %}">
+                                {{ form_row(filter.form.industry) }}
+                                {{ form_row(filter.form.gs1Certification) }}
+                                {{ form_row(filter.form.employmentStatus) }}
+                                {{ form_row(filter.form.country) }}
+                                {{ form_row(filter.form.institution) }}
+                                {{ form_row(filter.form.workingRight) }}
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -45,7 +45,7 @@
                 <div class="clearfix"></div></br>
 
                 <div class="well input-group">
-                    {{ form_widget (filter.keyword) }}
+                    {{ form_widget (filter.form.keyword) }}
                     <span class="input-group-btn">
                         <input class="btn btn-form-item btn-default" value="Search" type="submit" />
                     </span>
