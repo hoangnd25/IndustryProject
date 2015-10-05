@@ -1,113 +1,128 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <div class="well">
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Full name
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.firstName | title }} {{ user.studentProfile.lastName |title }}
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Professional headline
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.headline }}
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                About me
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.about }}
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Contact email
-            </label>
-            <div class="col-sm-9">
-                {% set contactEmail = user.studentProfile.contactEmail %}
-                <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Contact number
-            </label>
-            <div class="col-sm-9">
-                {% if user.studentProfile.contactNumber is not null %}
-                    {% set phone = phone_number_format(user.studentProfile.contactNumber, 'NATIONAL') %}
-                    {% set phoneRaw = phone_number_format(user.studentProfile.contactNumber, 'E164') %}
-                    <a href="tel:{{ phoneRaw }}">{{ phone }}</a>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Country (residence)
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.country | countryName }}
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                State (residence)
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.state |title }}
-            </div>
-        </div>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                City (residence)
-            </label>
-            <div class="col-sm-9">
-                {{ user.studentProfile.city |title }}
-            </div>
-        </div>
-
-        {% if user.studentProfile.educations | length > 0 %}
+    {#<div class="well">#}
+    <div class="content-module-wrapper top-border-orange">
+        <div class="content-module content-module-padding">
             <div class="row">
                 <label class="control-label col-sm-3">
-                    Educations
+                    Full name
                 </label>
+
                 <div class="col-sm-9">
-                    {% for edu in user.studentProfile.educations %}
-                        <p>{{ edu.institution }}: {{ edu.degree }}</p>
-                    {% endfor %}
+                    {{ user.studentProfile.firstName | title }} {{ user.studentProfile.lastName |title }}
                 </div>
             </div>
-        {% endif %}
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Professional headline
+                </label>
 
-        {% if user.studentProfile.socialNetworks | length > 0 %}
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Social network
-            </label>
-            <div class="col-sm-9 row">
-                {% for link in user.studentProfile.socialNetworks %}
-                <a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>
-                {% endfor %}
+                <div class="col-sm-9">
+                    {{ user.studentProfile.headline }}
+                </div>
             </div>
-        </div>
-        {% endif %}
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    About me
+                </label>
 
-        {% if user.studentProfile.resume != null and user.studentProfile.resume.fileName != "" %}
-        <div class="row">
-            <label class="control-label col-sm-3">
-                Resume
-            </label>
-            <div class="col-sm-9">
-                <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
+                <div class="col-sm-9">
+                    {{ user.studentProfile.about }}
+                </div>
             </div>
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Contact email
+                </label>
+
+                <div class="col-sm-9">
+                    {% set contactEmail = user.studentProfile.contactEmail %}
+                    <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Contact number
+                </label>
+
+                <div class="col-sm-9">
+                    {% if user.studentProfile.contactNumber is not null %}
+                        {% set phone = phone_number_format(user.studentProfile.contactNumber, 'NATIONAL') %}
+                        {% set phoneRaw = phone_number_format(user.studentProfile.contactNumber, 'E164') %}
+                        <a href="tel:{{ phoneRaw }}">{{ phone }}</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Country (residence)
+                </label>
+
+                <div class="col-sm-9">
+                    {{ user.studentProfile.country | countryName }}
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    State (residence)
+                </label>
+
+                <div class="col-sm-9">
+                    {{ user.studentProfile.state |title }}
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    City (residence)
+                </label>
+
+                <div class="col-sm-9">
+                    {{ user.studentProfile.city |title }}
+                </div>
+            </div>
+
+            {% if user.studentProfile.educations | length > 0 %}
+                <div class="row">
+                    <label class="control-label col-sm-3">
+                        Educations
+                    </label>
+
+                    <div class="col-sm-9">
+                        {% for edu in user.studentProfile.educations %}
+                            <p>{{ edu.institution }}: {{ edu.degree }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if user.studentProfile.socialNetworks | length > 0 %}
+                <div class="row">
+                    <label class="control-label col-sm-3">
+                        Social network
+                    </label>
+
+                    <div class="col-sm-9 row">
+                        {% for link in user.studentProfile.socialNetworks %}
+                            <a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if user.studentProfile.resume != null and user.studentProfile.resume.fileName != "" %}
+                <div class="row">
+                    <label class="control-label col-sm-3">
+                        Resume
+                    </label>
+
+                    <div class="col-sm-9">
+                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
+                    </div>
+                </div>
+            {% endif %}
+            {#</div>#}
         </div>
-        {% endif %}
     </div>
 {% endblock %}
