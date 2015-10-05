@@ -1,5 +1,5 @@
 [amazon]
-ec2-52-64-130-35.ap-southeast-2.compute.amazonaws.com
+gs1.hoangnd.me
 
 [amazon:vars]
 ansible_ssh_user=ubuntu
