@@ -55,7 +55,7 @@ class ShortlistManager
 
         if($idArray){
             $qb = $this->em->createQueryBuilder();
-            $qb->select('partial p.{id, headline}, partial u.{id, firstName, lastName}, partial a.{id, fileName}')
+            $qb->select('partial p.{id, headline, contactEmail, contactNumber}, partial u.{id, firstName, lastName}, partial a.{id, fileName}')
                 ->from('AppResumeBundle:StudentProfile','p')
                 ->leftJoin('p.user','u')
                 ->leftJoin('p.avatar','a')
@@ -66,16 +66,16 @@ class ShortlistManager
                 ->where($qb->expr()->in('u.id', $idArray))
             ;
 
-            $idArray = array();
-            if($filter->getKeyword()!= null){
-                $results = $this->searchManager->search($filter->getKeyword());
-
-                foreach($results as $item){
-                    $idArray[] = $item->getId();
-                }
-            }
-
             if($filter !== null){
+
+                $keywordFilteredIdArray = array();
+                if($filter->getKeyword()!= null){
+                    $results = $this->searchManager->search($filter->getKeyword());
+                    foreach($results as $item){
+                        $keywordFilteredIdArray[] = $item->getId();
+                    }
+                }
+
                 if(null !== $industryIds = $this->getIdArray($filter->getIndustry())){
                     $qb->andWhere($qb->expr()->in('ip', $industryIds));
                 }
@@ -102,8 +102,8 @@ class ShortlistManager
                 }
 
                 if($filter->getKeyword() != null){
-                    if(!empty($idArray)){
-                        $qb->andWhere($qb->expr()->in('p.id', $idArray));
+                    if(!empty($keywordFilteredIdArray)){
+                        $qb->andWhere($qb->expr()->in('p.id', $keywordFilteredIdArray));
                     }else{
                         $qb->andWhere($qb->expr()->eq('u.id', -1));
                     }
