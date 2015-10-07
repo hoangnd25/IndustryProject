@@ -49,7 +49,7 @@
                     </span>
                         </div>
 
-                        <a class="pull-right btn-sm btn btn-info"
+                        <a class="pull-right btn-sm btn btn-info" id="export"
                            href="{{ path("shortlist_export") }}">{{ mopa_bootstrap_icon("download") }} Export</a>
                         <a class="pull-right btn-sm  btn btn-warning"
                            href="{{ path("shortlist_clear") }}">{{ mopa_bootstrap_icon("trash") }} Clear</a>
@@ -126,6 +126,14 @@
         $(document).ready(function(){
             // init select2
             $('select').css('width', '100%').select2();
+            $('#export').click(function(e){
+                e.preventDefault();
+                var $form = $('form');
+                var prevAction = $form.attr('action');
+                $form.attr('action', $(this).attr('href'));
+                $form.submit();
+                $form.attr('action', prevAction);
+            });
         });
     </script>
 {% endblock %}
