@@ -122,12 +122,11 @@
                 <div class="col-sm-9">
                     <ul>
                         {% for name in user.studentProfile.industryPreference %}
-                            {#<a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>#}
                             <li>{{ name }}</li>
                         {% endfor %}
                     </ul>
                 </div>
-            </div>
+            </div
 
             {% if user.studentProfile.educations | length > 0 %}
                 <div class="row">
