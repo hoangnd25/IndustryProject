@@ -109,9 +109,14 @@ class ShortlistController extends Controller
      */
     public function exportAction(Request $request)
     {
+        $filterForm = $this->createForm('filter', new StudentFilter());
+        $filterForm->handleRequest($request);
+        /** @var StudentFilter $filterData */
+        $filter = $filterForm->getData();
+
         /** @var User $user */
         $user = $this->getUser();
-        $results = $this->get('manager.shortlist')->getShortlist($user, Query::HYDRATE_ARRAY);
+        $results = $this->get('manager.shortlist')->getShortlist($user, Query::HYDRATE_ARRAY, $filter);
         $phoneFormatter = $this->get('libphonenumber.phone_number_util');
 
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
@@ -134,8 +139,12 @@ class ShortlistController extends Controller
                     );
             }
 
-            $firstName = array_key_exists("firstName", $student) ? $student["firstName"] : "";
-            $lastName = array_key_exists("lastName", $student) ? $student["lastName"] : "";
+            $firstName = "";
+            $lastName = "";
+            if(array_key_exists("user", $student)){
+                $firstName = array_key_exists("firstName", $student["user"]) ? $student["user"]["firstName"] : "";
+                $lastName = array_key_exists("lastName", $student["user"]) ? $student["user"]["lastName"] : "";
+            }
             $contactEmail = array_key_exists("contactEmail", $student) ? $student["contactEmail"] : "";
 
             $phpExcelObject->setActiveSheetIndex(0)
