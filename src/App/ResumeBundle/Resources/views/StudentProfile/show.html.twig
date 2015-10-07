@@ -31,6 +31,17 @@
                     {{ user.studentProfile.about }}
                 </div>
             </div>
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Availability
+                </label>
+
+                <div class="col-sm-9">
+                    {#{{ user.studentProfile.availabilityStatus ? 'Yes' : 'No' }}#}
+                </div>
+            </div>
+
             <div class="row">
                 <label class="control-label col-sm-3">
                     Contact email
@@ -80,6 +91,41 @@
 
                 <div class="col-sm-9">
                     {{ user.studentProfile.city |title }}
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Employment status
+                </label>
+
+                <div class="col-sm-9">
+                    {{ user.studentProfile.employmentStatus |title }}
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Working right in Australia
+                </label>
+
+                <div class="col-sm-9">
+                    {{ user.studentProfile.workingRight ? 'Yes' : 'No' }}
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Industry preference
+                </label>
+
+                <div class="col-sm-9">
+                    <ul>
+                        {% for name in user.studentProfile.industryPreference %}
+                            {#<a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>#}
+                            <li>{{ name }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
 
