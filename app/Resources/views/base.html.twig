@@ -8,6 +8,7 @@
         'bundles/appweb/css/bootstrap-accessibility.min.css'
         'bundles/appweb/css/select2.css'
         'bundles/appweb/less/main.less'
+        'bundles/appweb/css/gotham-font.css'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
@@ -15,8 +16,6 @@
     {% if diagnostic_mode %}
         <link href="{{ asset('bundles/mopabootstrap/css/diagnostic.css') }}" type="text/css" rel="stylesheet" media="screen" />
     {% endif %}
-    <link href='https://fonts.gs1.org/fonts/355065/5F1AC7E5B84637049.css' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'>
 {% endblock head_style %}
 
 {% block navbar %}
@@ -173,6 +172,18 @@
 
 {% block foot_script %}
     {{ parent() }}
-    <script>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Source+Code+Pro:500:latin' ] }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
     </script>
 {% endblock %}
