@@ -1,6 +1,12 @@
 {% extends 'MopaBootstrapBundle::base_initializr.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
 
+{% block head %}
+    {% spaceless %}
+    {{ parent() }}
+    {% endspaceless %}
+{% endblock head %}
+
 {% block head_style %}
     {% stylesheets filter='cssrewrite,less,?uglifycss' output='assets/css/main.css'
         'bundles/mopabootstrap/less/mopabootstrapbundle.less'
@@ -23,6 +29,7 @@
 {% endblock head_script %}
 
 {% block navbar %}
+{% spaceless %}
     <div class="toolkit brand-home header-short navbar-fixed-top">
         <header class="headroom headroom--pinned headroom--top">
             <div class="header-top">
@@ -82,9 +89,11 @@
             </div>
         </header>
     </div>
+{% endspaceless %}
 {% endblock navbar %}
 
 {% block container %}
+{% spaceless %}
     <div class="{% block container_class %}container{% endblock container_class %} toolkit">
     {% block header %}
     {% endblock header %}
@@ -157,6 +166,7 @@
             </div>
         </footer>
     {% endblock footer %}
+{% endspaceless %}
 {% endblock container %}
 
 {% block foot_script_assetic %}
