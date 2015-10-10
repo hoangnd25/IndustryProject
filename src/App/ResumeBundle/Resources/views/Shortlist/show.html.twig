@@ -102,24 +102,6 @@
     </div>
 {% endblock %}
 
-{% block head_style %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite,less' output='assets/css/student-shortlist.css'
-    '@AppWebBundle/Resources/public/css/select2.css'
-    %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-{% endblock head_style %}
-
-{% block foot_script_assetic %}
-    {{ parent() }}
-    {% javascripts output='assets/js/student-shortlist.js'
-    '@AppWebBundle/Resources/public/js/select2.js'
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock foot_script_assetic %}
-
 {% block foot_script %}
     {{ parent() }}
     <script>

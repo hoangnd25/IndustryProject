@@ -2,10 +2,11 @@
 {% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
 
 {% block head_style %}
-    {% stylesheets filter='cssrewrite,less' output='assets/css/main.css'
+    {% stylesheets filter='cssrewrite,less,?uglifycss' output='assets/css/main.css'
         'bundles/mopabootstrap/less/mopabootstrapbundle.less'
         'bundles/appweb/css/bootstrap-theme.css'
         'bundles/appweb/css/bootstrap-accessibility.min.css'
+        'bundles/appweb/css/select2.css'
         'bundles/appweb/less/main.less'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -161,9 +162,10 @@
 {% endblock container %}
 
 {% block foot_script_assetic %}
-    {% javascripts output='assets/js/main.js'
+    {% javascripts output='assets/js/main.js' filter='?uglifyjs2'
         '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@AppWebBundle/Resources/public/js/select2.js'
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
