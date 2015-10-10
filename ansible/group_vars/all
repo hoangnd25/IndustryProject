@@ -18,7 +18,7 @@ out_dirs:                       # var
   - "{{site_dir}}/app/cache"
   - "{{site_dir}}/app/cache/dev"
   - "{{site_dir}}/app/cache/prod"
-  - "{{site_dir}}/web/uploads"
+#  - "{{site_dir}}/web/uploads"
 
 secret_token: ThisTokenIsNotSoSecretChangeIt
 
@@ -38,4 +38,4 @@ amazon_s3:
     key: "AKIAJBC44HPN4VO26E2A"
     secret: "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"
     region: "ap-southeast-2"
-    bucket: "gs1cv"
+    bucket: "gs1cv-dev"

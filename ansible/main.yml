@@ -67,9 +67,9 @@
       shell: 'rm -rf {{site_dir}}/app/logs/*'
       sudo: yes
 
-    - name: remove uploads
-      shell: 'rm -rf {{site_dir}}/web/uploads/*'
-      sudo: yes
+#    - name: remove uploads
+#      shell: 'rm -rf {{site_dir}}/web/uploads/*'
+#      sudo: yes
 
     - name: Run composer install.
       sudo: yes

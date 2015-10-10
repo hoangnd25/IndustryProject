@@ -6,3 +6,9 @@ mysql_user: gs1
 mysql_password: 12345678
 mysql_db: gs1
 mysql_port: 3306
+
+amazon_s3:
+    key: "AKIAJBC44HPN4VO26E2A"
+    secret: "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"
+    region: "ap-southeast-2"
+    bucket: "gs1cv"

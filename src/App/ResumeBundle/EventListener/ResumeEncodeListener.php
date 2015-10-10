@@ -35,16 +35,14 @@ class ResumeEncodeListener implements EventSubscriberInterface
         if(!$resume instanceof StudentResume)
             return;
 
-        $filePath = $this->storage->resolvePath($resume, "file");
-
         try{
+            $filePath = $this->storage->resolveUri($resume, "file");
             if($resume->getFileName()){
                 $document->set('encodedFile',base64_encode(file_get_contents($filePath)));
             }else{
                 $document->set('encodedFile', '');
             }
         }catch (\Exception $ex){
-
         }
     }
 

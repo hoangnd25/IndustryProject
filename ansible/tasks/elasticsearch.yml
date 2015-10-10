@@ -32,7 +32,7 @@
   sudo: yes
 
 - name: Add ElasticSearch source
-  apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main' state=present
+  apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main' state=present
   sudo: yes
 
 - name: Install ElasticSearch
@@ -41,11 +41,11 @@
   sudo: yes
 
 - name: Remove ElasticSearch attachment plugin
-  shell: '/usr/share/elasticsearch/bin/plugin remove org.elasticsearch/elasticsearch-mapper-attachments/2.5.0'
+  shell: '/usr/share/elasticsearch/bin/plugin remove org.elasticsearch/elasticsearch-mapper-attachments/2.7.1'
   sudo: yes
 
 - name: Install ElasticSearch attachment plugin
-  shell: '/usr/share/elasticsearch/bin/plugin install org.elasticsearch/elasticsearch-mapper-attachments/2.5.0'
+  shell: '/usr/share/elasticsearch/bin/plugin install org.elasticsearch/elasticsearch-mapper-attachments/2.7.1'
   sudo: yes
 
 - name: Restart ElasticSearch
