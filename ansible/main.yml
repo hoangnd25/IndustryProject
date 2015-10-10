@@ -79,7 +79,7 @@
       shell: 'cd {{site_dir}} && php {{site_dir}}/composer.phar install --no-interaction'
 
     - name: sf generate assets
-      shell: 'php {{site_dir}}/app/console assetic:dump'
+      shell: 'php {{site_dir}}/app/console assetic:dump --env=prod'
       sudo: yes
       sudo_user: "{{project_user}}"
 

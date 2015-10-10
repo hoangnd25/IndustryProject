@@ -18,6 +18,10 @@
     {% endif %}
 {% endblock head_style %}
 
+{% block head_script %}
+    {#<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>#}
+{% endblock head_script %}
+
 {% block navbar %}
     <div class="toolkit brand-home header-short navbar-fixed-top">
         <header class="headroom headroom--pinned headroom--top">
@@ -77,13 +81,8 @@
                 </div>
             </div>
         </header>
-
-
     </div>
-
 {% endblock navbar %}
-
-
 
 {% block container %}
     <div class="{% block container_class %}container{% endblock container_class %} toolkit">
@@ -172,6 +171,7 @@
 
 {% block foot_script %}
     {{ parent() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <script type="text/javascript">
         WebFontConfig = {
             google: { families: [ 'Source+Code+Pro:500:latin' ] }
