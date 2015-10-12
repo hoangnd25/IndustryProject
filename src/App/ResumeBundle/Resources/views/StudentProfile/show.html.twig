@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    {#<div class="well">#}
     <div class="content-module-wrapper top-border-orange">
         <div class="content-module content-module-padding">
             <div class="row">
@@ -15,7 +14,7 @@
             </div>
             <div class="row">
                 <label class="control-label col-sm-3">
-                    Professional headline
+                    Occupation
                 </label>
 
                 <div class="col-sm-9">
@@ -31,6 +30,22 @@
                     {{ user.studentProfile.about }}
                 </div>
             </div>
+
+            {% if user.studentProfile.educations | length > 0 %}
+                <div class="row">
+                    <label class="control-label col-sm-3">
+                        Educations
+                    </label>
+
+                    <div class="col-sm-9">
+                        <ul>
+                            {% for edu in user.studentProfile.educations %}
+                                <li>{{ edu.institution }}: {{ edu.degree }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="row">
                 <label class="control-label col-sm-3">
@@ -126,32 +141,36 @@
                         {% endfor %}
                     </ul>
                 </div>
-            </div
+            </div>
 
-            {% if user.studentProfile.educations | length > 0 %}
+            {% if user.studentProfile.gs1Certifications | length > 0 %}
                 <div class="row">
                     <label class="control-label col-sm-3">
-                        Educations
+                        GS1 Certifications
                     </label>
 
                     <div class="col-sm-9">
-                        {% for edu in user.studentProfile.educations %}
-                            <p>{{ edu.institution }}: {{ edu.degree }}</p>
-                        {% endfor %}
+                        {#<ul>#}
+                            {#{% for file in user.studentProfile.gs1Certifications %}#}
+                                {#<li><a href="{{  }}">{{  }}</a></li>#}
+                            {#{% endfor %}#}
+                        {#</ul>#}
                     </div>
                 </div>
             {% endif %}
 
-            {% if user.studentProfile.socialNetworks | length > 0 %}
+            {% if user.studentProfile.certifications | length > 0 %}
                 <div class="row">
                     <label class="control-label col-sm-3">
-                        Social network
+                        Certifications
                     </label>
 
-                    <div class="col-sm-9 row">
-                        {% for link in user.studentProfile.socialNetworks %}
-                            <a class="col-sm-1" href="{{ link.url }}">{{ link.type }}</a>
-                        {% endfor %}
+                    <div class="col-sm-9">
+                        {#<ul>#}
+                            {#{% for file in user.studentProfile.certifications %}#}
+                                {#<li><a href="{{  }}">{{  }}</a></li>#}
+                            {#{% endfor %}#}
+                        {#</ul>#}
                     </div>
                 </div>
             {% endif %}
@@ -163,11 +182,26 @@
                     </label>
 
                     <div class="col-sm-9">
-                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
+                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download resume</a>
                     </div>
                 </div>
             {% endif %}
-            {#</div>#}
+
+            {% if user.studentProfile.socialNetworks | length > 0 %}
+                <div class="row">
+                    <label class="control-label col-sm-3">
+                        Social network
+                    </label>
+
+                    <div class="col-sm-9">
+                        <ul>
+                            {% for link in user.studentProfile.socialNetworks %}
+                                <li><a href="{{ link.url }}">{{ link.type }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
