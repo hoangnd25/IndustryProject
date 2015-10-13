@@ -156,6 +156,7 @@ class StudentProfileController extends Controller
 
             $em->persist($profile);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'Profile was updated successfully.');
 
             return $this->redirectToRoute('student_profile_edit', array('id'=>$user->getId()));
         }

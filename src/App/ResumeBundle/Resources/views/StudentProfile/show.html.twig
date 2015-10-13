@@ -3,6 +3,34 @@
 {% block content %}
     <div class="content-module-wrapper top-border-orange">
         <div class="content-module content-module-padding">
+
+            <div class="row">
+                <div class="col-sm-9">
+                    {% if user.studentProfile.avatar != null and user.studentProfile.avatar.fileName != "" %}
+                        <img class="media-object student-avatar"
+                             src="{{ vich_uploader_asset(user.studentProfile.avatar, 'file') }}"
+                             alt="{{ user.studentProfile.firstName }} {{ user.studentProfile.lastName }}">
+                    {% else %}
+                        <img class="media-object student-avatar"
+                             src="{{ asset('assets/images/blank-avatar.gif') }}"
+                             alt="{{ user.studentProfile.firstName }} {{ user.studentProfile.lastName }}">
+                    {% endif %}
+                    <br>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <br>
+                    {% set redirectUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                    <div class="media-right media-middle pull-right">
+                        <a class="btn btn-sm btn-info"
+                           href="{{ path('shortlist_add', {'studentId': user.studentProfile.user.id, 'redirect': redirectUrl}) }}">
+                            {{ mopa_bootstrap_icon('plus') }} Shortlist
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <label class="control-label col-sm-3">
                     Full name
@@ -38,11 +66,9 @@
                     </label>
 
                     <div class="col-sm-9">
-                        <ul>
                             {% for edu in user.studentProfile.educations %}
-                                <li>{{ edu.institution }}: {{ edu.degree }}</li>
+                                {{ edu.institution }}: {{ edu.degree }}<br>
                             {% endfor %}
-                        </ul>
                     </div>
                 </div>
             {% endif %}
@@ -129,20 +155,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <label class="control-label col-sm-3">
-                    Industry preference
-                </label>
-
-                <div class="col-sm-9">
-                    <ul>
-                        {% for name in user.studentProfile.industryPreference %}
-                            <li>{{ name }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
             {% if user.studentProfile.gs1Certifications | length > 0 %}
                 <div class="row">
                     <label class="control-label col-sm-3">
@@ -150,11 +162,9 @@
                     </label>
 
                     <div class="col-sm-9">
-                        {#<ul>#}
-                            {#{% for file in user.studentProfile.gs1Certifications %}#}
-                                {#<li><a href="{{  }}">{{  }}</a></li>#}
-                            {#{% endfor %}#}
-                        {#</ul>#}
+                            {% for file in user.studentProfile.gs1Certifications %}
+                                <a href="{{ vich_uploader_asset(file,'file') }}">Download</a><br>
+                            {% endfor %}
                     </div>
                 </div>
             {% endif %}
@@ -166,11 +176,9 @@
                     </label>
 
                     <div class="col-sm-9">
-                        {#<ul>#}
-                            {#{% for file in user.studentProfile.certifications %}#}
-                                {#<li><a href="{{  }}">{{  }}</a></li>#}
-                            {#{% endfor %}#}
-                        {#</ul>#}
+                            {% for file in user.studentProfile.certifications %}
+                                <a href="{{ vich_uploader_asset(file,'file') }}">{{ file.name }}</a><br>
+                            {% endfor %}
                     </div>
                 </div>
             {% endif %}
@@ -182,7 +190,7 @@
                     </label>
 
                     <div class="col-sm-9">
-                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download resume</a>
+                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
                     </div>
                 </div>
             {% endif %}
@@ -194,14 +202,24 @@
                     </label>
 
                     <div class="col-sm-9">
-                        <ul>
                             {% for link in user.studentProfile.socialNetworks %}
-                                <li><a href="{{ link.url }}">{{ link.type }}</a></li>
+                                <a href="{{ link.url }}">{{ link.type }}</a><br>
                             {% endfor %}
-                        </ul>
                     </div>
                 </div>
             {% endif %}
+
+            <div class="row">
+                <label class="control-label col-sm-3">
+                    Industry preference
+                </label>
+
+                <div class="col-sm-9">
+                    {% for name in user.studentProfile.industryPreference %}
+                        {{ name }}<br>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
