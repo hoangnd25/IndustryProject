@@ -31,7 +31,7 @@ class StudentEducation
     protected $institution;
 
     /**
-     * @ORM\Column(length=260)
+     * @ORM\Column(length=100)
      */
     protected $degree;
 

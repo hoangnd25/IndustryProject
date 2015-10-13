@@ -4,6 +4,9 @@ namespace App\ResumeBundle\Form\Type;
 use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -17,7 +20,7 @@ class StudentProfileType extends AbstractType
                 'label' => false,
                 'widget_form_group' => false,
                 'attr' => array(
-                    'placeholder' => 'First name'
+                    'placeholder' => 'First name',
                 ),
                 'constraints' => array(
                     new NotBlank(),
@@ -48,7 +51,8 @@ class StudentProfileType extends AbstractType
                 'format' => PhoneNumberFormat::INTERNATIONAL,
                 'attr' => array(
                     'placeholder' => 'International format'
-                )
+                ),
+                'invalid_message' => 'Phone number must follow international format (e.g. +61 412 345 678)'
             ))
             ->add('industryPreference', 'entity', array(
                 'class' => 'App\ResumeBundle\Entity\Industry',
@@ -67,6 +71,7 @@ class StudentProfileType extends AbstractType
                 'type'   => 'student_gs1_cert',
                 'prototype' => true,
                 'horizontal_wrap_children' => true,
+                'error_bubbling' => false,
                 'options' => array(
                     'label_render' => false,
                     'widget_remove_btn' => array(
@@ -87,6 +92,7 @@ class StudentProfileType extends AbstractType
                 'type'   => 'student_cert',
                 'prototype' => true,
                 'horizontal_wrap_children' => true,
+                'error_bubbling' => false,
                 'options' => array(
                     'label_render' => false,
                     'widget_remove_btn' => array(
@@ -106,6 +112,7 @@ class StudentProfileType extends AbstractType
                 'type'   => 'student_education',
                 'prototype' => true,
                 'horizontal_wrap_children' => true,
+                'error_bubbling' => false,
                 'options' => array(
                     'label_render' => false,
                     'widget_remove_btn' => array(
@@ -125,6 +132,7 @@ class StudentProfileType extends AbstractType
                 'type'   => 'student_social_network',
                 'prototype' => true,
                 'horizontal_wrap_children' => true,
+                'error_bubbling' => false,
                 'options' => array(
                     'label_render' => false,
                     'widget_remove_btn' => array(
@@ -160,6 +168,13 @@ class StudentProfileType extends AbstractType
             ->add('save', 'submit', array(
                 'attr' => array('class' => 'save btn-sm btn-info'),
             ));
+
+        // Make sure resume is uploaded
+        $builder->get('resume')->addEventListener(FormEvents::SUBMIT, function(FormEvent $event){
+            $resume = $event->getData();
+            if($resume->getId() === null && $resume->getFile() === null)
+                $event->getForm()->get('file')->addError(new FormError("You must upload a resume"));
+        });
     }
 
     /**
@@ -172,7 +187,10 @@ class StudentProfileType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' =>'App\ResumeBundle\Entity\StudentProfile',
             'render_fieldset' => false,
-            'show_legend' => false
+            'show_legend' => false,
+            'attr' => array(
+                'novalidate' => 'novalidate'
+            )
         ));
     }
 

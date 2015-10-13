@@ -25,6 +25,11 @@ a, a:hover, a:active {
 .bg-red, .bg-yellow, .bg-aqua, .bg-blue, .bg-light-blue, .bg-green, .bg-navy, .bg-teal, .bg-olive, .bg-lime, .bg-orange, .bg-fuchsia, .bg-purple, .bg-maroon, .bg-black, .bg-red-active, .bg-yellow-active, .bg-aqua-active, .bg-blue-active, .bg-light-blue-active, .bg-green-active, .bg-navy-active, .bg-teal-active, .bg-olive-active, .bg-lime-active, .bg-orange-active, .bg-fuchsia-active, .bg-purple-active, .bg-maroon-active, .bg-black-active, .callout.callout-danger, .callout.callout-warning, .callout.callout-info, .callout.callout-success, .alert-success, .alert-danger, .alert-error, .alert-warning, .alert-info, .label-danger, .label-info, .label-waring, .label-primary, .label-success, .modal-primary .modal-body, .modal-primary .modal-header, .modal-primary .modal-footer, .modal-warning .modal-body, .modal-warning .modal-header, .modal-warning .modal-footer, .modal-info .modal-body, .modal-info .modal-header, .modal-info .modal-footer, .modal-success .modal-body, .modal-success .modal-header, .modal-success .modal-footer, .modal-danger .modal-body, .modal-danger .modal-header, .modal-danger .modal-footer {
     color: #fff !important;
 }
+
+.alert-warning{
+    background-color: #FFAD24 !important;
+}
+
 .alert-danger, .alert-error {
     border-color: #d73925;
 }
@@ -46,6 +51,10 @@ a, a:hover, a:active {
     box-shadow: none;
     border-color: #d2d6de;
     height: 34px !important;
+}
+
+textarea.form-control{
+    height: auto !important;
 }
 
 .btn-file {
@@ -298,6 +307,7 @@ img.student-avatar{
 
 // Fix collection form style
 .collection-items.form-group { margin-bottom: 0px; }
+.collection-items .symfony-form-errors { display: none; }
 .collection-item, .form-group .collection-item {
     margin-top: 7px;
     margin-bottom: 0px;

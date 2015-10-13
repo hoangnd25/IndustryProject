@@ -4,6 +4,7 @@ namespace App\ResumeBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CertificationType extends AbstractType
 {
@@ -24,6 +25,18 @@ class CertificationType extends AbstractType
                 'allow_delete' => false,
                 'widget_form_group' => false,
                 'horizontal_input_wrapper_class' => "col-sm-7",
+                'constraints' => array(
+                    new File(array(
+                        'maxSize' => '1M',
+                        'mimeTypes' => array(
+                            'application/pdf',
+                            'application/x-pdf',
+                            'image/*'
+                        ),
+                        'mimeTypesMessage' => 'Invalid file, please upload PDF or image'
+                    ))
+                ),
+                'error_bubbling' => false
             ));
     }
 

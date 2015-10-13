@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Entity\StudentAvatar;
 use App\ResumeBundle\Entity\StudentCertification;
 use App\ResumeBundle\Entity\StudentGS1Certification;
 use App\ResumeBundle\Entity\StudentProfile;
@@ -16,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -159,7 +161,27 @@ class StudentProfileController extends Controller
             $this->get('session')->getFlashBag()->add('success', 'Profile was updated successfully.');
 
             return $this->redirectToRoute('student_profile_edit', array('id'=>$user->getId()));
+
+        }elseif($request->getMethod() == 'POST' && !$form->isValid()){
+
+            $this->get('session')->getFlashBag()->add('warning', 'Please check your form.');
+
+            foreach($form->getErrors(true) as $error){
+                if(in_array($error->getOrigin()->getName(), array('degree', 'file', 'url'))){
+                    $origin = $error->getOrigin();
+                    if($origin === null)
+                        continue;
+
+                    $parent = $origin->getParent();
+                    if($parent === null)
+                        continue;
+
+                    if(!($parent->getParent()->getData() instanceof StudentProfile))
+                        $parent->addError(new FormError(''));
+                }
+            }
         }
+
 
         /** @var User $user */
         return array(

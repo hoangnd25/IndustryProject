@@ -4,6 +4,7 @@ namespace App\ResumeBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ResumeType extends AbstractType
 {
@@ -12,6 +13,20 @@ class ResumeType extends AbstractType
         $builder->add('file', 'file_upload', array(
             'label' => false,
             'required'      => false,
+            'allow_delete' => false,
+            'constraints' => array(
+                new File(array(
+                    'maxSize' => '1M',
+                    'mimeTypes' => array(
+                        'application/pdf',
+                        'application/x-pdf',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/msword'
+                    ),
+                    'mimeTypesMessage' => 'Invalid file, please upload PDF or MS Word'
+                ))
+            ),
+            'error_bubbling' => false
         ));
     }
 

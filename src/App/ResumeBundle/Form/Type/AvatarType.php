@@ -4,6 +4,7 @@ namespace App\ResumeBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class AvatarType extends AbstractType
 {
@@ -12,7 +13,13 @@ class AvatarType extends AbstractType
         $builder->add('file', 'file_upload', array(
             'label' => false,
             'required' => false,
-            'is_image' => true
+            'is_image' => true,
+            'constraints' => array(
+                new Image(array(
+                    'maxSize' => '1M'
+                ))
+            ),
+            'error_bubbling' => false
         ));
     }
 

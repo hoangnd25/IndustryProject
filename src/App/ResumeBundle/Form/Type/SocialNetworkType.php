@@ -4,6 +4,8 @@ namespace App\ResumeBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Url;
 
 class SocialNetworkType extends AbstractType
 {
@@ -24,6 +26,11 @@ class SocialNetworkType extends AbstractType
             'label' => false,
             'widget_form_group' => false,
             'horizontal_input_wrapper_class' => "col-sm-8",
+            'constraints' => array(
+                new Url(),
+                new NotBlank()
+            ),
+            'error_bubbling' => false
         ));
     }
 

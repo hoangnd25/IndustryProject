@@ -4,6 +4,8 @@ namespace App\ResumeBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class EducationType extends AbstractType
 {
@@ -21,8 +23,13 @@ class EducationType extends AbstractType
                 'label' => false,
                 'widget_form_group' => false,
                 'horizontal_input_wrapper_class' => "col-sm-8",
+                'constraints' => array(
+                    new Length(array('max'=>100)),
+                    new NotBlank()
+                ),
                 'attr' => array(
-                    'placeholder' => 'Degree (e.g. Bachelor of Commerce) '
+                    'placeholder' => 'Degree (e.g. Bachelor of Commerce) ',
+                    'maxlength' => false
                 )
             ));
         ;

@@ -1,6 +1,7 @@
 server {
     server_name {{server_name}};
     root {{site_dir}}/web;
+    client_max_body_size 99M;
 
     location / {
         # try to serve file directly, fallback to app.php
