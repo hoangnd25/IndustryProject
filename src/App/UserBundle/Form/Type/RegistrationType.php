@@ -1,22 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hoangnd
- * Date: 27/08/15
- * Time: 9:29 PM
- */
 
 namespace App\UserBundle\Form\Type;
 
 use App\ResumeBundle\Form\Transformer\StudentAccessCodeTransformer;
 use App\ResumeBundle\Form\Type\MemberProfileType;
+use App\ResumeBundle\Form\Type\StudentRegistrationType;
 use App\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Valid;
 
 class RegistrationType extends AbstractType
@@ -46,8 +41,28 @@ class RegistrationType extends AbstractType
                     'class' => 'account_type'
                 )
             ))
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName', null, array(
+                'attr' => array(
+                    'maxlength' => false
+                )
+            ))
+            ->add('lastName', null, array(
+                'attr' => array(
+                    'maxlength' => false
+                )
+            ))
+            ->add('toc', 'checkbox', array(
+                'mapped' => false,
+                'label' => 'I agree to <a id="toc" href="#">terms & conditions</a>',
+                'constraints' => array(
+                    new IsTrue(array('message' => 'You must agree to terms & conditions'))
+                )
+            ))
+            ->add('studentProfile', new StudentRegistrationType($this->entityManager), array(
+                'label' => false,
+                'widget_form_group' => false,
+                'widget_type' => 'inline'
+            ))
         ;
 
         $builder->remove('username');
@@ -61,6 +76,7 @@ class RegistrationType extends AbstractType
                         'widget_type' => 'inline',
                         'constraints' => array(new Valid())
                     ))
+                    ->remove("studentProfile")
                 ;
             }
         };

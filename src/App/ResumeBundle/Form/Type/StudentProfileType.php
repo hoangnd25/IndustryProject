@@ -36,6 +36,7 @@ class StudentProfileType extends AbstractType
                 )
             ))
             ->add('headline', null, array(
+                'label' => 'Occupation'
             ))
             ->add('about', 'textarea', array(
                 'attr' => array(

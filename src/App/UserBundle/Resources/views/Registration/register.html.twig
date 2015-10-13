@@ -12,7 +12,7 @@
         <div class="content-module-wrapper top-border-lime">
             <div class="content-module content-module-padding">
                 <h3>Registration</h3>
-                <form class="form-horizontal" action="{{ path("fos_user_registration_register") }}" {{ form_enctype(form) }} method="POST" role="form">
+                <form class="form-horizontal" novalidate action="{{ path("fos_user_registration_register") }}" {{ form_enctype(form) }} method="POST" role="form">
                     {{ form_errors(form.type) }}
                     {{ form_row(form.type) }}
                     {{ form_row(form.firstName) }}
@@ -22,9 +22,21 @@
                     {{ form_row(form.plainPassword.second) }}
 
                     <div id="dynamic_form">
+                        {% if form.studentProfile is defined %}
+                            {{ form_widget(form.studentProfile) }}
+                        {% endif %}
                         {% if form.memberProfile is defined %}
                             {{ form_widget(form.memberProfile) }}
                         {% endif %}
+                    </div>
+
+                    <div class="form-group {% if form.toc.vars.errors | length > 0 %}has-error{% endif %}">
+                        <label class="control-label col-sm-3">
+                        </label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.toc) }}
+                            {{ form_errors(form.toc) }}
+                        </div>
                     </div>
 
                     {{ form_rest(form) }}
@@ -38,6 +50,27 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="tocModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Terms & Conditions</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnPrint" class="btn-primary" data-dismiss="modal" onclick="printDiv('printDiv')">Print</button>
+                    <input name="btnSend" value="Close" id="btnSend" class="btn-primary" data-dismiss="modal" style="border-style:None;" type="submit">
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -66,6 +99,12 @@
                 $('#dynamic_form').replaceWith($dynamicForm);
             }
         });
+    });
+
+    var $tocBtn = $('#toc');
+    $tocBtn.click(function(e){
+        e.preventDefault();
+        $('#tocModal').modal();
     });
 </script>
 {% endblock %}
