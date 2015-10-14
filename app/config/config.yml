@@ -107,10 +107,16 @@ sonata_admin:
             Administration:
                 label:                ~
                 label_catalogue:      ~
-                icon:                 '<i class="fa fa-cogs"></i>'
+                icon:                 '<i class="fa fa-users"></i>'
                 items:
                   - sonata.admin.user
                   - sonata.admin.student_access_code
+            Content:
+                label:                'Content management'
+                label_catalogue:      ~
+                icon:                 '<i class="fa fa-file-text-o"></i>'
+                items:
+                  - sonata.admin.content
             "Configuration":
                 label:                'Portal configuration'
                 label_catalogue:      ~
@@ -200,3 +206,23 @@ fos_elastica:
                     _source:
                         excludes:
                             [ resume ]
+
+trsteel_ckeditor:
+    class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
+    transformers: []
+    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'links', '/', 'insert', 'styles', 'tools']
+    toolbar_groups:
+        document: ['Source']
+        clipboard: ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+        editing: ['Find','Replace','-','SelectAll']
+        basicstyles: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','TextColor','BGColor','-','RemoveFormat']
+        paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
+        links: ['Link','Unlink','Anchor']
+        insert: ['Image','Table','HorizontalRule']
+        styles: ['Styles','Format']
+        tools: ['Maximize', 'ShowBlocks']
+    ui_color: '#FFFFFF'
+    startup_outline_blocks: true
+    width: 100% #Integer or %
+    height: 400 #Integer or %
+    language: 'en-au'

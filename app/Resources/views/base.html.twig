@@ -19,6 +19,13 @@
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
 
+    {% stylesheets filter='cssrewrite,less,?uglifycss' output='assets/css/print.css'
+    '@AppWebBundle/Resources/public/less/print.css'
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="print" />
+    {% endstylesheets %}
+
+
     {% if diagnostic_mode %}
         <link href="{{ asset('bundles/mopabootstrap/css/diagnostic.css') }}" type="text/css" rel="stylesheet" media="screen" />
     {% endif %}
@@ -174,6 +181,7 @@
         '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@AppWebBundle/Resources/public/js/select2.js'
+        '@AppWebBundle/Resources/public/js/main.js'
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

@@ -33,11 +33,13 @@ class AppKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
+            new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
 
             new App\WebBundle\AppWebBundle(),
             new App\UserBundle\AppUserBundle(),
             new App\AdminBundle\AppAdminBundle(),
             new App\ResumeBundle\AppResumeBundle(),
+            new App\ContentBundle\AppContentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

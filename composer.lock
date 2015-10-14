@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d2816d414ea63a63fae763e3a3cb79b",
-    "content-hash": "89e2939a5aa718e93937467e4df7059d",
+    "hash": "285e203c0e6487b6616faeddc196ba38",
+    "content-hash": "a1006c9539e3d57d3af95c896a9bb300",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1056,6 +1056,50 @@
                 "orm"
             ],
             "time": "2015-08-31 13:19:01"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2015-08-05 01:03:42"
         },
         {
             "name": "friendsofsymfony/elastica-bundle",
@@ -3966,6 +4010,61 @@
                 "framework"
             ],
             "time": "2015-09-08 14:26:39"
+        },
+        {
+            "name": "trsteel/ckeditor-bundle",
+            "version": "v1.8.4",
+            "target-dir": "Trsteel/CkeditorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trsteel88/TrsteelCkeditorBundle.git",
+                "reference": "7f14d559679ee70cde9c526702db9a9b65578baf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trsteel88/TrsteelCkeditorBundle/zipball/7f14d559679ee70cde9c526702db9a9b65578baf",
+                "reference": "7f14d559679ee70cde9c526702db9a9b65578baf",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "~4.0",
+                "php": ">=5.3.0",
+                "symfony/form": ">=2.1,<2.8",
+                "symfony/framework-bundle": "2.*,<2.8",
+                "twig/twig": ">=1.1,<2.0"
+            },
+            "require-dev": {
+                "symfony/twig-bundle": "2.*,<2.8",
+                "symfony/yaml": "~2.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Trsteel\\CkeditorBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Trent Steel",
+                    "email": "trsteel88@gmail.com"
+                }
+            ],
+            "description": "Symfony2 bundle for easy integration of the CKEditor WYSIWYG",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "wysiwyg"
+            ],
+            "time": "2015-09-29 23:08:10"
         },
         {
             "name": "twbs/bootstrap",

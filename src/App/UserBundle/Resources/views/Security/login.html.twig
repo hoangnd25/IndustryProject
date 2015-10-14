@@ -14,28 +14,11 @@
         <div class="col-md-7">
             <div class="content-module-wrapper top-border-lime"></div>
             <div class="content-module content-module-padding">
-                <h3>Welcome to Link</h3>
-                <p class="small">
-                    Link is a portal that acts as a meeting place for our members and students across Australia. It allows students to create profiles and upload CVs, for our members to view and get in contact with students whom they are interested in.
-                    <br>
-                </p>
-                <hr>
-                <h4>Getting started</h4>
-                <p class="small">
-                    Once you’ve registered for an account, log in and start using this portal.
-                    <br>
-                    <b>Students:</b><br>
-                    Step 1 – Create your profile by entering your details.<br>
-                    Step 2 – Briefly introduce yourself in the About Me section.<br>
-                    Step 3 – Upload your certifications and CV.<br>
-                    Step 4 – Submit your profile.<br>
-                    <b>Members:</b><br>
-                    Step 1 – Start searching students by name, or through the use of filters.<br>
-                    Step 2 – Click on the student name to expand his/her profile.<br>
-                    Step 3 – Click the + button to save the student to Shortlist.<br>
-                    Step 4 – Export your Shortlist.<br>
-                    Step 5 – Contact the students at will.
-                </p>
+                {% set welcomeContent = cms_content_get('welcome_login') %}
+                <h3>{{ welcomeContent.title }}</h3>
+                <span class="small">
+                    {{ welcomeContent.body | raw }}
+                </span>
             </div>
         </div>
         <div class="col-md-5">
@@ -57,12 +40,17 @@
                                 <input class="form-control" type="password" id="password" name="_password" required="required" placeholder="Password" />
 
                                 <br>
+                                <label style="font-weight: lighter">
                                     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                                     Remember me
+                                </label>
                                 <br>
-                                <input id="chkbxAgree" name="chkbxAgree" tabindex="3" type="checkbox">
-                                I agree to <a href="#" class="terms" data-toggle="modal" data-target="#tocModal">Terms &amp; Conditions</a>
+                                <label style="font-weight: lighter">
+                                    <input id="chkTC" name="_agree_tc" tabindex="3" type="checkbox">
+                                    I agree to <a href="#" class="terms" data-toggle="modal" data-target="#tocModal">Terms &amp; Conditions</a>
+                                </label>
                                 <br>
+
                                 <input class="btn btn-primary btn-margin btn-sm" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                             </div>
                             <div class="form-group">
@@ -78,47 +66,23 @@
     </div>
 
     <!-- Modal -->
-    <div id="tocModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
+    <div id="tocModal" class="modal fade printable" role="dialog">
+        <div class="modal-dialog modal-lg content-module">
+            {% set tcContent = cms_content_get('terms_conditions') %}
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Terms & Conditions</h4>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">{{ tcContent.title }}</h3>
                 </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, </p>
+                <div id="TC" class="modal-body">
+                    {{ tcContent.body | raw  }}
                 </div>
                 <div class="modal-footer">
-
-                    <button type="button" id="btnPrint" class="btn-primary" data-dismiss="modal" onclick="printDiv('printDiv')">Print</button>
-                    <input name="btnSend" value="Close" id="btnSend" class="btn-primary" data-dismiss="modal" style="border-style:None;" type="submit">
-                    <script type="text/javascript">
-                        function printDiv(printDiv) {
-                            //Get the HTML of div
-                            var divElements = document.getElementById(printDiv).innerHTML;
-                            //Get the HTML of whole page
-                            var oldPage = document.body.innerHTML;
-
-                            //Reset the page's HTML with div's HTML only
-                            document.body.innerHTML =
-                                    "<html><head><title></title></head><body>" +
-                                    divElements + "</body>";
-
-                            //Print Page
-                            window.print();
-
-                            //Restore orignal HTML
-                            document.body.innerHTML = oldPage;
-
-
-                        }
-                    </script>
-
+                    <button class="btn-primary" onclick="window.print();">Print</button>
+                    <a class="btn-primary" data-dismiss="modal">Close</a>
                 </div>
             </div>
-
         </div>
     </div>
 {% endblock content %}

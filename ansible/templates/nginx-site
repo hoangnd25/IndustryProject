@@ -8,7 +8,8 @@ server {
         try_files $uri /app.php$is_args$args;
     }
 
-    {% if env == 'dev' %}location ~ ^/(app_dev|config)\.php(/|$) {
+    {% if env == 'dev' %}
+    location ~ ^/(app_dev|config)\.php(/|$) {
         fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
@@ -29,6 +30,7 @@ server {
         internal;
     }
 
+    {% if env != 'dev' %}
     #  static content
     location ~ \.(?:ico|jpg|css|png|js|swf|woff|eot|svg|ttf|html|gif)$ {
         access_log  off;
@@ -37,6 +39,7 @@ server {
         add_header  Cache-Control "public";
         expires     30d;
     }
+    {% endif %}
 
     error_log {{nginx_error_log}};
     access_log {{nginx_access_log}};

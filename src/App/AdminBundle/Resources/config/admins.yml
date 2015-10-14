@@ -57,3 +57,12 @@ services:
             - ~
             - App\ResumeBundle\Entity\EmploymentStatus
             - ~
+
+    sonata.admin.content:
+        class: App\AdminBundle\Admin\ContentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Content" }
+        arguments:
+            - ~
+            - App\ContentBundle\Entity\Content
+            - ~
