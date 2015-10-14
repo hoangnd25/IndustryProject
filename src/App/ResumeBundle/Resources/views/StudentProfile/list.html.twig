@@ -2,6 +2,9 @@
 
 {% block content %}
     <div class="row">
+        <div class="col-sm-12">
+            {{ wo_render_breadcrumbs() }}
+        </div>
         <form action="{{ path(app.request.get('_route')) }}" method="GET">
             <div class="col-sm-4 col-md-3">
                 <div class="content-module-wrapper top-border-lime">
@@ -54,11 +57,12 @@
                         </span>
                         </div>
                         {% for profile in profiles %}
+                            {% set studentProfileUrl = path('student_profile_show', {'id': profile.user.id, 'ref': 'search'}) %}
                             <div class="list-group">
                                 <div class="list-group-item">
                                     <div class="media">
                                         <a class="media-left media-middle"
-                                           href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                           href="{{ studentProfileUrl }}">
                                             {% if profile.avatar != null and profile.avatar.fileName != "" %}
                                                 <img class="media-object student-avatar"
                                                      src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
@@ -71,7 +75,7 @@
                                         </a>
 
                                         <a class="media-body" style="color: #333"
-                                           href="{{ path('student_profile_show', {'id': profile.user.id}) }}">
+                                           href="{{ studentProfileUrl }}">
                                             <h4 class="list-group-item-heading">{{ profile.user.firstName }} {{ profile.user.lastName }}</h4>
 
                                             <p class="list-group-item-text small">{{ profile.headline }}</p>

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "028b411a2fbc36cca5dbedef465f22d4",
-    "content-hash": "b793bba1a6a7bde828b40213df6bc990",
+    "hash": "07a47a49799efc96dd9b203d4b85cab1",
+    "content-hash": "5bd5f5109eb4ff63b11f242572598a34",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -4410,6 +4410,49 @@
                 "upload"
             ],
             "time": "2014-12-12 10:26:46"
+        },
+        {
+            "name": "whiteoctober/breadcrumbs-bundle",
+            "version": "1.2.0",
+            "target-dir": "WhiteOctober/BreadcrumbsBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whiteoctober/BreadcrumbsBundle.git",
+                "reference": "68465cb75ea6ad5a04742ff10ec2f69ef09ff5b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whiteoctober/BreadcrumbsBundle/zipball/68465cb75ea6ad5a04742ff10ec2f69ef09ff5b8",
+                "reference": "68465cb75ea6ad5a04742ff10ec2f69ef09ff5b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "WhiteOctober\\BreadcrumbsBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rich Sage",
+                    "email": "rich.sage@gmail.com"
+                }
+            ],
+            "description": "A small breadcrumbs bundle for Symfony2",
+            "homepage": "https://github.com/whiteoctober/BreadcrumbsBundle",
+            "keywords": [
+                "breadcrumbs",
+                "symfony"
+            ],
+            "time": "2015-07-21 09:21:37"
         }
     ],
     "packages-dev": [

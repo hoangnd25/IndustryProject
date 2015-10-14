@@ -15,6 +15,6 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return array();
+        return $this->get('app_user.manager.redirect')->getRedirectResponse($this->getUser());
     }
 }

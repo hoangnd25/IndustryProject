@@ -265,3 +265,6 @@ trsteel_ckeditor:
     width: 100% #Integer or %
     height: 400 #Integer or %
     language: 'en-au'
+
+white_october_breadcrumbs:
+    separator: ''

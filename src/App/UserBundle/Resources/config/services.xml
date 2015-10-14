@@ -5,9 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="app_user.handler.authentication" class="App\UserBundle\Handler\AuthenticationHandler">
+        <service id="app_user.manager.redirect" class="App\UserBundle\Manager\RedirectManager">
             <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="router" />
+        </service>
+
+        <service id="app_user.handler.authentication" class="App\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="app_user.manager.redirect" />
             <tag name="monolog.logger" channel="security" />
         </service>
 

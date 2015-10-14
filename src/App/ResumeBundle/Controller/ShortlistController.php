@@ -19,12 +19,16 @@ class ShortlistController extends Controller
 {
 
     /**
-     * @Route("/shortlist", name="shortlist")
+     * @Route("/member/shortlist", name="shortlist")
      * @Security("has_role('ROLE_GS1_MEMBER')")
      * @Template()
      */
     public function showAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("member_homepage"));
+        $breadcrumbs->addItem("Shortlist");
+
         $filterForm = $this->createForm('filter', new StudentFilter());
         $filterForm->handleRequest($request);
         /** @var StudentFilter $filterData */

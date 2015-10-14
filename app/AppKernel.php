@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
             new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
             new App\WebBundle\AppWebBundle(),
             new App\UserBundle\AppUserBundle(),

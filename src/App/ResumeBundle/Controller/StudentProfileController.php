@@ -195,7 +195,7 @@ class StudentProfileController extends Controller
      * @Template()
      * @ParamConverter("user", class="AppUserBundle:User")
      */
-    public function showAction($user)
+    public function showAction(Request $request, $user)
     {
         /** @var User $user */
         if(!$user->isStudent())
@@ -204,15 +204,29 @@ class StudentProfileController extends Controller
         if($user->getStudentProfile() == null)
             throw new NotFoundHttpException("Student profile is invalid");
 
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("member_homepage"));
+        if($request->get('ref') === 'search'){
+            $breadcrumbs->addItem("Student search", $this->get("router")->generate("student_profile_list"));
+        }else{
+            $breadcrumbs->addItem("Shortlist", $this->get("router")->generate("shortlist"));
+        }
+        $breadcrumbs->addItem($user->getFirstName().' '.$user->getLastName());
+
         return array('user'=>$user);
     }
 
     /**
-     * @Route("/students", name="student_profile_list")
+     * @Route("/member/student-search", name="student_profile_list")
      * @Template()
      * @Security("has_role('ROLE_GS1_MEMBER')")
      */
     public function listAction(Request $request){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("member_homepage"));
+        $breadcrumbs->addItem("Student search");
+
         $filterForm = $this->createForm('filter', new StudentFilter());
         $filterForm->handleRequest($request);
         /** @var StudentFilter $filter */

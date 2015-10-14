@@ -3,6 +3,7 @@
 namespace App\UserBundle\Handler;
 
 use App\UserBundle\Entity\User;
+use App\UserBundle\Manager\RedirectManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,21 +14,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
 {
-    /** @var  AuthorizationChecker $authChecker */
-    protected $authChecker;
-    /** @var  Router $router */
-    protected $router;
+    private $redirectManager;
 
     /**
-     * constructor.
-     * @param AuthorizationChecker $authChecker
-     * @param Router $router
+     * AuthenticationHandler constructor.
+     * @param $redirectManager
      */
-    public function __construct(AuthorizationChecker $authChecker, Router $router)
+    public function __construct(RedirectManager $redirectManager)
     {
-        $this->authChecker = $authChecker;
-        $this->router = $router;
+        $this->redirectManager = $redirectManager;
     }
+
 
     /**
      * This is called when an interactive authentication attempt succeeds. This
@@ -48,19 +45,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
         /** @var User $user */
         $user = $token->getUser();
 
-        if ($user->isStudent()) {
-
-            return new RedirectResponse($this->router->generate('student_profile_edit'));
-
-        } elseif ($this->authChecker->isGranted(User::ROLE_ADMIN)) {
-
-            return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
-
-        } elseif ($this->authChecker->isGranted(User::ROLE_GS1_MEMBER)) {
-
-            return new RedirectResponse($this->router->generate('student_profile_list'));
-
-        }
+        return $this->redirectManager->getRedirectResponse($user);
     }
 
 
