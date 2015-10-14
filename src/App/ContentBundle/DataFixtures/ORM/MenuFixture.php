@@ -23,6 +23,11 @@ class MenuFixture implements FixtureInterface
         $menu->addItems(new MenuItem('Join GS1','http://www.gs1express.com.au/barcodes/'));
         $manager->persist($menu);
 
+        $menu = new Menu('secondary', 'Secondary menu');
+        $menu->addItems(new MenuItem('GS1 Australia Home','http://www.gs1au.org/'));
+        $menu->addItems(new MenuItem('Get a barcode','http://www.gs1express.com.au/barcodes/'));
+        $manager->persist($menu);
+
         $menu = new Menu('footer-1', 'About GS1 Australia');
         $menu->addItems(new MenuItem('Learn about GS1','http://www.gs1au.org/'));
         $manager->persist($menu);

@@ -36,58 +36,7 @@
 {% endblock head_script %}
 
 {% block navbar %}
-{% spaceless %}
-    <div class="toolkit brand-home header-short navbar-fixed-top">
-        <header class="headroom headroom--pinned headroom--top">
-            <div class="header-top">
-                <div class="container">
-                    <div class="logo">
-                        <div class="logo1">
-                            <a href="{{ path('app_web_default_index') }}">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="GS1 Australia" height="72" width="127" border="0">
-                            </a>
-                            <p class="large hidden-xs hidden-sm"><span style="padding-bottom: 25px; color: rgb(0, 44, 108); font-size: 25px; font-weight: bold;">Link</span></p>
-                        </div>
-                    </div>
-                    <div class="secondary-nav">
-                        <ul class="list-inline">
-                            <li><a href="http://www.gs1au.org/" target="_blank">GS1 Australia Home</a></li>
-                            <li><a href="http://www.gs1express.com.au/barcodes/" target="_blank">Get a barcode</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="navigation">
-                <div class="container">
-                    <nav class="navbar yamm navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <div class="logo1 visible-xs">
-                                <a href="">
-                                    <img src="{{ asset('assets/images/logo.png') }}" alt="GS1 Australia" height="72" width="127" border="0">
-                                </a>
-                            </div>
-                            <button id="ui-collapse-144" aria-expanded="false" aria-selected="false" role="tab" type="button" data-toggle="collapse" data-target="#navbar-collapse-example" class="navbar-toggle collapsed"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-
-                        </div>
-                        <div id="navbar-collapse-example" class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                {% set mainMenu = cms_menu_get('main') %}
-                                {% for item in mainMenu.items %}
-                                    <li>
-                                        <a class="{{ item.class }}" href="{{ item.url }}">{{ item.name }}</a>
-                                    </li>
-                                {% endfor %}
-                                <li>
-                                    <a class="" href="{{ url('fos_user_security_logout') }}">Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </header>
-    </div>
-{% endspaceless %}
+    {% include '::navigation.html.twig' %}
 {% endblock navbar %}
 
 {% block container %}
