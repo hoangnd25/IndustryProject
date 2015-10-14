@@ -58,7 +58,7 @@ class UserFixture implements FixtureInterface
         // Generate stat for student
         for($i = 0; $i < 30; $i++){
             $numProfileView = rand(0, 15);
-            $numShortlist = rand(0, $numProfileView);
+            $numShortlist = rand(0, round($numProfileView/2));
 
             for($y = 0; $y < $numProfileView; $y++){
                 $time = (new \DateTime('now'))->modify('-'.$i.' days');
