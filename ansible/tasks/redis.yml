@@ -1,0 +1,46 @@
+---
+- name: Check if redis is installed
+  stat: path=/etc/init.d/redis_6379
+  register: redis_installed
+
+- name: ensure packages installed
+  apt: pkg={{ item }} state=latest
+  sudo: yes
+  when: redis_installed.stat.exists == false
+  with_items:
+    - make
+    - build-essential
+    - tcl8.5
+
+- name: download latest stable redis
+  when: redis_installed.stat.exists == false
+  get_url: url=http://download.redis.io/redis-stable.tar.gz dest=/tmp/redis-stable.tar.gz
+
+- name: untar redis
+  when: redis_installed.stat.exists == false
+  command: tar zxf /tmp/redis-stable.tar.gz -C /tmp
+
+- name: build redis
+  when: redis_installed.stat.exists == false
+  command: make -C /tmp/redis-stable
+
+- name: install redis
+  sudo: yes
+  when: redis_installed.stat.exists == false
+  command: make install -C /tmp/redis-stable
+
+- name: install redis server
+  sudo: yes
+  when: redis_installed.stat.exists == false
+  shell: 'echo -n | /tmp/redis-stable/utils/install_server.sh'
+
+- name: cleaning up build files
+  command: rm -rf /tmp/{{ item }}
+  when: redis_installed.stat.exists == false
+  with_items:
+    - redis-stable
+    - redis-stable.tar.gz
+
+- name: ensure redis service is restarted
+  sudo: yes
+  service: name=redis_6379 state=restarted

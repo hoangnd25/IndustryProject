@@ -18,7 +18,7 @@
     - include: tasks/dir.yml
     - include: tasks/nginx.yml
     - include: tasks/elasticsearch.yml
-
+    - include: tasks/redis.yml
 
 # Main tasks
 - hosts: all

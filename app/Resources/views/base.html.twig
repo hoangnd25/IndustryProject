@@ -71,21 +71,12 @@
                         </div>
                         <div id="navbar-collapse-example" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="">
-                                    <a class="" href="http://www.gs1au.org/membership/">Membership</a>
-                                </li>
-                                <li class="">
-                                    <a class="" href="http://www.gs1au.org/products/index.asp">Standards</a>
-                                </li>
-                                <li class="">
-                                    <a class="" href="http://www.gs1au.org/services/">Services</a>
-                                </li>
-                                <li class="">
-                                    <a class="" href="http://www.gs1au.org/industry/">Industry</a>
-                                </li>
-                                <li class="">
-                                    <a class="" href="http://www.gs1express.com.au/barcodes/">Join GS1</a>
-                                </li>
+                                {% set mainMenu = cms_menu_get('main') %}
+                                {% for item in mainMenu.items %}
+                                    <li>
+                                        <a class="{{ item.class }}" href="{{ item.url }}">{{ item.name }}</a>
+                                    </li>
+                                {% endfor %}
                                 <li>
                                     <a class="" href="{{ url('fos_user_security_logout') }}">Logout</a>
                                 </li>
@@ -121,57 +112,7 @@
     </div>
 
     {% block footer %}
-        <footer class="toolkit">
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h4>About GS1 Australia</h4>
-                            <ul class="link-list">
-                                <li><a href="http://www.gs1au.org">Learn about GS1</a> </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2">
-                            <h4>Events &amp; Trainings</h4>
-                            <ul class="link-list">
-                                <li><a href="http://www.gs1au.org/events/" title="Events">GS1 Events and Trainings</a> </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2">
-                            <h4>Contact</h4>
-                            <ul class="link-list">
-                                <li><a href="http://www.gs1au.org/contact_us/" title="Contact">Contact Us</a> </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2">
-                            <h4></h4>
-                            <ul class="link-list"></ul>
-                        </div>
-                        <div class="clearfix visible-sm"></div>
-                        <div class="col-md-3 col-md-offset-1 newsletter">
-                            <div class="col-xs-12">
-                                <h4>Get in touch</h4>
-                                <a href="tel:1300 227 263" class="footer-contact">0423 884 455</a>
-                                <a href="mailto:customer.service@gs1au.org" title="Email us" class="icon icon-envelope color-white email"></a>
-                                <a href="http://www.youtube.com/user/GS1Australia" title="GS1 Australia YouTube Channel" class="icon icon-youtube color-navy"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row footer-links">
-                        <div class="col-md-8">
-                            <span>You are in GS1 Australia</span>
-                            <ul class="link-list inline">
-                                <li><a href="http://www.gs1au.org/terms-of-trade.asp">Terms of Trade</a> &nbsp;&nbsp;|</li>
-                                <li><a href="http://www.gs1au.org/privacy.asp">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <p>© GS1 Australia 2015</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {% include '::footer.html.twig' %}
     {% endblock footer %}
 {% endspaceless %}
 {% endblock container %}

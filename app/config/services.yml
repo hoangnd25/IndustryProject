@@ -15,3 +15,8 @@ services:
                 credentials:
                     key: %amazon_s3.key%
                     secret: %amazon_s3.secret%
+    doctrine_cache.provider.predis:
+        class: Doctrine\Common\Cache\PredisCache
+        arguments: [@snc_redis.cache]
+    cache:
+        alias: doctrine_cache.providers.default
