@@ -3,6 +3,7 @@
 namespace App\ResumeBundle\Manager;
 
 use App\ResumeBundle\Entity\Shortlist;
+use App\ResumeBundle\Entity\StatShortlist;
 use App\ResumeBundle\Model\StudentFilter;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -137,6 +138,10 @@ class ShortlistManager
             $shortlist = new Shortlist();
             $shortlist->setUser($user);
             $shortlist->setStudent($student);
+
+            $stat = new StatShortlist();
+            $stat->setStudent($student->getStudentProfile());
+            $this->em->persist($stat);
 
             $this->em->persist($shortlist);
             $this->em->flush();

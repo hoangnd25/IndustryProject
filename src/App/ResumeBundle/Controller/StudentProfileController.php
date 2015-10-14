@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Entity\StatProfileView;
 use App\ResumeBundle\Entity\StudentAvatar;
 use App\ResumeBundle\Entity\StudentCertification;
 use App\ResumeBundle\Entity\StudentGS1Certification;
@@ -25,12 +26,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class StudentProfileController extends Controller
 {
     /**
-     * @Route("/my-profile/edit", name="student_profile_edit")
+     * @Route("/student/edit-profile", name="student_profile_edit")
      * @Security("has_role('ROLE_STUDENT')")
      * @Template()
      */
     public function editAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("student_homepage"));
+        $breadcrumbs->addItem("Edit profile");
+
         /** @var User $user */
         $user = $this->getUser();
 
@@ -191,7 +196,7 @@ class StudentProfileController extends Controller
     }
 
     /**
-     * @Route("/student-profile/{id}", name="student_profile_show")
+     * @Route("member/view-student/{id}", name="student_profile_show")
      * @Template()
      * @ParamConverter("user", class="AppUserBundle:User")
      */
@@ -213,6 +218,14 @@ class StudentProfileController extends Controller
             $breadcrumbs->addItem("Shortlist", $this->get("router")->generate("shortlist"));
         }
         $breadcrumbs->addItem($user->getFirstName().' '.$user->getLastName());
+
+        $em = $this->getDoctrine()->getManager();
+
+        $stat = new StatProfileView();
+        $stat->setStudent($user->getStudentProfile());
+
+        $em->persist($stat);
+        $em->flush();
 
         return array('user'=>$user);
     }

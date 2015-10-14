@@ -1,0 +1,116 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ path('student_profile_edit') }}" class="btn btn-primary">Edit your profile</a>
+            <br>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6"><br>
+                    <div class="content-module-wrapper top-border-sky">
+                        <div class="content-module content-module-padding">
+                            <h4>Last 90 days</h4>
+                            <canvas id="monthChart" class="chart"></canvas>
+                            <div id="monthLegend" class="chart-legend"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6"><br>
+                    <div class="content-module-wrapper top-border-grass">
+                        <div class="content-module content-module-padding">
+                            <h4>Last 7 days</h4>
+                            <canvas id="weekChart" class="chart"></canvas>
+                            <div id="weekLegend" class="chart-legend"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot_script_assetic %}
+    {{ parent() }}
+
+    {% javascripts output='assets/js/student-homepage.js' filter='?uglifyjs2'
+        '@AppWebBundle/Resources/public/js/moment.js'
+        '@AppWebBundle/Resources/public/js/chart.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script_assetic %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var data = {
+            labels: [
+                {% for data in monthLabel %}'{{ data }}'{% if not loop.last %},{% endif %}{% endfor %}
+            ],
+            datasets: [
+                {
+                    label: "Profile view",
+                    fillColor: "rgba(151,187,205,0.5)",
+                    pointColor: "rgba(151,187,205,1)",
+                    data: [
+                        {% for data in month.profileView %}{{ data }}{% if not loop.last %},{% endif %}{% endfor %}
+                    ]
+                },
+                {
+                    label: "Added to shortlist",
+                    fillColor: "rgba(109,132,91,0.5)",
+                    pointColor: "rgba(109,132,91,1)",
+                    data: [
+                        {% for data in month.shortlist %}{{ data }}{% if not loop.last %},{% endif %}{% endfor %}
+                    ]
+                }
+            ]
+        };
+        var dataWeek = {
+            labels: data.labels.slice(23),
+            datasets: [
+                {
+                    label: "Added to shortlist",
+                    fillColor: "rgba(109,132,91,0.5)",
+                    pointColor: "rgba(109,132,91,1)",
+                    data: data.datasets[1]['data'].slice(23)
+                },
+                {
+                    label: "Profile view",
+                    fillColor: "rgba(151,187,205,0.5)",
+                    pointColor: "rgba(151,187,205,1)",
+                    data: data.datasets[0]['data'].slice(23)
+                }
+            ]
+        };
+        var options = {
+            scaleShowGridLines : true,
+            bezierCurve : true,
+            bezierCurveTension : 0.1,
+            showTooltips: false,
+            legendTemplate : '<ul>'
+            +'<% for (var i=0; i<datasets.length; i++) { %>'
+            +'<li>'
+            +'<span style=\"background-color:<%=datasets[i].fillColor%>\"></span>'
+            +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>'
+            +'</li>'
+            +'<% } %>'
+            +'</ul>'
+        };
+
+        var ctxMonth = document.getElementById("monthChart").getContext("2d");
+        var monthChart = new Chart(ctxMonth);
+        var lineMonthChart = monthChart.Line(data,options);
+        var monthLegend = lineMonthChart.generateLegend();
+        $('#monthLegend').append(monthLegend);
+
+        var ctxWeek = document.getElementById("weekChart").getContext("2d");
+        var weekChart = new Chart(ctxWeek);
+        options.showTooltips = true;
+        var barWeekChart = weekChart.Bar(dataWeek,options);
+        var weekLegend = barWeekChart.generateLegend();
+        $('#weekLegend').append(weekLegend);
+    </script>
+{% endblock %}

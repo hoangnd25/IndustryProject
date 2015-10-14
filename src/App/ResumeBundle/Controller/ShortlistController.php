@@ -2,6 +2,7 @@
 
 namespace App\ResumeBundle\Controller;
 
+use App\ResumeBundle\Entity\StatShortlist;
 use App\ResumeBundle\Model\StudentFilter;
 use App\UserBundle\Entity\User;
 use Doctrine\ORM\Query;

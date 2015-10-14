@@ -30,7 +30,7 @@ class RedirectManager
 
         if ($user->isStudent()) {
 
-            $response =  new RedirectResponse($this->router->generate('student_profile_edit'));
+            $response =  new RedirectResponse($this->router->generate('student_homepage'));
 
         } elseif ($this->authChecker->isGranted(User::ROLE_ADMIN)) {
 

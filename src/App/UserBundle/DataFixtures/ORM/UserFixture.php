@@ -2,6 +2,8 @@
 
 namespace App\UserBundle\DataFixtures\ORM;
 
+use App\ResumeBundle\Entity\StatProfileView;
+use App\ResumeBundle\Entity\StatShortlist;
 use App\ResumeBundle\Entity\StudentProfile;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -52,6 +54,30 @@ class UserFixture implements FixtureInterface
 
         $student->setStudentProfile($studentProfile);
         $manager->persist($student);
+
+        // Generate stat for student
+        for($i = 0; $i < 30; $i++){
+            $numProfileView = rand(0, 15);
+            $numShortlist = rand(0, $numProfileView);
+
+            for($y = 0; $y < $numProfileView; $y++){
+                $time = (new \DateTime('now'))->modify('-'.$i.' days');
+                $time->setTime(rand(1,11), rand(1,30), 0);
+                $statProfileView = new StatProfileView();
+                $statProfileView->setCreated($time);
+                $statProfileView->setStudent($studentProfile);
+                $manager->persist($statProfileView);
+            }
+
+            for($z = 0; $z < $numShortlist; $z++){
+                $time = (new \DateTime('now'))->modify('-'.$i.' days');
+                $time->setTime(rand(1,11), rand(1,30), 0);
+                $statShortlist = new StatShortlist();
+                $statShortlist->setCreated($time);
+                $statShortlist->setStudent($studentProfile);
+                $manager->persist($statShortlist);
+            }
+        }
 
         // Generate default member
         $member = new User();
