@@ -69,7 +69,7 @@
                                            href="{{ studentProfileUrl }}">
                                             {% if profile.avatar != null and profile.avatar.fileName != "" %}
                                                 <img class="media-object student-avatar"
-                                                     src="{{ vich_uploader_asset(profile.avatar, 'file') }}"
+                                                     src="{{ vich_uploader_asset(profile.avatar, 'file', 'App\\ResumeBundle\\Entity\\StudentAvatar') }}"
                                                      alt="{{ profile.user.firstName }} {{ profile.user.lastName }}">
                                             {% else %}
                                                 <img class="media-object student-avatar"
