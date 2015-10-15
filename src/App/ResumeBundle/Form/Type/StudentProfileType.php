@@ -117,13 +117,13 @@ class StudentProfileType extends AbstractType
                     'label_render' => false,
                     'widget_remove_btn' => array(
                         'horizontal_wrapper_div' => array(
-                            'class' => "col-sm-1"
+                            'class' => "col-sm-1  col-xs-12"
                         ),
                         'wrapper_div' => false,
                     ),
                     'horizontal' => true,
                     'horizontal_label_offset_class' => "",
-                    'horizontal_input_wrapper_class' => "col-sm-11",
+                    'horizontal_input_wrapper_class' => "col-sm-11  col-xs-12",
                 )
             ))
             ->add('socialNetworks', 'collection', array(

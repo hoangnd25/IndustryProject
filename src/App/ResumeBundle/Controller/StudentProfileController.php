@@ -172,7 +172,7 @@ class StudentProfileController extends Controller
             $this->get('session')->getFlashBag()->add('warning', 'Please check your form.');
 
             foreach($form->getErrors(true) as $error){
-                if(in_array($error->getOrigin()->getName(), array('degree', 'file', 'url'))){
+                if(in_array($error->getOrigin()->getName(), array('degree', 'file', 'url', 'otherInstitution'))){
                     $origin = $error->getOrigin();
                     if($origin === null)
                         continue;

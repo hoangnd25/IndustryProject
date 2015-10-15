@@ -72,7 +72,7 @@
 
                     <div class="col-sm-9">
                             {% for edu in user.studentProfile.educations %}
-                                {{ edu.institution }}: {{ edu.degree }}<br>
+                                {% if edu.institution  %}{{ edu.institution.name }}{% else %}{{ edu.otherInstitution }}{% endif %}: {{ edu.degree }}<br>
                             {% endfor %}
                     </div>
                 </div>

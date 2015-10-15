@@ -20,7 +20,7 @@ class StudentEducation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", inversedBy="educations")
-     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     protected $studentProfile;
 
@@ -29,6 +29,11 @@ class StudentEducation
      * @ORM\JoinColumn(name="institution_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     protected $institution;
+
+    /**
+     * @ORM\Column(length=100, nullable=true)
+     */
+    protected $otherInstitution;
 
     /**
      * @ORM\Column(length=100)
@@ -95,4 +100,19 @@ class StudentEducation
         $this->degree = $degree;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOtherInstitution()
+    {
+        return $this->otherInstitution;
+    }
+
+    /**
+     * @param mixed $otherInstitution
+     */
+    public function setOtherInstitution($otherInstitution)
+    {
+        $this->otherInstitution = $otherInstitution;
+    }
 }

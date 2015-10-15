@@ -58,6 +58,31 @@
                 $(this).remove();
                 $(deleteCheck).val(true);
             });
+
+            // if student select other, just remove institution and un-hide orther institution
+            $("form").on('select2:select', ".institution-select", function(e) {
+                if(e.params.data.id == '***'){
+                    var $parent = $(this).parent();
+                    $parent.siblings('.hidden').removeClass('hidden');
+                    $parent.remove();
+                }
+            });
+
+            // un-hide other institution if institution is not presented
+            var $otherInstitutionWrappers = $('.other-institution-wrapper');
+            $otherInstitutionWrappers.each(function(index, item){
+                var $wrapper = $(item);
+                if ($wrapper.siblings('.institution-wrapper').length < 1){
+                    $wrapper.removeClass('hidden');
+                }
+            });
+
+            // Remove not used filed before submit
+            $('button[type=submit]').click(function(e){
+                e.preventDefault();
+                $('.other-institution-wrapper.hidden').remove();
+                $('form').submit();
+            });
         });
 
         $(document).on('change', '.btn-file :file', function () {
