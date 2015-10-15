@@ -1,9 +1,31 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-module-wrapper top-border-lime"></div>
+            <div class="content-module content-module-padding">
+                <h3>Welcome to Link</h3>
+                <span class="small"><p>
+                        Link is a portal that acts as a meeting place for our members and students across Australia.
+                        It allows students to create profiles and upload CVs,
+                        for our members to view and get in contact with students whom they are interested in.
+                    </p><hr><h4>Getting started</h4><p>
+                        Step 1 – Start searching students by name, or through the use of filters.<br>
+                        Step 2 – Click on the student name to expand his/her profile.<br>
+                        Step 3 – Click the + button to save the student to Shortlist.<br>
+                        Step 4 – Export your Shortlist.<br>
+                        Step 5 – Contact the students at will.
+                    </p></span>
+            </div>
+        </div>
+    </div><br>
+
+
     <div class="row">
         <div class="col-sm-12">
-            <a href="{{ path('student_profile_list') }}" class="btn btn-primary">Go to search page</a>
+            <a href="{{ path('student_profile_list') }}" class="btn btn-primary pull-right">Start searching</a>
         </div>
     </div>
 {% endblock %}

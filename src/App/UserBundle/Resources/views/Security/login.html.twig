@@ -44,10 +44,10 @@
                                     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                                     Remember me
                                 </label>
-                                <br>
+                                <br><BR>
                                 <label style="font-weight: lighter">
-                                    <input id="chkTC" name="_agree_tc" tabindex="3" type="checkbox">
-                                    I agree to <a href="#" class="terms" data-toggle="modal" data-target="#tocModal">Terms &amp; Conditions</a>
+                                    {#<input id="chkTC" name="_agree_tc" tabindex="3" type="checkbox">#}
+                                    By logging in, you agree to the <a href="#" class="terms" data-toggle="modal" data-target="#tocModal">Terms &amp; Conditions</a>.
                                 </label>
                                 <br>
 
@@ -79,7 +79,7 @@
                     {{ tcContent.body | raw  }}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-primary" onclick="window.print();">Print</button>
+                    <button class="btn-primary" onclick="window.print();">Print</button>&nbsp;
                     <a class="btn-primary" data-dismiss="modal">Close</a>
                 </div>
             </div>
