@@ -46,7 +46,7 @@ class MenuFixture implements FixtureInterface
         $manager->persist($menu);
 
         $menu = new Menu('footer-5', 'Get in touch');
-        $menu->addItems(new MenuItem('1300 227 263','tel:1300 227 263', 'footer-contact'));
+        $menu->addItems(new MenuItem('0423 884 455','tel:+61 423 884 455', 'footer-contact'));
         $menu->addItems(new MenuItem('','mailto:customer.service@gs1au.org', 'icon icon-envelope color-white email'));
         $menu->addItems(new MenuItem('','http://www.youtube.com/user/GS1Australia', 'icon icon-youtube color-navy'));
         $manager->persist($menu);
