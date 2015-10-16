@@ -2,8 +2,6 @@
 
 {% block content %}
     <h1>Unauthorized access</h1>
-    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% endif %}
 
     <p>
         {% if exception.message %}
