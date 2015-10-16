@@ -168,7 +168,7 @@
 
                     <div class="col-sm-9">
                             {% for file in user.studentProfile.gs1Certifications %}
-                                <a href="{{ vich_uploader_asset(file,'file') }}">Download</a><br>
+                                <a target="_blank" href="{{ vich_uploader_asset(file,'file') }}">Download</a><br>
                             {% endfor %}
                     </div>
                 </div>
@@ -182,7 +182,7 @@
 
                     <div class="col-sm-9">
                             {% for file in user.studentProfile.certifications %}
-                                <a href="{{ vich_uploader_asset(file,'file') }}">{{ file.name }}</a><br>
+                                <a target="_blank" href="{{ vich_uploader_asset(file,'file') }}">{{ file.name }}</a><br>
                             {% endfor %}
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                     </label>
 
                     <div class="col-sm-9">
-                        <a href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
+                        <a target="_blank" href="{{ vich_uploader_asset(user.studentProfile.resume, 'file') }}">Download</a>
                     </div>
                 </div>
             {% endif %}
