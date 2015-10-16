@@ -39,20 +39,24 @@ class StudentProfileType extends AbstractType
                 )
             ))
             ->add('headline', null, array(
-                'label' => 'Occupation'
+                'label' => 'Occupation',
+                'render_required_asterisk' => true
             ))
             ->add('about', 'textarea', array(
                 'attr' => array(
                     'rows' => 3
                 )
             ))
-            ->add('contactEmail', 'email')
+            ->add('contactEmail', 'email', array(
+                'render_required_asterisk' => true
+            ))
             ->add('contactNumber', 'tel', array(
                 'format' => PhoneNumberFormat::INTERNATIONAL,
                 'attr' => array(
                     'placeholder' => 'International format'
                 ),
-                'invalid_message' => 'Phone number must follow international format (e.g. +61 412 345 678)'
+                'invalid_message' => 'Phone number must follow international format (e.g. +61 412 345 678)',
+                'render_required_asterisk' => true
             ))
             ->add('industryPreference', 'entity', array(
                 'class' => 'App\ResumeBundle\Entity\Industry',
@@ -148,19 +152,23 @@ class StudentProfileType extends AbstractType
             ))
             ->add('country', 'country', array(
                 'preferred_choices' => array('AU'),
-                'label' => 'Country (current residence)'
+                'label' => 'Country (current residence)',
+                'render_required_asterisk' => true
             ))
             ->add('state', 'text', array(
-                'label' => 'State (current residence)'
+                'label' => 'State (current residence)',
+                'render_required_asterisk' => true
             ))
             ->add('city', 'text', array(
-                'label' => 'City (current residence)'
+                'label' => 'City (current residence)',
+                'render_required_asterisk' => true
             ))
             ->add('workingRight', 'choice', array(
                 'choices' => array(
                     0 => 'No',
                     1 => 'Yes'
                 ),
+                'render_required_asterisk' => true,
                 'choice_value' => function ($choiceKey) {
                     if (null === $choiceKey) {
                         return null;
@@ -178,7 +186,9 @@ class StudentProfileType extends AbstractType
                 'label' => 'Do you have full working right in Australia?'
             ))
             ->add('avatar', 'student_avatar')
-            ->add('resume', 'student_resume')
+            ->add('resume', 'student_resume', array(
+                'render_required_asterisk' => true
+            ))
             ->add('save', 'submit', array(
                 'attr' => array('class' => 'save btn-sm btn-info'),
             ));

@@ -13,22 +13,28 @@ class MemberProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('company')
+            ->add('company', null, array(
+                'render_required_asterisk' => true
+            ))
             ->add('number', 'text', array(
-                'label' => 'GS1 member numbers'
+                'label' => 'GS1 member numbers',
+                'render_required_asterisk' => true
             ))
             ->add('contactNumber', 'tel', array(
                 'format' => PhoneNumberFormat::INTERNATIONAL,
                 'attr' => array(
                     'placeholder' => 'International format'
-                )
+                ),
+                'render_required_asterisk' => true
             ))
             ->add('country', 'country', array(
                 'preferred_choices' => array('AU'),
-                'label' => 'Country'
+                'label' => 'Country',
+                'render_required_asterisk' => true
             ))
             ->add('state', 'text', array(
-                'label' => 'State'
+                'label' => 'State',
+                'render_required_asterisk' => true
             ))
         ;
     }

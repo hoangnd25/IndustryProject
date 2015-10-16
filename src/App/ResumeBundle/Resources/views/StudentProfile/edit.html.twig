@@ -15,7 +15,7 @@
                     {% set fullnameError = form.firstName.vars.errors | length > 0 or form.lastName.vars.errors | length > 0 %}
                     <div class="form-group {% if fullnameError %}has-error{% endif %}">
                         <label for="student_profile_firstName" class="control-label col-sm-3 required">
-                            Full name
+                            Full name *
                         </label>
 
                         <div class="row col-sm-9">

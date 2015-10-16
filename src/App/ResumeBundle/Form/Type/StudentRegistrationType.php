@@ -32,7 +32,8 @@ class StudentRegistrationType extends AbstractType
                 'empty_value' => 'Select institution',
                 'constraints' => array(
                     new NotBlank(array('message'=>'Please select an institution'))
-                )
+                ),
+                'render_required_asterisk' => true
             ))
         ;
 

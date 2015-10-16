@@ -44,12 +44,32 @@ class RegistrationType extends AbstractType
             ->add('firstName', null, array(
                 'attr' => array(
                     'maxlength' => false
-                )
+                ),
+                'render_required_asterisk' => true
             ))
             ->add('lastName', null, array(
                 'attr' => array(
                     'maxlength' => false
-                )
+                ),
+                'render_required_asterisk' => true
+            ))
+            ->add('email', 'email', array(
+                'label' => 'form.email',
+                'translation_domain' => 'FOSUserBundle',
+                'render_required_asterisk' => true
+            ))
+            ->add('plainPassword', 'repeated', array(
+                'type' => 'password',
+                'options' => array('translation_domain' => 'FOSUserBundle'),
+                'first_options' => array(
+                    'label' => 'form.password',
+                    'render_required_asterisk' => true
+                ),
+                'second_options' => array(
+                    'label' => 'form.password_confirmation',
+                    'render_required_asterisk' => true
+                ),
+                'invalid_message' => 'fos_user.password.mismatch',
             ))
             ->add('toc', 'checkbox', array(
                 'mapped' => false,
@@ -64,6 +84,9 @@ class RegistrationType extends AbstractType
                 'widget_type' => 'inline'
             ))
         ;
+
+        $builder->get('email')->setAttribute('render_required_asterisk', true);
+        $builder->get('plainPassword')->setAttribute('render_required_asterisk', true);
 
         $builder->remove('username');
 
