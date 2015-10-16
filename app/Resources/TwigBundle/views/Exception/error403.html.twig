@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Unauthorized access</h1>
+    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% endif %}
+
+    <p>
+        {% if exception.message %}
+            {{ exception.message }}
+        {% else %}
+            You are not allowed to access this page, please <a href="{{ path('app_web_default_index') }}">return to the homepage</a>.
+        {% endif %}
+    </p>
+{% endblock %}
