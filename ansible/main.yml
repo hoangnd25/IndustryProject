@@ -90,15 +90,20 @@
       sudo: yes
       sudo_user: "{{project_user}}"
 
-    - name: sf update schema
-      shell: 'php {{site_dir}}/app/console doctrine:schema:update --force'
+    - name: sf clear redis cache
       sudo: yes
       sudo_user: "{{project_user}}"
+      shell: 'php {{site_dir}}/app/console redis:flushdb --client cache --env=prod --no-interaction'
 
     - name: sf warm up cache
       sudo: yes
       sudo_user: "{{project_user}}"
       shell: 'php {{site_dir}}/app/console cache:clear --env=prod --no-debug'
+
+    - name: sf update schema
+      shell: 'php {{site_dir}}/app/console doctrine:schema:update --force'
+      sudo: yes
+      sudo_user: "{{project_user}}"
 
     - name: generate dummy data
       shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --env=prod  --no-interaction'
