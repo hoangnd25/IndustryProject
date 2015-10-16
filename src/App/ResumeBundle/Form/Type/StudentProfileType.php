@@ -161,6 +161,20 @@ class StudentProfileType extends AbstractType
                     0 => 'No',
                     1 => 'Yes'
                 ),
+                'choice_value' => function ($choiceKey) {
+                    if (null === $choiceKey) {
+                        return null;
+                    }
+                    $stringChoiceKey = (string) $choiceKey;
+                    if ('1' === $stringChoiceKey) {
+                        return 'true';
+                    }
+                    if ('0' === $stringChoiceKey || '' === $stringChoiceKey) {
+                        return 'false';
+                    }
+                    throw new \Exception('Unexpected choice key: ' . $choiceKey);
+                },
+                'expanded' => true,
                 'label' => 'Do you have full working right in Australia?'
             ))
             ->add('avatar', 'student_avatar')
