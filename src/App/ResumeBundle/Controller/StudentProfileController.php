@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -331,5 +332,30 @@ class StudentProfileController extends Controller
         return array_map(function($item){
             return $item->getId();
         }, $collection->toArray());
+    }
+
+    /**
+     * @Route("/student/disable", name="student_profile_disable")
+     * @Security("has_role('ROLE_STUDENT')")
+     */
+    public function disableAction(Request $request)
+    {
+        $redirectUrl = $request->get('redirectUrl');
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->setVisible(!$user->getVisible());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success', 'Profile updated successfully');
+
+        if($redirectUrl){
+            return new RedirectResponse($redirectUrl);
+        }else{
+            return new RedirectResponse($this->generateUrl('student_homepage'));
+        }
     }
 }

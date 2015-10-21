@@ -85,6 +85,9 @@ class StudentHomepageController extends Controller
             }
             $i--;
         }
+
+        $result['user'] = $this->getUser();
+
         return $result;
     }
 }

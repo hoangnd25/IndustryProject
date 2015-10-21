@@ -3,7 +3,11 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <a href="{{ path('student_profile_edit') }}" class="btn btn-primary">Edit your profile</a>
+            <a href="{{ path('student_profile_edit') }}" class="btn btn-sm btn-info">Edit your profile</a>
+            <a href="#" data-href="{{ path('student_profile_disable') }}"
+               data-toggle="modal" data-target="#confirmDisable" class="btn btn-sm {% if user.visible %}btn-danger{% else %}btn-success{% endif %}">
+                {% if user.visible %}Disable{% else %}Enable{% endif %} profile
+            </a>
             <br>
         </div>
         <div class="col-sm-12">
@@ -25,6 +29,23 @@
                             <div id="weekLegend" class="chart-legend"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirmDisable" class="modal fade printable" role="dialog">
+        <div class="modal-dialog modal-md content-module">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title"></h3>
+                </div>
+                <div id="TC" class="modal-body">
+                    {% if user.visible %}Your profile will be hidden from search results. {% endif %} Are you sure you want to proceed?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">No</button>
+                    <a class="btn btn-sm btn-ok {% if user.visible %}btn-danger{% else %}btn-success{% endif %}">Yes</a>
                 </div>
             </div>
         </div>
@@ -112,5 +133,10 @@
         var barWeekChart = weekChart.Bar(dataWeek,options);
         var weekLegend = barWeekChart.generateLegend();
         $('#weekLegend').append(weekLegend);
+
+        $('#confirmDisable').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            $(this).find('.modal-title').text($(e.relatedTarget).text());
+        });
     </script>
 {% endblock %}
