@@ -5,10 +5,15 @@
 
     <p>
         {% if exception.message %}
-            {{ exception.message }}
+            {% if exception.message starts with 'The user with confirmation token' and exception.message ends with 'does not exist' %}
+                This activation link has already been used or is expired.
+            {% else %}
+                {{ exception.message | trans }}
+            {% endif %}
         {% else %}
             The requested page couldn't be located. Checkout for any URL
             misspelling or <a href="{{ path('app_web_default_index') }}">return to the homepage</a>.
         {% endif %}
     </p>
+
 {% endblock %}
