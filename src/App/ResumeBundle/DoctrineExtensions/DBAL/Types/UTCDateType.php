@@ -38,6 +38,11 @@ class UTCDateType extends DateTimeType
         $val = \DateTime::createFromFormat($platform->getDateFormatString(), $value, self::$utc);
 
         if (!$val) {
+            // re try with datetime format
+            $val = \DateTime::createFromFormat($platform->getDateTimeFormatString(), $value, self::$utc);
+        }
+
+        if (!$val) {
             throw ConversionException::conversionFailed($value, $this->getName());
         }
 
