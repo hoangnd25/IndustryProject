@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Validator\ErrorElement;
 
 class MenuAdmin extends Admin
 {
@@ -26,6 +27,15 @@ class MenuAdmin extends Admin
                 'edit' => 'inline',
                 'inline' => 'table',
             ))
+        ;
+    }
+
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('items')
+            ->assertValid()
+            ->end()
         ;
     }
 
