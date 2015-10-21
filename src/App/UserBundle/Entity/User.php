@@ -269,4 +269,31 @@ class User extends BaseUser
         $this->setType(User::ROLE_STUDENT);
         $this->setStudentProfileVisibility(User::VISIBILITY_VISIBLE);
     }
+
+    public function getReadableType(){
+        $type = $this->getType();
+        switch ($type) {
+            case User::ROLE_ADMIN:
+                return 'Admin';
+            case User::ROLE_STUDENT:
+                return 'Student';
+            case User::ROLE_GS1_MEMBER:
+                return 'Member';
+            default:
+                return 'Unknown';
+        }
+    }
+
+    public function getReadableEnabled(){
+        return $this->isEnabled() ? 'Yes' : 'No';
+    }
+
+    public function getReadableStudentVisibility(){
+        $visibility = $this->getVisible();
+        if($visibility != null){
+            return $visibility ? 'Yes' : 'No';
+        }else{
+            return 'N/A';
+        }
+    }
 }

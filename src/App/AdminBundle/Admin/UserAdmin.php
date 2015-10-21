@@ -109,4 +109,16 @@ class UserAdmin extends Admin
     {
         return $this->userManager;
     }
+
+    public function getExportFields() {
+        return array(
+            'Account Id' => 'id',
+            'Email address' => 'email',
+            'First name' => 'firstName',
+            'Last name' => 'lastName',
+            'Account type' => 'readableType',
+            'Account enabled?' => 'readableEnabled',
+            'Student profile visible?' => 'readableStudentVisibility'
+        );
+    }
 }
