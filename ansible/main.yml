@@ -101,17 +101,12 @@
       shell: 'php {{site_dir}}/app/console cache:clear --env=prod --no-debug'
 
     - name: sf update schema
-      shell: 'php {{site_dir}}/app/console doctrine:schema:update --force'
+      shell: 'php {{site_dir}}/app/console doctrine:schema:update --env=prod --force'
       sudo: yes
       sudo_user: "{{project_user}}"
 
     - name: generate dummy data
       shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --env=prod  --no-interaction'
-      sudo: yes
-      sudo_user: "{{project_user}}"
-
-    - name: repopulate search index
-      shell: 'php {{site_dir}}/app/console fos:elastica:populate --env=prod'
       sudo: yes
       sudo_user: "{{project_user}}"
 
