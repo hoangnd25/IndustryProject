@@ -82,7 +82,6 @@ class ShortlistManager
                 }
 
                 if(null !== $gs1CertArray = $this->getIdArray($filter->getGs1Certification())){
-                    dump($this->getIdArray($filter->getGs1Certification()),$filter);
                     $qb->andWhere($qb->expr()->in('gs1.type', $gs1CertArray));
                 }
 
