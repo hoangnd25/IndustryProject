@@ -20,6 +20,10 @@ class EmploymentStatusAdmin extends Admin
                     'maxlength' => false
                 )
             ))
+            ->add('noticeRequired', null, array(
+                'label' => 'Require notice?',
+                'required' => false
+            ))
         ;
     }
 

@@ -23,9 +23,15 @@ class EmploymentStatus
      */
     protected $name;
 
-    public function __construct($name = null)
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $noticeRequired;
+
+    public function __construct($name = null, $noticeRequired = false)
     {
         $this->name = $name;
+        $this->noticeRequired = $noticeRequired;
     }
 
     /**
@@ -62,4 +68,21 @@ class EmploymentStatus
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function isNoticeRequired()
+    {
+        return $this->noticeRequired;
+    }
+
+    /**
+     * @param mixed $noticeRequired
+     */
+    public function setNoticeRequired($noticeRequired)
+    {
+        $this->noticeRequired = $noticeRequired;
+    }
+
 }

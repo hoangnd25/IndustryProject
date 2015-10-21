@@ -59,6 +59,22 @@
                 $(deleteCheck).val(true);
             });
 
+            // show/hide weeks of notice on employment status selected
+            var showHideWeeksOfNotice = function(isNoticeRequired) {
+                if(isNoticeRequired){
+                    $('.weeks-of-notice').removeClass('hidden');
+                }else{
+                    $('.weeks-of-notice').addClass('hidden');
+                    $('.weeks-of-notice input').val(null);
+                }
+            };
+            showHideWeeksOfNotice($('.employment-status-select option:selected').data('require-notice'));
+            $(".employment-status-select").on('select2:select', function(e){
+                var $element = $(e.params.data.element);
+                var isNoticeRequired = $element.data('require-notice');
+                showHideWeeksOfNotice(isNoticeRequired);
+            });
+
             // if student select other, just remove institution and un-hide orther institution
             $("form").on('select2:select', ".institution-select", function(e) {
                 if(e.params.data.id == '***'){

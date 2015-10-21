@@ -13,10 +13,10 @@ class EmploymentStatusFixture implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $status = new EmploymentStatus("Employed full-time");
+        $status = new EmploymentStatus("Employed full-time", true);
         $manager->persist($status);
 
-        $status = new EmploymentStatus("Employed part-time");
+        $status = new EmploymentStatus("Employed part-time", true);
         $manager->persist($status);
 
         $status = new EmploymentStatus("Unemployed");

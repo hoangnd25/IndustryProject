@@ -101,6 +101,13 @@ class ShortlistManager
                     $qb->andWhere($qb->expr()->eq('p.workingRight', $workingRight ? "1" : "0"));
                 }
 
+                if(null !== ($availableFrom = $filter->getAvailableFrom())){
+                    $qb
+                        ->andWhere('p.availableDate <= :date')
+                        ->setParameter('date', $availableFrom)
+                    ;
+                }
+
                 if($filter->getKeyword() != null){
                     if(!empty($keywordFilteredIdArray)){
                         $qb->andWhere($qb->expr()->in('p.id', $keywordFilteredIdArray));

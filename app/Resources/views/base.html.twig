@@ -13,6 +13,7 @@
         'bundles/appweb/css/bootstrap-theme.css'
         'bundles/appweb/css/bootstrap-accessibility.min.css'
         'bundles/appweb/css/select2.css'
+        'bundles/appweb/css/bootstrap-datepicker3.css'
         'bundles/appweb/less/main.less'
         'bundles/appweb/css/gotham-font.css'
     %}
@@ -71,6 +72,7 @@
         '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@AppWebBundle/Resources/public/js/select2.js'
+        '@AppWebBundle/Resources/public/js/bootstrap-datepicker.js'
         '@AppWebBundle/Resources/public/js/main.js'
     %}
         <script src="{{ asset_url }}"></script>
@@ -93,5 +95,13 @@
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(wf, s);
         })();
+
+        $('document').ready(function () {
+            $('.date-picker').datepicker({
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                autoclose: true
+            });
+        });
     </script>
 {% endblock %}

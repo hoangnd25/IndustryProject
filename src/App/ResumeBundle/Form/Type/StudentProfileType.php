@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -15,6 +16,7 @@ class StudentProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $propertyAccessor = new PropertyAccessor();
         $builder
             ->add('firstName', null, array(
                 'label' => false,
@@ -62,11 +64,33 @@ class StudentProfileType extends AbstractType
                 'class' => 'App\ResumeBundle\Entity\Industry',
                 'multiple' => true
             ))
+            ->add('availableDate', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'html5' => false,
+                'label' => 'Available for employment from',
+                'attr' => array(
+                    'class' => 'date-picker'
+                )
+            ))
             ->add('employmentStatus', 'entity', array(
                 'class' => 'App\ResumeBundle\Entity\EmploymentStatus',
                 'empty_data' => '',
                 'empty_value' => 'N/A',
-                'required' => false
+                'required' => false,
+                'choice_attr' => function ($choice, $key) use (&$propertyAccessor) {
+                    $value = $propertyAccessor->getValue($choice, 'noticeRequired');
+                    return ['data-require-notice' => $value ? 1 : 0];
+                },
+                'attr' => array(
+                    'class' => 'employment-status-select'
+                )
+            ))
+            ->add('weeksOfNotice', null, array(
+                'label' => 'How many weeks of notice do you need?',
+                'widget_form_group_attr' => array(
+                    'class' => 'form-group weeks-of-notice hidden'
+                ),
             ))
             ->add('gs1Certifications', 'collection', array(
                 'label' => 'GS1 certifications',

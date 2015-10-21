@@ -52,10 +52,21 @@ class StudentProfile
     protected $industryPreference;
 
     /**
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank()
+     */
+    protected $availableDate;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\ResumeBundle\Entity\EmploymentStatus")
      * @ORM\JoinColumn(name="employment_status_id", referencedColumnName="id", onDelete="SET NULL")
      **/
     protected $employmentStatus;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $weeksOfNotice;
 
     /**
      * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist"})
@@ -151,6 +162,7 @@ class StudentProfile
         $this->industryPreference = new ArrayCollection();
         $this->hasGs1Certification = false;
         $this->workingRight = false;
+        $this->availableDate = new \DateTime();
     }
 
     /**
@@ -579,6 +591,22 @@ class StudentProfile
     /**
      * @return mixed
      */
+    public function getAvailableDate()
+    {
+        return $this->availableDate;
+    }
+
+    /**
+     * @param mixed $availableDate
+     */
+    public function setAvailableDate($availableDate)
+    {
+        $this->availableDate = $availableDate;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getEmploymentStatus()
     {
         return $this->employmentStatus;
@@ -590,6 +618,22 @@ class StudentProfile
     public function setEmploymentStatus($employmentStatus)
     {
         $this->employmentStatus = $employmentStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeeksOfNotice()
+    {
+        return $this->weeksOfNotice;
+    }
+
+    /**
+     * @param mixed $weeksOfNotice
+     */
+    public function setWeeksOfNotice($weeksOfNotice)
+    {
+        $this->weeksOfNotice = $weeksOfNotice;
     }
 
     /**

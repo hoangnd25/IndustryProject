@@ -296,6 +296,13 @@ class StudentProfileController extends Controller
             $qb->andWhere($qb->expr()->eq('p.workingRight', $workingRight ? "1" : "0"));
         }
 
+        if(null !== ($availableFrom = $filter->getAvailableFrom())){
+            $qb
+                ->andWhere('p.availableDate <= :date')
+                ->setParameter('date', $availableFrom)
+            ;
+        }
+
         if($filter->getKeyword() != null){
             if(!empty($idArray)){
                 $qb->andWhere($qb->expr()->in('p.id', $idArray));

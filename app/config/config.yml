@@ -72,6 +72,7 @@ doctrine:
         types:
             phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
             datetime: App\ResumeBundle\DoctrineExtensions\DBAL\Types\UTCDateTimeType
+            date: App\ResumeBundle\DoctrineExtensions\DBAL\Types\UTCDateType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

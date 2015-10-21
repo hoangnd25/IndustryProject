@@ -13,6 +13,7 @@ class StudentFilter
     protected $country;
     protected $institution;
     protected $workingRight;
+    protected $availableFrom;
 
     /**
      * @return mixed
@@ -126,6 +127,22 @@ class StudentFilter
         $this->keyword = $keyword;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAvailableFrom()
+    {
+        return $this->availableFrom;
+    }
+
+    /**
+     * @param mixed $availableFrom
+     */
+    public function setAvailableFrom($availableFrom)
+    {
+        $this->availableFrom = $availableFrom;
+    }
+
     public function isEmpty(){
         return
             !(
@@ -133,6 +150,7 @@ class StudentFilter
                 count($this->country) > 0 ||
                 count($this->employmentStatus) > 0 ||
                 $this->workingRight !== null ||
+                $this->availableFrom !== null ||
                 count($this->gs1Certification) > 0 ||
                 count($this->institution) > 0
             );

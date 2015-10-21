@@ -43,6 +43,18 @@ class FilterType extends AbstractType
                 'horizontal_input_wrapper_class' => '',
                 'required' => false
             ))
+            ->add('availableFrom', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'html5' => false,
+                'label' => 'Available for employment from',
+                'attr' => array(
+                    'class' => 'date-picker'
+                ),
+                'horizontal_label_class' => '',
+                'horizontal_input_wrapper_class' => '',
+                'required' => false
+            ))
             ->add('country', 'country', array(
                 'label' => 'Country',
                 'multiple' => true,

@@ -31,6 +31,7 @@
                             <div id="filters" class="panel-collapse collapse {% if not filter.data.empty %}in{% endif %}">
                                 {{ form_row(filter.form.industry) }}
                                 {{ form_row(filter.form.gs1Certification) }}
+                                {{ form_row(filter.form.availableFrom) }}
                                 {{ form_row(filter.form.employmentStatus) }}
                                 {{ form_row(filter.form.country) }}
                                 {{ form_row(filter.form.institution) }}
