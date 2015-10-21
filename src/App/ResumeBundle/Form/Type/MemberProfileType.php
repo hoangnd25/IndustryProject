@@ -17,13 +17,12 @@ class MemberProfileType extends AbstractType
                 'render_required_asterisk' => true
             ))
             ->add('number', 'text', array(
-                'label' => 'GS1 member numbers',
-                'render_required_asterisk' => true
+                'label' => 'GS1 member ID number'
             ))
             ->add('contactNumber', 'tel', array(
                 'format' => PhoneNumberFormat::INTERNATIONAL,
                 'attr' => array(
-                    'placeholder' => 'International format'
+                    'placeholder' => 'International format (e.g. +61 412 345 678)'
                 ),
                 'render_required_asterisk' => true
             ))

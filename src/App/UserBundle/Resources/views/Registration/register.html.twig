@@ -19,6 +19,11 @@
                     {{ form_row(form.lastName) }}
                     {{ form_row(form.email) }}
                     {{ form_row(form.plainPassword.first) }}
+                    {% if form.plainPassword.first.vars.errors | length < 1 %}
+                        <div class="col-sm-9 col-sm-offset-3" style="margin-top: -15px">
+                            <p class="help-block">Password must be at least 8 characters long and include: <br> - Upper and lower case letters <br> - Numbers</p>
+                        </div>
+                    {% endif %}
                     {{ form_row(form.plainPassword.second) }}
 
                     <div id="dynamic_form">

@@ -8,6 +8,7 @@ use App\ResumeBundle\Form\Type\StudentRegistrationType;
 use App\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
@@ -117,6 +118,15 @@ class RegistrationType extends AbstractType
             function (FormEvent $event) use ($formModifier) {
                 $type = $event->getForm()->getData();
                 $formModifier($event->getForm()->getParent(), $type);
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event){
+                $form = $event->getForm();
+                if($form->getErrors(true)->count() > 0)
+                    $form->get('plainPassword')->get('first')->addError(new FormError('The form is invalid, you must re-enter your password'));
             }
         );
 

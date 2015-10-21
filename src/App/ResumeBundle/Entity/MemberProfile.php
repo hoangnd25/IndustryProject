@@ -33,8 +33,7 @@ class MemberProfile
     protected $company;
 
     /**
-     * @ORM\Column(length=160)
-     * @Assert\NotBlank()
+     * @ORM\Column(length=160, nullable=true)
      */
     protected $number;
 
