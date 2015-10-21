@@ -15,7 +15,11 @@ class MenuItemAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
+            ->add('name', null, array(
+                'attr' => array(
+                    'maxlength' => false
+                )
+            ))
             ->add('url')
             ->add('class')
         ;
