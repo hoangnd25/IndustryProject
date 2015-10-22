@@ -26,7 +26,7 @@ class Shortlist
     protected $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     protected $student;
