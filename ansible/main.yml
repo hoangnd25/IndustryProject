@@ -110,6 +110,11 @@
       sudo: yes
       sudo_user: "{{project_user}}"
 
+    - name: repopulate search index  #this section is crucial for the search engine to work properly
+      shell: 'php {{site_dir}}/app/console fos:elastica:populate --env=prod'
+      sudo: yes
+      sudo_user: "{{project_user}}"
+
     - name: fix permission
       sudo: yes
       file: path={{site_dir}}/app/cache state=directory owner=www-data group={{project_user}} mode=0775 recurse=yes
