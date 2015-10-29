@@ -23,7 +23,7 @@ class StudentGS1Certification
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\GS1Certification")
+     * @ORM\ManyToOne(targetEntity="App\ResumeBundle\Entity\GS1Certification")
      * @ORM\JoinColumn(name="cert_type_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     protected $type;
