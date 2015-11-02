@@ -11,7 +11,7 @@
                     <div class="content-module content-module-padding">
                         <div class="panel">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-target="#navigation">
+                                <a data-toggle="collapse" data-target="#navigation" href="#navigation">
                                     Navigation
                                 </a>
                             </h4>
@@ -26,7 +26,7 @@
                         <div class="panel">
                             <h4 class="panel-title">
                                 <a class="{% if filter.data.empty %}collapsed{% endif %}" data-toggle="collapse"
-                                   data-target="#filters">
+                                   data-target="#filters" href="#filters">
                                     Filters
                                 </a>
                             </h4>
@@ -40,7 +40,16 @@
                                 {{ form_row(filter.form.country) }}
                                 {{ form_row(filter.form.institution) }}
                                 {{ form_row(filter.form.workingRight) }}
+
+                                <br>
+                                <span class="input-group-btn">
+                                    <input class="btn btn-form-item btn-default pull-right" value="Search" type="submit"/>
+                                </span>
+
                             </div>
+
+
+
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -51,6 +60,7 @@
             <div class="col-sm-8 col-md-9">
                 <div class="content-module-wrapper top-border-orange">
                     <div class="content-module content-module-padding">
+                        <p>Please enter keywords into the search bar to search through profiles and resumes.</p>
                         <div class="well input-group">
                             {{ form_widget (filter.form.keyword) }}
                             <span class="input-group-btn">

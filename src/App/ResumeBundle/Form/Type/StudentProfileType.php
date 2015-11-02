@@ -207,7 +207,7 @@ class StudentProfileType extends AbstractType
                     throw new \Exception('Unexpected choice key: ' . $choiceKey);
                 },
                 'expanded' => true,
-                'label' => 'Do you have full working right in Australia?'
+                'label' => 'Do you have full working rights in Australia?'
             ))
             ->add('avatar', 'student_avatar')
             ->add('resume', 'student_resume', array(
