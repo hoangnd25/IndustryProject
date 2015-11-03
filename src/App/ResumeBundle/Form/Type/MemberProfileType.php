@@ -5,13 +5,40 @@ use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MemberProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if($options['show_name']){
+            $builder->add('firstName', null, array(
+                'label' => false,
+                'widget_form_group' => false,
+                'attr' => array(
+                    'placeholder' => 'First name',
+                ),
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('max' => 100))
+                )
+            ))
+                ->add('lastName', null, array(
+                    'label' => false,
+                    'widget_form_group' => false,
+                    'attr' => array(
+                        'placeholder' => 'Last name'
+                    ),
+                    'constraints' => array(
+                        new NotBlank(),
+                        new Length(array('max' => 100))
+                    )
+                ));
+        }
+
         $builder
             ->add('company', null, array(
                 'render_required_asterisk' => true
@@ -36,6 +63,13 @@ class MemberProfileType extends AbstractType
                 'render_required_asterisk' => true
             ))
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'show_name' => false
+        ));
     }
 
     /**

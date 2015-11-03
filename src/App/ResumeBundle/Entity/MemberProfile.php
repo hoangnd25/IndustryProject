@@ -71,6 +71,42 @@ class MemberProfile
     }
 
     /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->user ? $this->user->getFirstName() : "";
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        if($this->user){
+            $this->user->setFirstName($firstName);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->user ? $this->user->getLastName() : "";
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        if($this->user){
+            $this->user->setLastName($lastName);
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getUser()

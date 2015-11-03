@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ wo_render_breadcrumbs() }}
+        </div>
+        <div class="col-sm-12">
+            <div class="content-module-wrapper top-border-orange">
+                <div class="content-module content-module-padding">
+                    <h3>Edit profile</h3>
+                    {{ form_start(form, {'action': path('member_profile_edit', {'id':user.id}),'method': 'POST','attr': {'class':'form-horizontal'}}) }}
+
+                    {% set fullnameError = form.firstName.vars.errors | length > 0 or form.lastName.vars.errors | length > 0 %}
+                    <div class="form-group {% if fullnameError %}has-error{% endif %}">
+                        <label for="student_profile_firstName" class="control-label col-sm-3 required">
+                            Full name *
+                        </label>
+
+                        <div class="row col-sm-9">
+                            <div class="col-sm-4 ">{{ form_widget(form.firstName) }}{{ form_errors(form.firstName) }}</div>
+                            <div class="col-sm-4 ">{{ form_widget(form.lastName) }}{{ form_errors(form.lastName) }}</div>
+                        </div>
+                    </div>
+
+                    {{ form_widget(form) }}
+
+                    <div class="form-actions">
+                        <button class="pull-right btn btn-primary" type="submit">Save</button>
+                        <div class="clearfix"></div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
