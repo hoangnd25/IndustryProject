@@ -135,6 +135,7 @@ class StudentProfileType extends AbstractType
                 )
             ))
             ->add('educations', 'collection', array(
+                'label' => 'Education',
                 'allow_add' => true,
                 'allow_delete' => true,
                 'type'   => 'student_education',

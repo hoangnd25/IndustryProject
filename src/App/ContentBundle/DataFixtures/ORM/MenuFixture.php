@@ -16,6 +16,7 @@ class MenuFixture implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $menu = new Menu('main', 'Main menu');
+        $menu->addItems(new MenuItem('Home','/'));
         $menu->addItems(new MenuItem('Membership','http://www.gs1au.org/membership/'));
         $menu->addItems(new MenuItem('Standards','http://www.gs1au.org/products/index.asp'));
         $menu->addItems(new MenuItem('Services','http://www.gs1au.org/services/'));

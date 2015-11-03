@@ -39,6 +39,12 @@ fos_user_security:
 #    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
 #    prefix: /profile
 
+# put this to redirect user to their homepage after changing password
+fos_user_profile_show:
+    path: /profile
+    defaults:
+        _controller: "AppWebBundle:Default:index"
+
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: /register

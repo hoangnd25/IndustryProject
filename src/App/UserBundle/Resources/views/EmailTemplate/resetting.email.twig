@@ -9,9 +9,8 @@
 {% block body_html %}
     <p>Hello <strong>{{ user.username }}</strong>!</p>
 
-    <p>To reset your password - please visit
-        <a href="{{ confirmationUrl }}"><strong>this link</strong></a>
+    <p>To reset your password visit <a href="{{ confirmationUrl }}"><strong>this link</strong></a>
     </p>
-    <p>Alternatively, you can copy the url bellow to your browser </p>
+    <p>Alternatively, you can copy the url below to your browser </p>
     <p>{{ confirmationUrl }}</p>
 {% endblock %}

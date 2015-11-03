@@ -9,6 +9,13 @@
 <body class="login-page">
 {% endblock body_tag %}
 
+{% block head %}
+    {% spaceless %}
+        {{ parent() }}
+        {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}<script>window.location.replace({{ path('app_web_default_index') }});</script>{% endif %}
+    {% endspaceless %}
+{% endblock head %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-7">
