@@ -65,13 +65,6 @@ class MemberProfileType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'show_name' => false
-        ));
-    }
-
     /**
      * Configures the options for this type.
      *
@@ -80,6 +73,7 @@ class MemberProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'show_name' => false,
             'data_class' =>'App\ResumeBundle\Entity\MemberProfile',
             'render_fieldset' => false,
             'show_legend' => false
