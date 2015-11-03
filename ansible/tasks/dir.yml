@@ -11,3 +11,15 @@
   file: path={{item}} state=directory
   with_items: out_dirs
   when: vagrant_env
+
+- name: set dir permission 1
+  sudo: yes
+  shell: 'setfacl -R -m u:www-data:rwX -m u:{{project_user}}:rwX {{item}}'
+  with_items: out_dirs
+  when: not vagrant_env
+
+- name: set dir permission 2
+  sudo: yes
+  shell: 'setfacl -dR -m u:www-data:rwX -m u:{{project_user}}:rwX {{item}}'
+  with_items: out_dirs
+  when: not vagrant_env

@@ -16,8 +16,8 @@ nginx_error_log: "{{nginx_log_dir}}/{{project_name}}_error.log"
 out_dirs:                       # var
   - "{{site_dir}}/app/logs"
   - "{{site_dir}}/app/cache"
-  - "{{site_dir}}/app/cache/dev"
-  - "{{site_dir}}/app/cache/prod"
+#  - "{{site_dir}}/app/cache/dev"
+#  - "{{site_dir}}/app/cache/prod"
 #  - "{{site_dir}}/web/uploads"
 
 secret_token: ThisTokenIsNotSoSecretChangeIt
