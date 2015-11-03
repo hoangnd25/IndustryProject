@@ -22,7 +22,7 @@ class StudentAvatar
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", inversedBy="avatar")
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", inversedBy="avatar", orphanRemoval=true)
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      **/
     protected $studentProfile;

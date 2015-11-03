@@ -56,12 +56,12 @@ class User extends BaseUser
     protected $studentProfileVisibility;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", mappedBy="user", cascade={"persist", "remove"}, fetch="EXTRA_LAZY")
      **/
     protected $studentProfile;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\MemberProfile", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\MemberProfile", mappedBy="user", cascade={"persist", "remove"}, fetch="EXTRA_LAZY")
      **/
     protected $memberProfile;
 

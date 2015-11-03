@@ -22,7 +22,7 @@ class StudentResume
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", inversedBy="resume")
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentProfile", inversedBy="resume", orphanRemoval=true)
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      **/
     protected $studentProfile;

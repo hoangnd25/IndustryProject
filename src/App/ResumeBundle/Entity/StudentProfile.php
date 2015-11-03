@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="student_profile")
+ * @ORM\HasLifecycleCallbacks
  */
 class StudentProfile
 {
@@ -69,17 +70,17 @@ class StudentProfile
     protected $weeksOfNotice;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentEducation", mappedBy="studentProfile", cascade={"persist","remove"})
      **/
     protected $educations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentGS1Certification", mappedBy="student", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentGS1Certification", mappedBy="student", cascade={"persist","remove"})
      **/
     protected $gs1Certifications;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentCertification", mappedBy="student", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\ResumeBundle\Entity\StudentCertification", mappedBy="student", cascade={"persist","remove"})
      **/
     protected $certifications;
 
@@ -89,12 +90,12 @@ class StudentProfile
     protected $hasGs1Certification;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentResume", mappedBy="studentProfile", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentResume", mappedBy="studentProfile", cascade={"persist","remove"})
      **/
     protected $resume;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentAvatar", mappedBy="studentProfile", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\ResumeBundle\Entity\StudentAvatar", mappedBy="studentProfile", cascade={"persist","remove"})
      **/
     protected $avatar;
 
@@ -163,6 +164,13 @@ class StudentProfile
         $this->hasGs1Certification = false;
         $this->workingRight = false;
         $this->availableDate = new \DateTime();
+    }
+
+    /** @ORM\PreRemove() */
+    public function preRemove()
+    {
+        $this->setResume(null);
+        $this->setAvatar(null);
     }
 
     /**
