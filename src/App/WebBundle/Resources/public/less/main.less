@@ -46,7 +46,7 @@ a, a:hover, a:active {
     }
 }
 
-.form-control {
+.form-control:not(textarea) {
     border-radius: 0 !important;
     box-shadow: none;
     border-color: #d2d6de;
@@ -54,7 +54,7 @@ a, a:hover, a:active {
 }
 
 textarea.form-control{
-    height: auto !important;
+    max-width: 100%;
 }
 
 .btn-file {
