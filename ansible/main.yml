@@ -105,10 +105,11 @@
       sudo: yes
       sudo_user: "{{project_user}}"
 
-    - name: generate dummy data
-      shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --env=prod  --no-interaction'
-      sudo: yes
-      sudo_user: "{{project_user}}"
+#    This is generate initial data step
+#    - name: generate initial data
+#      shell: 'php {{site_dir}}/app/console doctrine:fixtures:load --env=prod  --no-interaction'
+#      sudo: yes
+#      sudo_user: "{{project_user}}"
 
     - name: repopulate search index  #this section is crucial for the search engine to work properly
       shell: 'php {{site_dir}}/app/console fos:elastica:populate --env=prod'
