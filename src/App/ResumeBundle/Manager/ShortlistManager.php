@@ -5,6 +5,7 @@ namespace App\ResumeBundle\Manager;
 use App\ResumeBundle\Entity\Shortlist;
 use App\ResumeBundle\Entity\StatShortlist;
 use App\ResumeBundle\Model\StudentFilter;
+use App\UserBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
@@ -65,6 +66,10 @@ class ShortlistManager
                 ->leftJoin('p.employmentStatus','es')
                 ->leftJoin('p.educations','edu')
                 ->where($qb->expr()->in('u.id', $idArray))
+                ->andWhere($qb->expr()->eq('u.studentProfileVisibility', User::VISIBILITY_VISIBLE))
+                ->orderBy('p.hasGs1Certification', 'desc')
+                ->addOrderBy('u.firstName', 'asc')
+                ->addOrderBy('u.lastName', 'asc')
             ;
 
             if($filter !== null){

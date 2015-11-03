@@ -269,7 +269,8 @@ class StudentProfileController extends Controller
             ->leftJoin('p.resume','resume')
             ->where($qb->expr()->eq('u.studentProfileVisibility', User::VISIBILITY_VISIBLE))
             ->orderBy('p.hasGs1Certification', 'desc')
-            ->addOrderBy('u.id', 'desc')
+            ->addOrderBy('u.firstName', 'asc')
+            ->addOrderBy('u.lastName', 'asc')
         ;
 
         if(null !== $industryIds = $this->getIdArray($filter->getIndustry())){
