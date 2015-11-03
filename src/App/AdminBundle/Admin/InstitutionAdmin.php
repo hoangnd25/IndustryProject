@@ -28,6 +28,7 @@ class InstitutionAdmin extends Admin
         $errorElement
             ->with('name')
             ->assertLength(array('max' => 100))
+            ->assertNotBlank()
             ->end()
         ;
     }

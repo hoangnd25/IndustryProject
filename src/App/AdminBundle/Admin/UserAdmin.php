@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
 
 class UserAdmin extends Admin
 {
@@ -46,6 +47,16 @@ class UserAdmin extends Admin
                 'required' => false,
                 'label' => 'New Password'
             ))
+            ->end()
+        ;
+    }
+
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('email')
+                ->assertEmail()
+                ->assertLength(array('max' => 100))
             ->end()
         ;
     }

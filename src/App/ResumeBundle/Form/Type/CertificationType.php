@@ -5,6 +5,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class CertificationType extends AbstractType
 {
@@ -16,8 +19,14 @@ class CertificationType extends AbstractType
                 'widget_form_group' => false,
                 'horizontal_input_wrapper_class' => "col-sm-5",
                 'attr' => array(
-                    'placeholder' => 'Certification'
-                )
+                    'placeholder' => 'Certification name',
+                    'maxlength' => false
+                ),
+                'constraints' => array(
+                    new Length(array('max'=>100)),
+                    new NotBlank()
+                ),
+                'error_bubbling' => false
             ))
             ->add('file', 'file_upload', array(
                 'label' => false,

@@ -22,13 +22,16 @@ class SocialNetworkType extends AbstractType
             'widget_form_group' => false,
             'horizontal_input_wrapper_class' => "col-sm-4",
         ))
-        ->add('url', 'url', array(
+        ->add('url', 'text', array(
             'label' => false,
             'widget_form_group' => false,
             'horizontal_input_wrapper_class' => "col-sm-8",
             'constraints' => array(
                 new Url(),
                 new NotBlank()
+            ),
+            'attr' => array(
+                'placeholder' => 'Full url (e.g http://linkedIn.com)'
             ),
             'error_bubbling' => false
         ));

@@ -17,6 +17,7 @@ class StudentAccessCode
      * @ORM\Id
      * @ORM\Column(type="string", length=16)
      * @Assert\Length(max = 16)
+     * @Assert\NotBlank()
      */
     protected $code;
 

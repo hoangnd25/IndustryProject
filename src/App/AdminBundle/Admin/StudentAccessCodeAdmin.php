@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
 
 class StudentAccessCodeAdmin extends Admin
 {
@@ -26,12 +27,20 @@ class StudentAccessCodeAdmin extends Admin
         ;
     }
 
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('code')
+                ->assertNotBlank()
+            ->end()
+        ;
+    }
+
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add('activated')
-            ->add('user.username', null, array('label'=> 'Student username'))
             ->add('user.email', null, array('label'=> 'Student email'))
         ;
     }

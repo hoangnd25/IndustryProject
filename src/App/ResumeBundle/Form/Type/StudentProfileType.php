@@ -55,7 +55,7 @@ class StudentProfileType extends AbstractType
             ->add('contactNumber', 'tel', array(
                 'format' => PhoneNumberFormat::INTERNATIONAL,
                 'attr' => array(
-                    'placeholder' => 'International format'
+                    'placeholder' => 'International format (e.g. +61 412 345 678)'
                 ),
                 'invalid_message' => 'Phone number must follow international format (e.g. +61 412 345 678)',
                 'render_required_asterisk' => true

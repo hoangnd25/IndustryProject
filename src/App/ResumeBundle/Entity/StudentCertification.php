@@ -23,7 +23,7 @@ class StudentCertification
     protected $id;
 
     /**
-     * @ORM\Column(length=255)
+     * @ORM\Column(length=100)
      **/
     protected $name;
 
