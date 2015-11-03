@@ -193,7 +193,19 @@ fos_user:
 
 mopa_bootstrap:
     menu: ~
-    initializr: ~
+    initializr:
+        meta:
+            title:        "Link - GS1 Australia"
+            description: >
+                Link is a portal that acts as a meeting place for our members and students across Australia.
+                It allows students to create profiles and upload CVs, for our members to view and get in contact with students whom they are interested in
+            keywords:     "GS1,Link"
+            author_name:  GS1 Australia
+            author_url:   http://www.gs1au.org/
+            nofollow:     false
+            noindex:      false
+        dns_prefetch:
+            - '//ajax.googleapis.com'
     form:
         show_legend: false
         render_optional_text: false
